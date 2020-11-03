@@ -56,27 +56,54 @@ down:Phaser.Input.Keyboard.KeyCodes.S,
 left:Phaser.Input.Keyboard.KeyCodes.A,
 right:Phaser.Input.Keyboard.KeyCodes.D});
 
+this.anims.create({
+  key: 'down',
+  frames: this.anims.generateFrameNumbers('dude', {start:0, end:3}),
+  frameRate: 10,
+  repeat: -1,
 
+})
+this.anims.create({
+  key: 'right',
+  frames: this.anims.generateFrameNumbers('dude', {start:4, end:7}),
+  frameRate: 10,
+  repeat: -1,
+
+})
+this.anims.create({
+  key: 'left',
+  frames: this.anims.generateFrameNumbers('dude', {start:8, end:11}),
+  frameRate: 10,
+  repeat: -1,
+
+})
+this.anims.create({
+  key: 'up',
+  frames: this.anims.generateFrameNumbers('dude', {start:12, end:15}),
+  frameRate: 10,
+  repeat: -1,
+
+})
 
   }
 
   update () {
 if (this.cursors.left.isDown) {
     this.player.setVelocityX(-160);
-    // this.player.anims.play('a', true);
+    this.player.anims.play('left', true);
   }
   else if (this.cursors.right.isDown) {
     this.player.setVelocityX(160);
 
-    // this.player.anims.play('d', true);
+    this.player.anims.play('right', true);
   } 
   else if(this.cursors.up.isDown) {
     this.player.setVelocityY(-160)
-    // this.player.anims.play('w', true);
+    this.player.anims.play('up', true);
 
   } else if (this.cursors.down.isDown) {
     this.player.setVelocityY(160)
-    // this.player.anims.play('s', true);
+    this.player.anims.play('down', true);
     
   }
   else {
