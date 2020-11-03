@@ -22,10 +22,10 @@ class Game extends Component {
       update: this.update
     }
   })
-  // this.player = null;
+  this.player = null;
   // this.cursors = null;
   // this.camera = null;
-  // this.controls = null;
+  this.controls = null;
 }
 
 
@@ -39,17 +39,55 @@ render() {
   }
 
   preload () {
+    this.load.spritesheet('dude', 'https://i.imgur.com/0x8P9a6.png', { frameWidth: 16, frameHeight: 24})
+
 
   }
 
 
   create () {
+    this.player = this.physics.add.sprite(50, 225, 'dude')
+
+this.cursors = this.input.keyboard.createCursorKeys();
+
+ this.cursors = this.input.keyboard.addKeys(
+{up:Phaser.Input.Keyboard.KeyCodes.W,
+down:Phaser.Input.Keyboard.KeyCodes.S,
+left:Phaser.Input.Keyboard.KeyCodes.A,
+right:Phaser.Input.Keyboard.KeyCodes.D});
+
+
 
   }
 
   update () {
-
+if (this.cursors.left.isDown) {
+    this.player.setVelocityX(-160);
+    // this.player.anims.play('a', true);
   }
+  else if (this.cursors.right.isDown) {
+    this.player.setVelocityX(160);
+
+    // this.player.anims.play('d', true);
+  } 
+  else if(this.cursors.up.isDown) {
+    this.player.setVelocityY(-160)
+    // this.player.anims.play('w', true);
+
+  } else if (this.cursors.down.isDown) {
+    this.player.setVelocityY(160)
+    // this.player.anims.play('s', true);
+    
+  }
+  else {
+    this.player.setVelocityX(0);
+     this.player.setVelocityY(0);
+    // this.player.anims.play('turn');
+  }
+
+  this.player.body.velocity.normalize().scale(90);
 }
+  }
+
 
 export default Game;
