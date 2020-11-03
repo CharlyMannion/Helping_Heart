@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import Phaser from 'phaser'
+import tileSet from './assets/RPGpack_sheet.png'
+import tileJson from './assets/test_map_1.json'
 
 class Game extends Component {
 
   componentDidMount() {
   this.game = new Phaser.Game({
     type: Phaser.AUTO,
-    width: 300,
-    height: 400,
+    width: 900,
+    height: 900,
     physics: {
     default: 'arcade',
     arcade: {
@@ -24,7 +26,7 @@ class Game extends Component {
   })
   this.player = null;
   // this.cursors = null;
-  // this.camera = null;
+  this.camera = null;
   this.controls = null;
 }
 
@@ -39,6 +41,8 @@ render() {
   }
 
   preload () {
+    this.load.image('tiles', tileSet);
+    this.load.tilemapTiledJSON('map', tileJson);
     this.load.spritesheet('dude', 'https://i.imgur.com/0x8P9a6.png', { frameWidth: 16, frameHeight: 24})
 
 
@@ -46,8 +50,31 @@ render() {
 
 
   create () {
+ const map = this.make.tilemap({
+    key: 'map', tileWidth: 32, tileHeight: 32
+  });
+
+  const tileset = map.addTilesetImage('RPGpack_sheet', 'tiles');
+  const floorLayer = map.createStaticLayer('Floor', tileset, 0, 0);
+  const treeLayer = map.createStaticLayer('Trees', tileset, 0, 0);
+
+
+
+    //adding the sprite
     this.player = this.physics.add.sprite(50, 225, 'dude')
 
+    //camera to follow sprite
+    const camera = this.cameras.main;
+    camera.startFollow(this.player)
+
+//adding collision
+floorLayer.setCollisionByProperty({ collides: true });
+treeLayer.setCollisionByProperty({ collides: true });
+this.physics.add.collider(this.player, floorLayer)
+this.physics.add.collider(this.player, treeLayer)
+
+
+    //creating cursors to move
 this.cursors = this.input.keyboard.createCursorKeys();
 
  this.cursors = this.input.keyboard.addKeys(
@@ -56,6 +83,8 @@ down:Phaser.Input.Keyboard.KeyCodes.S,
 left:Phaser.Input.Keyboard.KeyCodes.A,
 right:Phaser.Input.Keyboard.KeyCodes.D});
 
+
+//animations
 this.anims.create({
   key: 'down',
   frames: this.anims.generateFrameNumbers('dude', {start:0, end:3}),
@@ -112,7 +141,7 @@ if (this.cursors.left.isDown) {
     // this.player.anims.play('turn');
   }
 
-  this.player.body.velocity.normalize().scale(90);
+  this.player.body.velocity.normalize().scale(200);
 }
   }
 
