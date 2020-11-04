@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Phaser from "phaser";
 import tileSet from "./assets/RPGpack_sheet.png";
 import tileJson from "./assets/test_map_1.json";
-import UIPlugin from "phaser3-rex-plugins/templates/ui/ui-plugin.js";
+import UIPlugin from "phaser3-rex-plugins/templates/ui/ui-plugin.js"; // Plug-in for pop up
 
 class Game extends Component {
   componentDidMount() {
@@ -23,7 +23,7 @@ class Game extends Component {
         create: this.create,
         update: this.update,
       },
-      plugins: {
+      plugins: { // Set up REX UI for pop-ups and dialog
         scene: [
           {
             key: "rexUI",
@@ -37,6 +37,8 @@ class Game extends Component {
     this.cursors = null;
     this.camera = null;
     this.controls = null;
+    this.score = null;
+    this.scoreDisplay = null;
   }
 
   render() {
@@ -55,7 +57,7 @@ class Game extends Component {
       frameWidth: 16,
       frameHeight: 24,
     });
-    this.load.scenePlugin(
+    this.load.scenePlugin( //Loads plugin 
       "rexuiplugin",
       "https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexuiplugin.min.js",
       "rexUI",
@@ -69,10 +71,19 @@ class Game extends Component {
       tileWidth: 32,
       tileHeight: 32,
     });
+    console.log(this.scene)
+
+    let scene = this;
+    let overlapping = false;
+    let dialog = undefined;
 
     const tileset = map.addTilesetImage("RPGpack_sheet", "tiles");
     const floorLayer = map.createStaticLayer("Floor", tileset, 0, 0);
     const treeLayer = map.createStaticLayer("Trees", tileset, 0, 0);
+
+    //Setting up Score and Score Display
+    this.score = 0;
+    this.scoreDisplay = this.add.text(0, 0, `Score: ${this.score}`, { fontSize: '32px' }).setScrollFactor(0);
 
     //adding the sprite
     const spawnPoint = map.findObject(
@@ -95,7 +106,6 @@ class Game extends Component {
     this.cursors = this.input.keyboard.createCursorKeys();
 
     // console.log(Phaser.Input.Keyboard.KeyCodes, "KEY CODES");
-
     this.cursors = this.input.keyboard.addKeys({
       up: Phaser.Input.Keyboard.KeyCodes.W,
       down: Phaser.Input.Keyboard.KeyCodes.S,
@@ -130,84 +140,8 @@ class Game extends Component {
       repeat: -1,
     });
 
-    let overlapping = false;
-    let dialog = undefined;
-
-    // creates a dialog box, which pops up when clicked on
-    this.createDialog = (scene, x, y) => {
-      let dialog = scene.rexUI.add
-        .dialog({
-          x: x,
-          y: y,
-          background: scene.rexUI.add.roundRectangle(
-            0,
-            0,
-            100,
-            100,
-            20,
-            0xf57f17
-          ),
-          title: scene.rexUI.add.label({
-            background: scene.rexUI.add.roundRectangle(
-              0,
-              0,
-              100,
-              40,
-              20,
-              0xbc5100
-            ),
-            text: scene.add.text(0, 0, "Can you help me?", {
-              fontSize: "20px",
-            }),
-          }),
-          // space: {
-          //   left: 15,
-          //   right: 15,
-          //   top: 10,
-          //   bottom: 10,
-          // },
-          // calls createButton to make two labels within dialog box
-          actions: [createButton(this, "OK"), createButton(this, "NOT OK")],
-          actionsAlign: "left",
-          space: {
-            title: 20,
-            action: 10,
-
-            left: 15,
-            right: 15,
-            top: 10,
-            bottom: 10,
-          },
-        })
-        // when you click a "button" i.e. a label, it adds text to the page
-        .on(
-          "button.click",
-          function (button, groupName, index, pointer, event) {
-            console.log("ANYTHING");
-            this.print.text += "true \n";
-            console.log("ANYTHING");
-            console.log(this, "this");
-            console.log(button.text, "button text");
-          },
-          this
-        )
-        // below makes the "button" change in appearance when the cursor hovers over it
-        .on("button.over", function (button, groupName, index, pointer, event) {
-          button.getElement("background").setStrokeStyle(1, 0xffffff);
-        })
-        .on("button.out", function (button, groupName, index, pointer, event) {
-          button.getElement("background").setStrokeStyle();
-        })
-        .layout()
-        .pushIntoBounds()
-        .popUp(500);
-        console.log(dialog, "in create dialog");
-
-      return dialog;
-    };
-
     //below is where result of clicking button will be added to
-    this.print = this.add.text(spawnPoint.x + 50, spawnPoint.y + 50, "CLICKED?");
+    this.print = this.add.text(this.player.x, this.player.y, "CLICKED?");
     console.log(this, "this next to text")
 
     // adds a label that holds each option "button"
@@ -221,9 +155,7 @@ class Game extends Component {
     };
 
     // creates zone for the sprite to collide with
-    this.zone = this.add
-      .zone(spawnPoint.x, spawnPoint.y + 80)
-      .setSize(100, 100);
+    this.zone = this.add.zone(spawnPoint.x, spawnPoint.y + 80).setSize(100, 100);
     this.physics.world.enable(this.zone);
 
     this.player.on("overlapstart", function () {
@@ -246,28 +178,116 @@ class Game extends Component {
     this.interact = () => {
       if (overlapping && dialog === undefined) {
         console.log(spawnPoint, "spawnPoint in interact");
-        dialog = this.createDialog(this, 2243.10344827586, 4050);
-        console.log("popup");
+        dialog = this.createDialog();//this.player.x, this.player.y
         console.log(dialog, "dialog");
-      } else if (dialog !== undefined) {
-        dialog.scaleDownDestroy(100);
-        dialog = undefined;
-        console.log("popdown");
       }
+      // } else if (dialog !== undefined) {
+      //   dialog.scaleDownDestroy(100);
+      //   dialog = undefined;
+      //   console.log("popdown");
+      // }
     };
 
     // only lets the dialog box be destroyed if the pointer is over the dialog box
-    this.input.on(
-      "pointerdown",
-      function (pointer) {
-        console.log(pointer, "pointer");
-        if (dialog !== undefined && dialog.isInTouching(pointer)) {
-          dialog.scaleDownDestroy(100);
-          dialog = undefined;
-        }
-      },
-      this
-    );
+    // this.input.on(
+    //   "pointerdown",
+    //   function (pointer) {
+    //     console.log(pointer, "pointer");
+    //     if (dialog !== undefined && dialog.isInTouching(pointer)) {
+    //       dialog.scaleDownDestroy(100);
+    //       dialog = undefined;
+    //     }
+    //   },
+    //   this
+    // );
+
+
+    this.createDialog = () => {
+      console.log(`'create dialog at ${this.player.x} & ${this.player.y}`)
+      let dialog = scene.rexUI.add.dialog({
+        x: this.player.y,
+        y: this.player.x,
+        background: scene.rexUI.add.roundRectangle(0, 0, 250, 250, 20, 0xf57f17),
+        title: scene.rexUI.add.label({
+
+        })
+      })
+      return dialog;
+    }
+
+    // creates a dialog box, which pops up when clicked on
+    // this.createDialog = (scene, x, y) => {
+    //   console.log("popup");
+    //   let dialog = scene.rexUI.add
+    //     .dialog({
+    //       x: x,
+    //       y: y,
+    //       background: scene.rexUI.add.roundRectangle(
+    //         0,
+    //         0,
+    //         100,
+    //         100,
+    //         20,
+    //         0xf57f17
+    //       ),
+    //       title: scene.rexUI.add.label({
+    //         background: scene.rexUI.add.roundRectangle(
+    //           0,
+    //           0,
+    //           100,
+    //           40,
+    //           20,
+    //           0xbc5100
+    //         ),
+    //         text: scene.add.text(0, 0, "Can you help me?", {
+    //           fontSize: "20px",
+    //         }),
+    //       }),
+    //       // space: {
+    //       //   left: 15,
+    //       //   right: 15,
+    //       //   top: 10,
+    //       //   bottom: 10,
+    //       // },
+    //       // calls createButton to make two labels within dialog box
+    //       actions: [createButton(this, "OK"), createButton(this, "NOT OK")],
+    //       actionsAlign: "left",
+    //       space: {
+    //         title: 20,
+    //         action: 10,
+
+    //         left: 15,
+    //         right: 15,
+    //         top: 10,
+    //         bottom: 10,
+    //       },
+    //     })
+    //     // when you click a "button" i.e. a label, it adds text to the page
+    //     .on(
+    //       "button.click",
+    //       function (button, groupName, index, pointer, event) {
+    //         console.log("ANYTHING");
+    //         this.print.text += "true \n";
+    //         console.log("ANYTHING");
+    //         console.log(this, "this");
+    //         console.log(button.text, "button text");
+    //       },
+    //       this
+    //     )
+    //     // below makes the "button" change in appearance when the cursor hovers over it
+    //     .on("button.over", function (button, groupName, index, pointer, event) {
+    //       button.getElement("background").setStrokeStyle(1, 0xffffff);
+    //     })
+    //     .on("button.out", function (button, groupName, index, pointer, event) {
+    //       button.getElement("background").setStrokeStyle();
+    //     })
+    //     .layout()
+    //     .pushIntoBounds()
+    //     .popUp(500);
+    //   console.log(dialog, "in create dialog");
+
+    //   return dialog;
+    // };
   }
 
   update() {
