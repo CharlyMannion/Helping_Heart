@@ -1,13 +1,29 @@
 import './App.css';
+import Game from './game';
+import {Router} from '@reach/router'
+import Username from './components/Username';
+import React,{Component} from 'react'
 
-function App() {
-  return (
+class App extends Component {
+
+state = {
+  user: ''
+}
+
+setUser = (username) => {
+     this.setState({user: username})
+  }
+
+  render() { 
+    return (
     <div className="App">
-      <header className="App-header">
-        <h1>HELLO WORLD</h1>
-      </header>
+      <Router>
+      <Username path='/' setUser={this.setUser} />
+      <Game path='/game' name={this.state.user}/>
+      </Router>
     </div>
-  );
+    )
+}
 }
 
 export default App;
