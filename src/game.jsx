@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Phaser from "phaser";
 import tileSet from "./assets/RPGpack_sheet.png";
 import tileJson from "./assets/test_map_1.json";
-import UIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin.js';
+import UIPlugin from "phaser3-rex-plugins/templates/ui/ui-plugin.js";
 
 class Game extends Component {
   componentDidMount() {
@@ -24,12 +24,14 @@ class Game extends Component {
         update: this.update,
       },
       plugins: {
-        scene: [{
-            key: 'rexUI',
+        scene: [
+          {
+            key: "rexUI",
             plugin: UIPlugin,
-            mapping: 'rexUI'
-        }]
-    }
+            mapping: "rexUI",
+          },
+        ],
+      },
     });
     this.player = null;
     this.cursors = null;
@@ -53,7 +55,12 @@ class Game extends Component {
       frameWidth: 16,
       frameHeight: 24,
     });
-    this.load.scenePlugin('rexuiplugin', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexuiplugin.min.js', 'rexUI', 'rexUI');
+    this.load.scenePlugin(
+      "rexuiplugin",
+      "https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexuiplugin.min.js",
+      "rexUI",
+      "rexUI"
+    );
   }
 
   create() {
@@ -66,9 +73,6 @@ class Game extends Component {
     const tileset = map.addTilesetImage("RPGpack_sheet", "tiles");
     const floorLayer = map.createStaticLayer("Floor", tileset, 0, 0);
     const treeLayer = map.createStaticLayer("Trees", tileset, 0, 0);
-
-    let overlapping = false;
-    let dialog = undefined;
 
     //adding the sprite
     const spawnPoint = map.findObject(
@@ -122,26 +126,31 @@ class Game extends Component {
       frameRate: 10,
       repeat: -1,
     });
-    
+
+    let overlapping = false;
+    let dialog = undefined;
+
     // creates zone for the sprite to collide with
-    this.zone = this.add.zone(spawnPoint.x, spawnPoint.y + 80).setSize(100, 100)
-    this.physics.world.enable(this.zone)
+    this.zone = this.add
+      .zone(spawnPoint.x, spawnPoint.y + 80)
+      .setSize(100, 100);
+    this.physics.world.enable(this.zone);
 
-    this.player.on('overlapstart', function () {
-        this.body.debugBodyColor = 0XFF3300
-        overlapping = true;
-        console.log('overlap start')
-        console.time('overlap')
-    })
+    this.player.on("overlapstart", function () {
+      this.body.debugBodyColor = 0xff3300;
+      overlapping = true;
+      console.log("overlap start");
+      console.time("overlap");
+    });
 
-    this.player.on('overlapend', function () {
-        this.body.debugBodyColor = 0X00FF33
-        overlapping = false;
-        console.log('overlap end')
-        console.timeEnd('overlap')
-    })
+    this.player.on("overlapend", function () {
+      this.body.debugBodyColor = 0x00ff33;
+      overlapping = false;
+      console.log("overlap end");
+      console.timeEnd("overlap");
+    });
 
-    this.physics.add.overlap(this.player, this.zone)
+    this.physics.add.overlap(this.player, this.zone);
   }
 
   update() {
@@ -163,8 +172,20 @@ class Game extends Component {
       this.player.setVelocityY(0);
       // this.player.anims.play('turn');
     }
-
     this.player.body.velocity.normalize().scale(200);
+
+    // adds logic so phaser knows when the spirte touches the zone
+    if (this.player.body.embedded) {
+      this.player.body.touching.none = false;
+    }
+    let touching = !this.player.body.touching.none;
+    let wasTouching = !this.player.body.wasTouching.none;
+
+    if (touching && !wasTouching) {
+      this.player.emit("overlapstart");
+    } else if (!touching && wasTouching) {
+      this.player.emit("overlapend");
+    }
   }
 }
 
