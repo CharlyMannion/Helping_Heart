@@ -207,7 +207,8 @@ class Game extends Component {
     };
 
     //below is where result of clicking button will be added to
-    this.print = this.add.text(0, 0, "CLICKED?");
+    this.print = this.add.text(spawnPoint.x + 50, spawnPoint.y + 50, "CLICKED?");
+    console.log(this, "this next to text")
 
     // adds a label that holds each option "button"
     let createButton = function (scene, text) {
@@ -244,7 +245,8 @@ class Game extends Component {
     // interact function allows a dialog box to be created only if the sprite and zone are overlapping
     this.interact = () => {
       if (overlapping && dialog === undefined) {
-        dialog = this.createDialog(this, spawnPoint.x, spawnPoint.y);
+        console.log(spawnPoint, "spawnPoint in interact");
+        dialog = this.createDialog(this, 2243.10344827586, 4050);
         console.log("popup");
         console.log(dialog, "dialog");
       } else if (dialog !== undefined) {
