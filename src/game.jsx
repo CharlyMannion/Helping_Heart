@@ -85,6 +85,12 @@ class Game extends Component {
     this.score = 0;
     this.scoreDisplay = this.add.text(0, 0, `Score: ${this.score}`, { fontSize: '32px' }).setScrollFactor(0);
 
+    //Update Score
+    this.updateScore = () => {
+      this.score += 1;
+      this.scoreDisplay.setText(`Score: ${this.score}`)
+    }
+
     //adding the sprite
     const spawnPoint = map.findObject(
       "Objects",
