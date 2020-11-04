@@ -8,8 +8,8 @@ class Game extends Component {
   componentDidMount() {
   this.game = new Phaser.Game({
     type: Phaser.AUTO,
-    width: 900,
-    height: 900,
+    width: 500,
+    height: 500,
     physics: {
     default: 'arcade',
     arcade: {
@@ -34,7 +34,7 @@ class Game extends Component {
 render() {
     return (
       <div className='game-container'>
-        <h1>hi</h1>
+        <h1>NC Helper!</h1>
         <h2>{this.props.name}</h2>
       </div>
     );
@@ -61,7 +61,8 @@ render() {
 
 
     //adding the sprite
-    this.player = this.physics.add.sprite(50, 225, 'dude')
+    const spawnPoint = map.findObject("Objects", obj => obj.name === "Spawn Point")
+    this.player = this.physics.add.sprite(spawnPoint.x, spawnPoint.y, 'dude')
 
     //camera to follow sprite
     const camera = this.cameras.main;
