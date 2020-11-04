@@ -39,6 +39,7 @@ class Game extends Component {
     this.controls = null;
     this.score = null;
     this.scoreDisplay = null;
+    this.dialog = undefined;
   }
 
   render() {
@@ -75,7 +76,6 @@ class Game extends Component {
 
     let scene = this;
     let overlapping = false;
-    let dialog = undefined;
 
     const tileset = map.addTilesetImage("RPGpack_sheet", "tiles");
     const floorLayer = map.createStaticLayer("Floor", tileset, 0, 0);
@@ -182,11 +182,13 @@ class Game extends Component {
 
     // interact function allows a dialog box to be created only if the sprite and zone are overlapping
     this.interact = () => {
-      if (overlapping && dialog === undefined) {
-        console.log(spawnPoint, "spawnPoint in interact");
-        dialog = this.createDialog();//this.player.x, this.player.y
-        console.log(dialog, "dialog");
-      }
+      console.log('hello')
+      this.createDialog().setScrollFactor(0);
+      // if (overlapping && this.dialog === undefined) {
+      //   console.log(spawnPoint, "spawnPoint in interact");
+
+      //   console.log(this.dialog, "dialog");
+      // }
       // } else if (dialog !== undefined) {
       //   dialog.scaleDownDestroy(100);
       //   dialog = undefined;
@@ -213,7 +215,7 @@ class Game extends Component {
       let dialog = scene.rexUI.add.dialog({
         x: this.player.y,
         y: this.player.x,
-        background: scene.rexUI.add.roundRectangle(0, 0, 250, 250, 20, 0xf57f17),
+        background: scene.rexUI.add.roundRectangle(250, 250, 250, 250, 20, 0xf57f17),
         title: scene.rexUI.add.label({
 
         })
