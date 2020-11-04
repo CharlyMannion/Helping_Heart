@@ -66,7 +66,7 @@ class Game extends Component {
     const tileset = map.addTilesetImage("RPGpack_sheet", "tiles");
     const floorLayer = map.createStaticLayer("Floor", tileset, 0, 0);
     const treeLayer = map.createStaticLayer("Trees", tileset, 0, 0);
-    
+
     let overlapping = false;
     let dialog = undefined;
 
@@ -122,6 +122,26 @@ class Game extends Component {
       frameRate: 10,
       repeat: -1,
     });
+    
+    // creates zone for the sprite to collide with
+    this.zone = this.add.zone(spawnPoint.x, spawnPoint.y + 80).setSize(100, 100)
+    this.physics.world.enable(this.zone)
+
+    this.player.on('overlapstart', function () {
+        this.body.debugBodyColor = 0XFF3300
+        overlapping = true;
+        console.log('overlap start')
+        console.time('overlap')
+    })
+
+    this.player.on('overlapend', function () {
+        this.body.debugBodyColor = 0X00FF33
+        overlapping = false;
+        console.log('overlap end')
+        console.timeEnd('overlap')
+    })
+
+    this.physics.add.overlap(this.player, this.zone)
   }
 
   update() {
