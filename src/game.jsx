@@ -32,7 +32,7 @@ class Game extends Component {
     }
     });
     this.player = null;
-    // this.cursors = null;
+    this.cursors = null;
     this.camera = null;
     this.controls = null;
   }
@@ -53,6 +53,7 @@ class Game extends Component {
       frameWidth: 16,
       frameHeight: 24,
     });
+    this.load.scenePlugin('rexuiplugin', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexuiplugin.min.js', 'rexUI', 'rexUI');
   }
 
   create() {
@@ -65,6 +66,9 @@ class Game extends Component {
     const tileset = map.addTilesetImage("RPGpack_sheet", "tiles");
     const floorLayer = map.createStaticLayer("Floor", tileset, 0, 0);
     const treeLayer = map.createStaticLayer("Trees", tileset, 0, 0);
+    
+    let overlapping = false;
+    let dialog = undefined;
 
     //adding the sprite
     const spawnPoint = map.findObject(
