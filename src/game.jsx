@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Phaser from "phaser";
 import tileSet from "./assets/RPGpack_sheet.png";
 import tileJson from "./assets/test_map_1.json";
+import UIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin.js';
 
 class Game extends Component {
   componentDidMount() {
@@ -13,7 +14,7 @@ class Game extends Component {
         default: "arcade",
         arcade: {
           gravity: { y: 0 },
-          debug: false,
+          debug: true,
         },
       },
       parent: "game-container",
@@ -22,6 +23,13 @@ class Game extends Component {
         create: this.create,
         update: this.update,
       },
+      plugins: {
+        scene: [{
+            key: 'rexUI',
+            plugin: UIPlugin,
+            mapping: 'rexUI'
+        }]
+    }
     });
     this.player = null;
     // this.cursors = null;
