@@ -39,7 +39,6 @@ class Game extends Component {
     this.controls = null;
     this.score = null;
     this.scoreDisplay = null;
-    this.dialog = undefined;
   }
 
   render() {
@@ -72,11 +71,12 @@ class Game extends Component {
       tileWidth: 32,
       tileHeight: 32,
     });
-    console.log(this.scene)
-
+    // Set default variables
     let scene = this;
     let overlapping = false;
-
+    let dialog = undefined;
+    let dialogOpen = false;
+    // Set up Tile Map with Collision
     const tileset = map.addTilesetImage("RPGpack_sheet", "tiles");
     const floorLayer = map.createStaticLayer("Floor", tileset, 0, 0);
     const treeLayer = map.createStaticLayer("Trees", tileset, 0, 0);
@@ -111,13 +111,14 @@ class Game extends Component {
     //creating cursors to move
     this.cursors = this.input.keyboard.createCursorKeys();
 
-    // console.log(Phaser.Input.Keyboard.KeyCodes, "KEY CODES");
+    console.log(Phaser.Input.Keyboard.KeyCodes, "KEY CODES");
     this.cursors = this.input.keyboard.addKeys({
       up: Phaser.Input.Keyboard.KeyCodes.W,
       down: Phaser.Input.Keyboard.KeyCodes.S,
       left: Phaser.Input.Keyboard.KeyCodes.A,
       right: Phaser.Input.Keyboard.KeyCodes.D,
       spaceBar: Phaser.Input.Keyboard.KeyCodes.SPACE,
+      tab: Phaser.Input.Keyboard.KeyCodes.TAB,
     });
 
     //animations
@@ -170,7 +171,6 @@ class Game extends Component {
       console.log("overlap start");
       console.time("overlap");
     });
-
     this.player.on("overlapend", function () {
       this.body.debugBodyColor = 0x00ff33;
       overlapping = false;
@@ -182,34 +182,17 @@ class Game extends Component {
 
     // interact function allows a dialog box to be created only if the sprite and zone are overlapping
     this.interact = () => {
-      console.log('hello')
-      this.createDialog().setScrollFactor(0);
-      // if (overlapping && this.dialog === undefined) {
-      //   console.log(spawnPoint, "spawnPoint in interact");
-
-      //   console.log(this.dialog, "dialog");
-      // }
-      // } else if (dialog !== undefined) {
-      //   dialog.scaleDownDestroy(100);
-      //   dialog = undefined;
-      //   console.log("popdown");
-      // }
+      if (overlapping && dialog === undefined) {
+        this.createDialog().setScrollFactor(0);
+        dialogOpen = true;
+      } else if (dialog !== undefined) {
+        dialog.scaleDownDestory(100);
+        dialog = undefined;
+        console.log("popdown");
+      }
     };
 
-    // only lets the dialog box be destroyed if the pointer is over the dialog box
-    // this.input.on(
-    //   "pointerdown",
-    //   function (pointer) {
-    //     console.log(pointer, "pointer");
-    //     if (dialog !== undefined && dialog.isInTouching(pointer)) {
-    //       dialog.scaleDownDestroy(100);
-    //       dialog = undefined;
-    //     }
-    //   },
-    //   this
-    // );
-
-
+    // creates a dialog box, which pops up when clicked on
     this.createDialog = () => {
       console.log(`'create dialog at ${this.player.x} & ${this.player.y}`)
       let dialog = scene.rexUI.add.dialog({
@@ -223,7 +206,25 @@ class Game extends Component {
       return dialog;
     }
 
-    // creates a dialog box, which pops up when clicked on
+    // only lets the dialog box be destroyed if the pointer is over the dialog box
+    this.removeDialog = () => {
+      if (dialogOpen) {
+        console.log('tab')
+        dialog.scaleDownDestroy(100);
+        dialog = undefined;
+        dialogOpen = false;
+      }
+      return dialog;
+    }
+    // this.input.on(
+    //   "pointerdown",
+    //   function (pointer) {
+    //     console.log("pointer");
+
+    //   },
+    //   this
+    // );
+
     // this.createDialog = (scene, x, y) => {
     //   console.log("popup");
     //   let dialog = scene.rexUI.add
@@ -299,6 +300,7 @@ class Game extends Component {
   }
 
   update() {
+    //Change Animations
     if (this.cursors.left.isDown) {
       this.player.setVelocityX(-160);
       this.player.anims.play("left", true);
@@ -322,6 +324,9 @@ class Game extends Component {
     // if the space bar is down, call the interact function, which pops up the dialog box
     if (this.cursors.spaceBar.isDown) {
       this.interact();
+    }
+    if (this.cursors.tab.isDown) {
+      this.removeDialog();
     }
 
     // adds logic so phaser knows when the spirte touches the zone
