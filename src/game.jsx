@@ -210,7 +210,7 @@ class Game extends Component {
     this.removeDialog = () => {
       if (dialogOpen) {
         console.log('tab')
-        dialog.scaleDownDestroy(100);
+        this.dialog.scaleDownDestroy(100);
         dialog = undefined;
         dialogOpen = false;
       }
