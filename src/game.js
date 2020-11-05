@@ -54,6 +54,7 @@ class Game extends Component {
     this.controls = null;
     this.score = null;
     this.scoreDisplay = null;
+    this.currentZone = null;
   }
 
 
@@ -140,19 +141,21 @@ class Game extends Component {
     })
 
     //Create NPCs
-    let npcDave = this.add.npc(spawnPoint.x + 50, spawnPoint.y + 50);
+    // const npcDave = {
+    let spriteDave = this.add.npc(spawnPoint.x + 50, spawnPoint.y + 50);
     this.zoneDave = this.add.zone(spawnPoint.x + 50, spawnPoint.y + 50).setSize(75, 75);
-    this.physics.world.enable(this.zoneDave);
+    let haveHelpedDave = false
+    this.physics.world.enable(this.zoneDave)
 
-    let npcFrank = this.add.npc(spawnPoint.x + 50, spawnPoint.y + 150);
+    let spriteFrank = this.add.npc(spawnPoint.x + 50, spawnPoint.y + 150);
     this.zoneFrank = this.add.zone(spawnPoint.x + 50, spawnPoint.y + 150).setSize(75, 75);
+    let haveHelpedFrank = false;
     this.physics.world.enable(this.zoneFrank);
 
     // Manage Overlap into Zones
     this.player.on('overlapstart', function () {
       this.body.debugBodyColor = 0xff3300;
-      updateScore();
-
+      updateScore()
     })
     this.player.on('overlapend', function () {
       this.body.debugBodyColor = 0x00ff33;
@@ -179,6 +182,8 @@ class Game extends Component {
     }
   }
 
+
+
   update() {
     if (this.cursors.left.isDown) {
       this.player.setVelocityX(-160);
@@ -192,11 +197,9 @@ class Game extends Component {
     else if (this.cursors.up.isDown) {
       this.player.setVelocityY(-160)
       this.player.anims.play('up', true);
-
     } else if (this.cursors.down.isDown) {
       this.player.setVelocityY(160)
       this.player.anims.play('down', true);
-
     }
     else {
       this.player.setVelocityX(0);
@@ -206,18 +209,28 @@ class Game extends Component {
 
     this.player.body.velocity.normalize().scale(200);
 
-    // Update Logic for zones and overlapping
-    this.zoneDave.body.debugBodyColor = this.zoneDave.body.touching.none ? 0x00ffff : 0xffff00;
+    let getZone = () => {
+      if (this.zoneDave.body && !this.zoneDave.body.touching.none) {
+        return this.zoneDave;
+      } else if (this.zoneFrank.body && !this.zoneFrank.body.touching.none) {
+        return this.zoneFrank;
+      }
+    }
 
     if (this.player.body.embedded) {
       this.player.body.touching.none = false;
     }
     let touching = !this.player.body.touching.none;
     let wasTouching = !this.player.body.wasTouching.none;
+
     if (touching && !wasTouching) {
       this.player.emit("overlapstart");
+      this.currentZone = getZone();
     } else if (!touching && wasTouching) {
       this.player.emit("overlapend");
+      console.log(this.currentZone);
+      this.currentZone.destroy();
+      console.log(this.currentZone);
     }
   }
 }
