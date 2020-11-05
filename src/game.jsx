@@ -186,18 +186,6 @@ class Game extends Component {
 
     this.physics.add.overlap(this.player, this.zone);
 
-    // interact function allows a dialog box to be created only if the sprite and zone are overlapping
-    this.interact = () => {
-      if (overlapping && dialog === undefined) {
-        this.createDialog(this, 2243.10344827586, 4050).setScrollFactor(0);
-        // dialogOpen = true;
-      } else if (dialog !== undefined) {
-        dialog.scaleDownDestory(100);
-        dialog = undefined;
-        // console.log("popdown");
-      }
-    };
-
     // creates a dialog box with buttons inside it
     this.createDialog = (scene, x, y) => {
       // console.log("popup");
@@ -261,12 +249,24 @@ class Game extends Component {
       return dialog;
     };
 
+    // interact function allows a dialog box to be created only if the sprite and zone are overlapping
+    this.interact = () => {
+      if (overlapping && dialog === undefined) {
+        this.createDialog(this, 2243.10344827586, 4050).setScrollFactor(0);
+        // dialogOpen = true;
+      } else if (dialog !== undefined) {
+        dialog.scaleDownDestory(100);
+        dialog = undefined;
+        // console.log("popdown");
+      }
+    };
+
     // when you click on a "button", the dialog box should disappear
     this.input.on(
       "pointerdown",
       function (pointer) {
         // console.log(pointer, "pointer");
-        console.log(dialogExists, "TOUCHING POINTER?")
+        console.log(dialogExists, "DIALOG EXISTS?");
         // if (dialogExists === true) {
         if (dialogExists === true && dialog.isInTouching(pointer)) {
           dialog.scaleDownDestroy(100);
