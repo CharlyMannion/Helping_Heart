@@ -2,17 +2,10 @@ import React, { Component } from 'react';
 import Phaser from 'phaser'
 import tileSet from './assets/RPGpack_sheet.png'
 import tileJson from './assets/test_map_1.json'
-//  Here is a custom game object
-// let NPC = function (game, x, y) {
-//   Phaser.Sprite.call(this, game, x, y, 'npc');
-// };
-
-// // NPC = Object.create(Phaser.Sprite);
-// NPC.constructor = NPC;
 
 class NPCGameObject extends Phaser.GameObjects.Image {
   constructor(scene, x, y) {
-    super(scene, x, y, 'npc')
+    super(scene, x, y, 'npc');
   }
 }
 
@@ -38,7 +31,7 @@ class Game extends Component {
       height: 500,
       plugins: {
         global: [
-          { key: 'NPCPlugin', plugin: NPCPlugin, start: true }
+          { key: 'NPCPlugin', plugin: NPCPlugin, start: true },
         ]
       },
       physics: {
@@ -82,9 +75,13 @@ class Game extends Component {
 
 
   create() {
+
+
     const map = this.make.tilemap({
       key: 'map', tileWidth: 32, tileHeight: 32
     });
+
+
 
     const tileset = map.addTilesetImage('RPGpack_sheet', 'tiles');
     const floorLayer = map.createStaticLayer('Floor', tileset, 0, 0);
@@ -145,25 +142,29 @@ class Game extends Component {
     })
 
     //Create NPCs
-    this.add.npc(spawnPoint.x + 50, spawnPoint.y + 50)
+    let npcDave = this.add.npc(spawnPoint.x + 50, spawnPoint.y + 50);
+    this.zoneDave = this.add.zone(spawnPoint.x + 50, spawnPoint.y + 50).setSize(75, 75);
+    this.physics.world.enable(this.zoneDave);
 
-    // const npcs = this.physics.add.group({
-    //   key: 'npc',
-    //   repeat: 4,
-    //   setXY: { x: spawnPoint.x + 20, y: spawnPoint.y + 20, stepX: 25 }
-    // })
+    let npcFrank = this.add.npc(spawnPoint.x + 50, spawnPoint.y + 150);
+    this.zoneFrank = this.add.zone(spawnPoint.x + 50, spawnPoint.y + 150).setSize(75, 75);
+    this.physics.world.enable(this.zoneFrank);
 
-    // npcs.children.iterate(function (child) {
-    // })
+    // Manage Overlap into Zones
+    this.player.on('overlapstart', function () {
+      this.body.debugBodyColor = 0xff3300;
+      console.log("overlap start");
+      console.time("overlap");
+    })
+    this.player.on('overlapend', function () {
+      this.body.debugBodyColor = 0x00ff33;
+      console.log("overlap end");
+      console.timeEnd("overlap");
+    })
 
-    // const npcCollide = (player, npc) => {
-    //   npc.disableBody(true, true)
-    //   updateScore();
-    // }
-
-    // this.physics.add.overlap(this.player, npcs, npcCollide, null, this);
-
-
+    // Adds overlap functionality to the NPC zones
+    this.physics.add.overlap(this.player, this.zoneFrank);
+    this.physics.add.overlap(this.player, this.zoneDave);
 
     // Score Display and Declaring win state
     this.score = 0;
@@ -236,16 +237,16 @@ class Game extends Component {
     this.player.body.velocity.normalize().scale(200);
 
     // Update Logic for zones and overlapping
-    // if (this.player.body.embedded) {
-    //   this.player.body.touching.none = false;
-    // }
-    // let touching = !this.player.body.touching.none;
-    // let wasTouching = !this.player.body.wasTouching.none;
-    // if (touching && !wasTouching) {
-    //   this.player.emit("overlapstart");
-    // } else if (!touching && wasTouching) {
-    //   this.player.emit("overlapend");
-    // }
+    if (this.player.body.embedded) {
+      this.player.body.touching.none = false;
+    }
+    let touching = !this.player.body.touching.none;
+    let wasTouching = !this.player.body.wasTouching.none;
+    if (touching && !wasTouching) {
+      this.player.emit("overlapstart");
+    } else if (!touching && wasTouching) {
+      this.player.emit("overlapend");
+    }
   }
 }
 
