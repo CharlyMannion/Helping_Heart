@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Link} from '@reach/router'
-import logo from '../assets/logo.png'
+import helpIcon from '../assets/help-icon.png'
 
 
 class Username extends Component {
@@ -20,6 +20,7 @@ class Username extends Component {
         
         <span className='home-title'>NC HELPER!</span>
         <span className='home-moto'>A GAME ABOUT KINDNESS</span>
+        <i class="fas fa-medkit"></i>
         <div className='info-container'>
         <span>Enter username: </span>
         <form onChange={this.handleSubmit}>

@@ -29,8 +29,14 @@ html {
 .username-container {
   margin: 5%;
 }
+.fa-medkit {
+  color: white;
+  font-size: 3rem;
+}
 .info-container {
-  margin-top: 15%;
+  margin-top: 30%;
+  font-family: 'Press Start 2P', cursive;
+  color: white;
 }
 .home-title,
 .home-moto {
