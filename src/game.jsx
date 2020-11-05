@@ -23,7 +23,8 @@ class Game extends Component {
         create: this.create,
         update: this.update,
       },
-      plugins: { // Set up REX UI for pop-ups and dialog
+      plugins: {
+        // Set up REX UI for pop-ups and dialog
         scene: [
           {
             key: "rexUI",
@@ -57,7 +58,8 @@ class Game extends Component {
       frameWidth: 16,
       frameHeight: 24,
     });
-    this.load.scenePlugin( //Loads plugin 
+    this.load.scenePlugin(
+      //Loads plugin
       "rexuiplugin",
       "https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexuiplugin.min.js",
       "rexUI",
@@ -83,13 +85,15 @@ class Game extends Component {
 
     //Setting up Score and Score Display
     this.score = 0;
-    this.scoreDisplay = this.add.text(0, 0, `Score: ${this.score}`, { fontSize: '32px' }).setScrollFactor(0);
+    this.scoreDisplay = this.add
+      .text(0, 0, `Score: ${this.score}`, { fontSize: "32px" })
+      .setScrollFactor(0);
 
     //Update Score
     this.updateScore = () => {
       this.score += 1;
-      this.scoreDisplay.setText(`Score: ${this.score}`)
-    }
+      this.scoreDisplay.setText(`Score: ${this.score}`);
+    };
 
     //adding the sprite
     const spawnPoint = map.findObject(
@@ -149,7 +153,7 @@ class Game extends Component {
 
     //below is where result of clicking button will be added to
     this.print = this.add.text(this.player.x, this.player.y, "CLICKED?");
-    console.log(this, "this next to text")
+    console.log(this, "this next to text");
 
     // adds a label that holds each option "button"
     let createButton = function (scene, text) {
@@ -162,7 +166,9 @@ class Game extends Component {
     };
 
     // creates zone for the sprite to collide with
-    this.zone = this.add.zone(spawnPoint.x, spawnPoint.y + 80).setSize(100, 100);
+    this.zone = this.add
+      .zone(spawnPoint.x, spawnPoint.y + 80)
+      .setSize(100, 100);
     this.physics.world.enable(this.zone);
 
     this.player.on("overlapstart", function () {
@@ -183,7 +189,7 @@ class Game extends Component {
     // interact function allows a dialog box to be created only if the sprite and zone are overlapping
     this.interact = () => {
       if (overlapping && dialog === undefined) {
-        this.createDialog().setScrollFactor(0);
+        this.createDialog(this, 2243.10344827586, 4050).setScrollFactor(0);
         dialogOpen = true;
       } else if (dialog !== undefined) {
         dialog.scaleDownDestory(100);
@@ -191,20 +197,6 @@ class Game extends Component {
         console.log("popdown");
       }
     };
-
-    // creates a dialog box, which pops up when clicked on
-    this.createDialog = () => {
-      console.log(`'create dialog at ${this.player.x} & ${this.player.y}`)
-      let dialog = scene.rexUI.add.dialog({
-        x: this.player.y,
-        y: this.player.x,
-        background: scene.rexUI.add.roundRectangle(250, 250, 250, 250, 20, 0xf57f17),
-        title: scene.rexUI.add.label({
-
-        })
-      })
-      return dialog;
-    }
 
     // only lets the dialog box be destroyed if the pointer is over the dialog box
     this.removeDialog = () => {
@@ -216,87 +208,87 @@ class Game extends Component {
       }
       return dialog;
     }
-    // this.input.on(
-    //   "pointerdown",
-    //   function (pointer) {
-    //     console.log("pointer");
+    this.input.on(
+      "pointerdown",
+      function (pointer) {
+        console.log("pointer");
 
-    //   },
-    //   this
-    // );
+      },
+      this
+    );
 
-    // this.createDialog = (scene, x, y) => {
-    //   console.log("popup");
-    //   let dialog = scene.rexUI.add
-    //     .dialog({
-    //       x: x,
-    //       y: y,
-    //       background: scene.rexUI.add.roundRectangle(
-    //         0,
-    //         0,
-    //         100,
-    //         100,
-    //         20,
-    //         0xf57f17
-    //       ),
-    //       title: scene.rexUI.add.label({
-    //         background: scene.rexUI.add.roundRectangle(
-    //           0,
-    //           0,
-    //           100,
-    //           40,
-    //           20,
-    //           0xbc5100
-    //         ),
-    //         text: scene.add.text(0, 0, "Can you help me?", {
-    //           fontSize: "20px",
-    //         }),
-    //       }),
-    //       // space: {
-    //       //   left: 15,
-    //       //   right: 15,
-    //       //   top: 10,
-    //       //   bottom: 10,
-    //       // },
-    //       // calls createButton to make two labels within dialog box
-    //       actions: [createButton(this, "OK"), createButton(this, "NOT OK")],
-    //       actionsAlign: "left",
-    //       space: {
-    //         title: 20,
-    //         action: 10,
+    this.createDialog = (scene, x, y) => {
+      console.log("popup");
+      let dialog = scene.rexUI.add
+        .dialog({
+          x: x,
+          y: y,
+          background: scene.rexUI.add.roundRectangle(
+            0,
+            0,
+            100,
+            100,
+            20,
+            0xf57f17
+          ),
+          title: scene.rexUI.add.label({
+            background: scene.rexUI.add.roundRectangle(
+              0,
+              0,
+              100,
+              40,
+              20,
+              0xbc5100
+            ),
+            text: scene.add.text(0, 0, "Can you help me?", {
+              fontSize: "20px",
+            }),
+          }),
+          // space: {
+          //   left: 15,
+          //   right: 15,
+          //   top: 10,
+          //   bottom: 10,
+          // },
+          // calls createButton to make two labels within dialog box
+          actions: [createButton(this, "OK"), createButton(this, "NOT OK")],
+          actionsAlign: "left",
+          space: {
+            title: 20,
+            action: 10,
 
-    //         left: 15,
-    //         right: 15,
-    //         top: 10,
-    //         bottom: 10,
-    //       },
-    //     })
-    //     // when you click a "button" i.e. a label, it adds text to the page
-    //     .on(
-    //       "button.click",
-    //       function (button, groupName, index, pointer, event) {
-    //         console.log("ANYTHING");
-    //         this.print.text += "true \n";
-    //         console.log("ANYTHING");
-    //         console.log(this, "this");
-    //         console.log(button.text, "button text");
-    //       },
-    //       this
-    //     )
-    //     // below makes the "button" change in appearance when the cursor hovers over it
-    //     .on("button.over", function (button, groupName, index, pointer, event) {
-    //       button.getElement("background").setStrokeStyle(1, 0xffffff);
-    //     })
-    //     .on("button.out", function (button, groupName, index, pointer, event) {
-    //       button.getElement("background").setStrokeStyle();
-    //     })
-    //     .layout()
-    //     .pushIntoBounds()
-    //     .popUp(500);
-    //   console.log(dialog, "in create dialog");
+            left: 15,
+            right: 15,
+            top: 10,
+            bottom: 10,
+          },
+        })
+        // when you click a "button" i.e. a label, it adds text to the page
+        .on(
+          "button.click",
+          function (button, groupName, index, pointer, event) {
+            console.log("ANYTHING");
+            this.print.text += "true \n";
+            console.log("ANYTHING");
+            console.log(this, "this");
+            console.log(button.text, "button text");
+          },
+          this
+        )
+        // below makes the "button" change in appearance when the cursor hovers over it
+        .on("button.over", function (button, groupName, index, pointer, event) {
+          button.getElement("background").setStrokeStyle(1, 0xffffff);
+        })
+        .on("button.out", function (button, groupName, index, pointer, event) {
+          button.getElement("background").setStrokeStyle();
+        })
+        .layout()
+        .pushIntoBounds()
+        .popUp(500);
+      console.log(dialog, "in create dialog");
 
-    //   return dialog;
-    // };
+      return dialog;
+    };
   }
 
   update() {
