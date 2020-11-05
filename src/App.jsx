@@ -19,8 +19,10 @@ setUser = (username) => {
     return (
     <div className="App">
       <Router>
+        
       <Username path='/' setUser={this.setUser} />
       <Tutorial path='/tutorial' username={this.state.user}/>
+     
       <Game path='/game' name={this.state.user}/>
       </Router>
     </div>

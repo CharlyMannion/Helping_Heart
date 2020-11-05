@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {Link} from '@reach/router'
 import logo from '../assets/logo.png'
 
+
 class Username extends Component {
 
   handleSubmit = (event) => {
@@ -14,13 +15,12 @@ class Username extends Component {
 
   render() {
     return (
-      <div>
-        <img src={logo} style={{
-          width: '60%',
-          height: '40%',
-          marginTop: '10%'
-        }} />
-        <div className='username-container'>
+      <div className='username-container'>
+        
+        
+        <span className='home-title'>NC HELPER!</span>
+        <span className='home-moto'>A GAME ABOUT KINDNESS</span>
+        <div className='info-container'>
         <span>Enter username: </span>
         <form onChange={this.handleSubmit}>
         <input type='text' name='username'  ></input>

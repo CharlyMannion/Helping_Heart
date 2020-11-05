@@ -9,7 +9,7 @@ const Tutorial = (props) => {
       <div className='tutorial-container'>
         <span className='tutorial-header'>Tutorial</span>
         <div className='tutorial-howToPlay-container'>
-          <span className='tutorial-howToPlay'>How to play:</span>
+          
           <p className='tutorial-paragraph'>Welcome {props.username}!</p>
           <Link to='/game'>
           <button className='tutorial-playButton'>PLAY!</button>
