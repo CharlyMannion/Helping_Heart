@@ -74,11 +74,8 @@ class Game extends Component {
       tileHeight: 32,
     });
     // Set default variables
-    // let scene = this;
     let overlapping = false;
     let dialog = undefined;
-    let dialogExists = false;
-    // let dialogOpen = false;
     // Set up Tile Map with Collision
     const tileset = map.addTilesetImage("RPGpack_sheet", "tiles");
     const floorLayer = map.createStaticLayer("Floor", tileset, 0, 0);
@@ -189,7 +186,6 @@ class Game extends Component {
     // creates a dialog box with buttons inside it
     this.createDialog = (scene, x, y) => {
       // console.log("popup");
-      dialogExists = true;
       let dialog = scene.rexUI.add
         .dialog({
           x: x,
@@ -233,6 +229,8 @@ class Game extends Component {
           "button.click",
           function (button, groupName, index, pointer, event) {
             this.print.text += "\n true \n";
+        // when you click on a "button", the dialog box should disappear
+            dialog.scaleDownDestroy(100);
           },
           this
         )
@@ -253,28 +251,12 @@ class Game extends Component {
     this.interact = () => {
       if (overlapping && dialog === undefined) {
         this.createDialog(this, 2243.10344827586, 4050).setScrollFactor(0);
-        // dialogOpen = true;
       } else if (dialog !== undefined) {
         dialog.scaleDownDestory(100);
         dialog = undefined;
         // console.log("popdown");
       }
     };
-
-    // when you click on a "button", the dialog box should disappear
-    this.input.on(
-      "pointerdown",
-      function (pointer) {
-        // console.log(pointer, "pointer");
-        console.log(dialogExists, "DIALOG EXISTS?");
-        // if (dialogExists === true) {
-        if (dialogExists === true && dialog.isInTouching(pointer)) {
-          dialog.scaleDownDestroy(100);
-          dialog = undefined;
-        }
-      },
-      this
-    );
   }
 
   update() {
