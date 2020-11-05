@@ -37,8 +37,6 @@ border-radius: 10px;
 
 const Tutorial = (props) => {
 
-  
-  
     return (
       <TutorialContainer >
         <TutorialHeader>Tutorial</TutorialHeader>
