@@ -58,16 +58,6 @@ class Game extends Component {
     const floorLayer = map.createStaticLayer('Floor', tileset, 0, 0);
     const treeLayer = map.createStaticLayer('Trees', tileset, 0, 0);
 
-    // Score Display and Declaring win state
-    this.score = 0;
-    this.scoreDisplay = this.add.text(0, 0, `score: ${this.score}`, { fontSize: '32px' }).setScrollFactor(0);
-
-    this.updateScore = () => {
-      this.score += 1;
-      this.scoreDisplay.setText(`score: ${this.score}`);
-    }
-
-
     //adding the sprite
     const spawnPoint = map.findObject("Objects", obj => obj.name === "Spawn Point")
     this.player = this.physics.add.sprite(spawnPoint.x, spawnPoint.y, 'dude')
@@ -122,6 +112,42 @@ class Game extends Component {
       repeat: -1
     })
 
+    // Score Display and Declaring win state
+    this.score = 0;
+    this.scoreDisplay = this.add.text(0, 0, `score: ${this.score}`, { fontSize: '32px' }).setScrollFactor(0);
+
+    this.updateScore = () => {
+      this.score += 1;
+      this.scoreDisplay.setText(`score: ${this.score}`);
+      if (this.score === 5) {
+        this.finishGame();
+      }
+    }
+    this.finishGame = () => {
+      this.physics.pause();
+      this.player.setTint(0xff0000);
+    }
+
+    // Zones for NPC interaction
+    let overlapping = false;
+    this.zone = this.add.zone(spawnPoint.x, spawnPoint.y + 100).setSize(75, 75);
+    this.physics.world.enable(this.zone);
+
+    this.player.on('overlapstart', function () {
+      this.body.debugBodyColor = 0xff3300;
+      overlapping = true;
+      console.log("overlap start");
+      console.time("overlap");
+    })
+    this.player.on('overlapend', function () {
+      this.body.debugBodyColor = 0x00ff33;
+      overlapping = false;
+      console.log("overlap end");
+      console.timeEnd("overlap");
+    })
+
+    this.physics.add.overlap(this.player, this.zone);
+
   }
 
   update() {
@@ -150,6 +176,18 @@ class Game extends Component {
     }
 
     this.player.body.velocity.normalize().scale(200);
+
+    // Update Logic for zones and overlapping
+    if (this.player.body.embedded) {
+      this.player.body.touching.none = false;
+    }
+    let touching = !this.player.body.touching.none;
+    let wasTouching = !this.player.body.wasTouching.none;
+    if (touching && !wasTouching) {
+      this.player.emit("overlapstart");
+    } else if (!touching && wasTouching) {
+      this.player.emit("overlapend");
+    }
   }
 }
 
