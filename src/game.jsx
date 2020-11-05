@@ -74,10 +74,11 @@ class Game extends Component {
       tileHeight: 32,
     });
     // Set default variables
-    let scene = this;
+    // let scene = this;
     let overlapping = false;
     let dialog = undefined;
-    let dialogOpen = false;
+    let dialogExists = false;
+    // let dialogOpen = false;
     // Set up Tile Map with Collision
     const tileset = map.addTilesetImage("RPGpack_sheet", "tiles");
     const floorLayer = map.createStaticLayer("Floor", tileset, 0, 0);
@@ -153,7 +154,6 @@ class Game extends Component {
 
     //below is where result of clicking button will be added to
     this.print = this.add.text(this.player.x, this.player.y, "CLICKED?");
-    console.log(this, "this next to text");
 
     // adds a label that holds each option "button"
     let createButton = function (scene, text) {
@@ -174,13 +174,13 @@ class Game extends Component {
     this.player.on("overlapstart", function () {
       this.body.debugBodyColor = 0xff3300;
       overlapping = true;
-      console.log("overlap start");
+      // console.log("overlap start");
       console.time("overlap");
     });
     this.player.on("overlapend", function () {
       this.body.debugBodyColor = 0x00ff33;
       overlapping = false;
-      console.log("overlap end");
+      // console.log("overlap end");
       console.timeEnd("overlap");
     });
 
@@ -190,35 +190,18 @@ class Game extends Component {
     this.interact = () => {
       if (overlapping && dialog === undefined) {
         this.createDialog(this, 2243.10344827586, 4050).setScrollFactor(0);
-        dialogOpen = true;
+        // dialogOpen = true;
       } else if (dialog !== undefined) {
         dialog.scaleDownDestory(100);
         dialog = undefined;
-        console.log("popdown");
+        // console.log("popdown");
       }
     };
 
-    // only lets the dialog box be destroyed if the pointer is over the dialog box
-    this.removeDialog = () => {
-      if (dialogOpen) {
-        console.log('tab')
-        this.dialog.scaleDownDestroy(100);
-        dialog = undefined;
-        dialogOpen = false;
-      }
-      return dialog;
-    }
-    this.input.on(
-      "pointerdown",
-      function (pointer) {
-        console.log("pointer");
-
-      },
-      this
-    );
-
+    // creates a dialog box with buttons inside it
     this.createDialog = (scene, x, y) => {
-      console.log("popup");
+      // console.log("popup");
+      dialogExists = true;
       let dialog = scene.rexUI.add
         .dialog({
           x: x,
@@ -244,12 +227,6 @@ class Game extends Component {
               fontSize: "20px",
             }),
           }),
-          // space: {
-          //   left: 15,
-          //   right: 15,
-          //   top: 10,
-          //   bottom: 10,
-          // },
           // calls createButton to make two labels within dialog box
           actions: [createButton(this, "OK"), createButton(this, "NOT OK")],
           actionsAlign: "left",
@@ -267,11 +244,7 @@ class Game extends Component {
         .on(
           "button.click",
           function (button, groupName, index, pointer, event) {
-            console.log("ANYTHING");
-            this.print.text += "true \n";
-            console.log("ANYTHING");
-            console.log(this, "this");
-            console.log(button.text, "button text");
+            this.print.text += "\n true \n";
           },
           this
         )
@@ -285,10 +258,23 @@ class Game extends Component {
         .layout()
         .pushIntoBounds()
         .popUp(500);
-      console.log(dialog, "in create dialog");
-
       return dialog;
     };
+
+    // when you click on a "button", the dialog box should disappear
+    this.input.on(
+      "pointerdown",
+      function (pointer) {
+        // console.log(pointer, "pointer");
+        console.log(dialogExists, "TOUCHING POINTER?")
+        // if (dialogExists === true) {
+        if (dialogExists === true && dialog.isInTouching(pointer)) {
+          dialog.scaleDownDestroy(100);
+          dialog = undefined;
+        }
+      },
+      this
+    );
   }
 
   update() {
