@@ -2,37 +2,54 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+.tutorial-container {
+  margin: 5% auto;
+  border: 2px solid black;
+  width: 80%;
+  height: 550px;
+  display: grid;
+  grid-template-rows: 20% 80%;
+  background-color: rgb(255, 99, 71);
   color: white;
 }
-
-.App-link {
-  color: #61dafb;
+.tutorial-header {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 2rem;
+  margin-top: 4%;
 }
 
-@keyframes App-logo-spin {
+.tutorial-howToPlay-container {
+  width: 80%;
+  height: 350px;
+  /* border: 2px solid black; */
+  margin: 0 auto;
+  display: grid;
+  grid-template-rows: 10% 80% 10%;
+  font-family: 'VT323', monospace;
+  font-size: 1.5rem;
+  background-color: rgb(243, 122, 101);
+}
+/* .tutorial-paragraph-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+} */
+/* .tutorial-paragraph {
+  color: yellow;
+  font-family: 'Arial';
+  font-size: 30px;
+
+  margin: 10px 0 0 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 30em;
+  /* added animation property to show the character one at a time*/
+/* animation: type 8s steps(60, end);
+} */
+
+@keyframes type {
   from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+    width: 0;
   }
 }

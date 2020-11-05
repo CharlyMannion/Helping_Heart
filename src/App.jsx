@@ -3,6 +3,7 @@ import Game from './game';
 import {Router} from '@reach/router'
 import Username from './components/Username';
 import React,{Component} from 'react'
+import Tutorial from './components/Tutorial';
 
 class App extends Component {
 
@@ -19,6 +20,7 @@ setUser = (username) => {
     <div className="App">
       <Router>
       <Username path='/' setUser={this.setUser} />
+      <Tutorial path='/tutorial' username={this.state.user}/>
       <Game path='/game' name={this.state.user}/>
       </Router>
     </div>
