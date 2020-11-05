@@ -116,7 +116,7 @@ class Game extends Component {
     this.score = 0;
     this.scoreDisplay = this.add.text(0, 0, `score: ${this.score}`, { fontSize: '32px' }).setScrollFactor(0);
 
-    this.updateScore = () => {
+    const updateScore = () => {
       this.score += 1;
       this.scoreDisplay.setText(`score: ${this.score}`);
       if (this.score === 5) {
@@ -130,12 +130,17 @@ class Game extends Component {
 
     // Zones for NPC interaction
     let overlapping = false;
+    let isActive = true;
     this.zone = this.add.zone(spawnPoint.x, spawnPoint.y + 100).setSize(75, 75);
     this.physics.world.enable(this.zone);
 
     this.player.on('overlapstart', function () {
       this.body.debugBodyColor = 0xff3300;
       overlapping = true;
+      if (isActive) {
+        updateScore();
+        isActive = false;
+      }
       console.log("overlap start");
       console.time("overlap");
     })
