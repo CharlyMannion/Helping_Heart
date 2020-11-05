@@ -144,12 +144,10 @@ class Game extends Component {
     // const npcDave = {
     let spriteDave = this.add.npc(spawnPoint.x + 50, spawnPoint.y + 50);
     this.zoneDave = this.add.zone(spawnPoint.x + 50, spawnPoint.y + 50).setSize(75, 75);
-    let haveHelpedDave = false
     this.physics.world.enable(this.zoneDave)
 
     let spriteFrank = this.add.npc(spawnPoint.x + 50, spawnPoint.y + 150);
     this.zoneFrank = this.add.zone(spawnPoint.x + 50, spawnPoint.y + 150).setSize(75, 75);
-    let haveHelpedFrank = false;
     this.physics.world.enable(this.zoneFrank);
 
     // Manage Overlap into Zones
