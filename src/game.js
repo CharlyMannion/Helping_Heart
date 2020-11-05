@@ -46,6 +46,7 @@ class Game extends Component {
     this.load.image('tiles', tileSet);
     this.load.tilemapTiledJSON('map', tileJson);
     this.load.spritesheet('dude', 'https://i.imgur.com/0x8P9a6.png', { frameWidth: 16, frameHeight: 24 })
+    this.load.spritesheet('npc', 'https://i.imgur.com/0x8P9a6.png', { frameWidth: 16, frameHeight: 24 })
   }
 
 
@@ -114,14 +115,22 @@ class Game extends Component {
 
     //Create NPCs
     const npcs = this.physics.add.group({
-      key: 'dude',
-      repeat: 5,
-      setXY: { x: spawnPoint.x + 10, y: spawnPoint.y + 10, stepX: 25 }
+      key: 'npc',
+      repeat: 4,
+      setXY: { x: spawnPoint.x + 20, y: spawnPoint.y + 20, stepX: 25 }
     })
 
     npcs.children.iterate(function (child) {
-
     })
+
+    const npcCollide = (player, npc) => {
+      npc.disableBody(true, true)
+      updateScore();
+    }
+
+    this.physics.add.overlap(this.player, npcs, npcCollide, null, this);
+
+
 
     // Score Display and Declaring win state
     this.score = 0;
@@ -140,29 +149,29 @@ class Game extends Component {
     }
 
     // Zones for NPC interaction
-    let overlapping = false;
-    let isActive = true;
-    this.zone = this.add.zone(spawnPoint.x, spawnPoint.y + 100).setSize(75, 75);
-    this.physics.world.enable(this.zone);
+    // let overlapping = false;
+    // let isActive = true;
+    // this.zone = this.add.zone(spawnPoint.x, spawnPoint.y + 100).setSize(75, 75);
+    // this.physics.world.enable(this.zone);
 
-    this.player.on('overlapstart', function () {
-      this.body.debugBodyColor = 0xff3300;
-      overlapping = true;
-      if (isActive) {
-        updateScore();
-        isActive = false;
-      }
-      console.log("overlap start");
-      console.time("overlap");
-    })
-    this.player.on('overlapend', function () {
-      this.body.debugBodyColor = 0x00ff33;
-      overlapping = false;
-      console.log("overlap end");
-      console.timeEnd("overlap");
-    })
+    // this.player.on('overlapstart', function () {
+    //   this.body.debugBodyColor = 0xff3300;
+    //   overlapping = true;
+    //   if (isActive) {
+    //     updateScore();
+    //     isActive = false;
+    //   }
+    //   console.log("overlap start");
+    //   console.time("overlap");
+    // })
+    // this.player.on('overlapend', function () {
+    //   this.body.debugBodyColor = 0x00ff33;
+    //   overlapping = false;
+    //   console.log("overlap end");
+    //   console.timeEnd("overlap");
+    // })
 
-    this.physics.add.overlap(this.player, this.zone);
+    // this.physics.add.overlap(this.player, this.zone);
 
   }
 
@@ -194,16 +203,16 @@ class Game extends Component {
     this.player.body.velocity.normalize().scale(200);
 
     // Update Logic for zones and overlapping
-    if (this.player.body.embedded) {
-      this.player.body.touching.none = false;
-    }
-    let touching = !this.player.body.touching.none;
-    let wasTouching = !this.player.body.wasTouching.none;
-    if (touching && !wasTouching) {
-      this.player.emit("overlapstart");
-    } else if (!touching && wasTouching) {
-      this.player.emit("overlapend");
-    }
+    // if (this.player.body.embedded) {
+    //   this.player.body.touching.none = false;
+    // }
+    // let touching = !this.player.body.touching.none;
+    // let wasTouching = !this.player.body.wasTouching.none;
+    // if (touching && !wasTouching) {
+    //   this.player.emit("overlapstart");
+    // } else if (!touching && wasTouching) {
+    //   this.player.emit("overlapend");
+    // }
   }
 }
 
