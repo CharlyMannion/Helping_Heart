@@ -114,9 +114,9 @@ class Game extends Component {
 
     //Create NPCs
     const npcs = this.physics.add.group({
-      key: 'NPCs',
-      repeat: 11,
-      setXY: { x: spawnPoint.x + 10, y: spawnPoint.y + 10, stepX: 15 }
+      key: 'dude',
+      repeat: 5,
+      setXY: { x: spawnPoint.x + 10, y: spawnPoint.y + 10, stepX: 25 }
     })
 
     npcs.children.iterate(function (child) {
