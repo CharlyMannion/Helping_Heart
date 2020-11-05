@@ -112,6 +112,17 @@ class Game extends Component {
       repeat: -1
     })
 
+    //Create NPCs
+    const npcs = this.physics.add.group({
+      key: 'NPCs',
+      repeat: 11,
+      setXY: { x: spawnPoint.x + 10, y: spawnPoint.y + 10, stepX: 15 }
+    })
+
+    npcs.children.iterate(function (child) {
+
+    })
+
     // Score Display and Declaring win state
     this.score = 0;
     this.scoreDisplay = this.add.text(0, 0, `score: ${this.score}`, { fontSize: '32px' }).setScrollFactor(0);
