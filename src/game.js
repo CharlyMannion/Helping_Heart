@@ -145,7 +145,7 @@ class Game extends Component {
     })
 
     //Create NPCs
-
+    this.add.npc(spawnPoint.x + 50, spawnPoint.y + 50)
 
     // const npcs = this.physics.add.group({
     //   key: 'npc',
