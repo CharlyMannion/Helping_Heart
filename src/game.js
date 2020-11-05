@@ -75,8 +75,6 @@ class Game extends Component {
 
 
   create() {
-
-
     const map = this.make.tilemap({
       key: 'map', tileWidth: 32, tileHeight: 32
     });
@@ -153,13 +151,11 @@ class Game extends Component {
     // Manage Overlap into Zones
     this.player.on('overlapstart', function () {
       this.body.debugBodyColor = 0xff3300;
-      console.log("overlap start");
-      console.time("overlap");
+      updateScore();
+
     })
     this.player.on('overlapend', function () {
       this.body.debugBodyColor = 0x00ff33;
-      console.log("overlap end");
-      console.timeEnd("overlap");
     })
 
     // Adds overlap functionality to the NPC zones
@@ -181,32 +177,6 @@ class Game extends Component {
       this.physics.pause();
       this.player.setTint(0xff0000);
     }
-
-    // Zones for NPC interaction
-    // let overlapping = false;
-    // let isActive = true;
-    // this.zone = this.add.zone(spawnPoint.x, spawnPoint.y + 100).setSize(75, 75);
-    // this.physics.world.enable(this.zone);
-
-    // this.player.on('overlapstart', function () {
-    //   this.body.debugBodyColor = 0xff3300;
-    //   overlapping = true;
-    //   if (isActive) {
-    //     updateScore();
-    //     isActive = false;
-    //   }
-    //   console.log("overlap start");
-    //   console.time("overlap");
-    // })
-    // this.player.on('overlapend', function () {
-    //   this.body.debugBodyColor = 0x00ff33;
-    //   overlapping = false;
-    //   console.log("overlap end");
-    //   console.timeEnd("overlap");
-    // })
-
-    // this.physics.add.overlap(this.player, this.zone);
-
   }
 
   update() {
@@ -237,6 +207,8 @@ class Game extends Component {
     this.player.body.velocity.normalize().scale(200);
 
     // Update Logic for zones and overlapping
+    this.zoneDave.body.debugBodyColor = this.zoneDave.body.touching.none ? 0x00ffff : 0xffff00;
+
     if (this.player.body.embedded) {
       this.player.body.touching.none = false;
     }
