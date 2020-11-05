@@ -2,14 +2,45 @@ import React, { Component } from 'react';
 import Phaser from 'phaser'
 import tileSet from './assets/RPGpack_sheet.png'
 import tileJson from './assets/test_map_1.json'
+//  Here is a custom game object
+// let NPC = function (game, x, y) {
+//   Phaser.Sprite.call(this, game, x, y, 'npc');
+// };
+
+// // NPC = Object.create(Phaser.Sprite);
+// NPC.constructor = NPC;
+
+class NPCGameObject extends Phaser.GameObjects.Image {
+  constructor(scene, x, y) {
+    super(scene, x, y, 'npc')
+  }
+}
+
+class NPCPlugin extends Phaser.Plugins.BasePlugin {
+  constructor(pluginManager) {
+    super(pluginManager);
+
+    pluginManager.registerGameObject('npc', this.createNPC);
+  }
+
+  createNPC(x, y) {
+    return this.displayList.add(new NPCGameObject(this.scene, x, y))
+  }
+}
 
 class Game extends Component {
+
 
   componentDidMount() {
     this.game = new Phaser.Game({
       type: Phaser.AUTO,
       width: 500,
       height: 500,
+      plugins: {
+        global: [
+          { key: 'NPCPlugin', plugin: NPCPlugin, start: true }
+        ]
+      },
       physics: {
         default: 'arcade',
         arcade: {
@@ -114,21 +145,23 @@ class Game extends Component {
     })
 
     //Create NPCs
-    const npcs = this.physics.add.group({
-      key: 'npc',
-      repeat: 4,
-      setXY: { x: spawnPoint.x + 20, y: spawnPoint.y + 20, stepX: 25 }
-    })
 
-    npcs.children.iterate(function (child) {
-    })
 
-    const npcCollide = (player, npc) => {
-      npc.disableBody(true, true)
-      updateScore();
-    }
+    // const npcs = this.physics.add.group({
+    //   key: 'npc',
+    //   repeat: 4,
+    //   setXY: { x: spawnPoint.x + 20, y: spawnPoint.y + 20, stepX: 25 }
+    // })
 
-    this.physics.add.overlap(this.player, npcs, npcCollide, null, this);
+    // npcs.children.iterate(function (child) {
+    // })
+
+    // const npcCollide = (player, npc) => {
+    //   npc.disableBody(true, true)
+    //   updateScore();
+    // }
+
+    // this.physics.add.overlap(this.player, npcs, npcCollide, null, this);
 
 
 
