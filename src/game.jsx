@@ -4,6 +4,24 @@ import tileSet from "./assets/RPGpack_sheet.png";
 import tileJson from "./assets/test_map_1.json";
 import UIPlugin from "phaser3-rex-plugins/templates/ui/ui-plugin.js"; // Plug-in for pop up
 
+class NPCGameObject extends Phaser.GameObjects.Image {
+  constructor(scene, x, y) {
+    super(scene, x, y, "npc");
+  }
+}
+
+class NPCPlugin extends Phaser.Plugins.BasePlugin {
+  constructor(pluginManager) {
+    super(pluginManager);
+
+    pluginManager.registerGameObject("npc", this.createNPC);
+  }
+
+  createNPC(x, y) {
+    return this.displayList.add(new NPCGameObject(this.scene, x, y));
+  }
+}
+
 class Game extends Component {
   componentDidMount() {
     this.game = new Phaser.Game({
@@ -24,6 +42,7 @@ class Game extends Component {
         update: this.update,
       },
       plugins: {
+        global: [{ key: "NPCPlugin", plugin: NPCPlugin, start: true }],
         // Set up REX UI for pop-ups and dialog
         scene: [
           {
@@ -40,6 +59,7 @@ class Game extends Component {
     this.controls = null;
     this.score = null;
     this.scoreDisplay = null;
+    this.currentZone = null;
   }
 
   render() {
@@ -58,6 +78,7 @@ class Game extends Component {
       frameWidth: 16,
       frameHeight: 24,
     });
+    this.load.spritesheet('npc', 'https://i.imgur.com/0x8P9a6.png', { frameWidth: 16, frameHeight: 24 })
     this.load.scenePlugin(
       //Loads plugin
       "rexuiplugin",
@@ -80,18 +101,6 @@ class Game extends Component {
     const tileset = map.addTilesetImage("RPGpack_sheet", "tiles");
     const floorLayer = map.createStaticLayer("Floor", tileset, 0, 0);
     const treeLayer = map.createStaticLayer("Trees", tileset, 0, 0);
-
-    //Setting up Score and Score Display
-    this.score = 0;
-    this.scoreDisplay = this.add
-      .text(0, 0, `Score: ${this.score}`, { fontSize: "32px" })
-      .setScrollFactor(0);
-
-    //Update Score
-    this.updateScore = () => {
-      this.score += 1;
-      this.scoreDisplay.setText(`Score: ${this.score}`);
-    };
 
     //adding the sprite
     const spawnPoint = map.findObject(
@@ -148,6 +157,19 @@ class Game extends Component {
       repeat: -1,
     });
 
+    //Create NPCs
+    let spriteDave = this.add.npc(spawnPoint.x + 50, spawnPoint.y + 50);
+    this.zoneDave = this.add
+      .zone(spawnPoint.x + 50, spawnPoint.y + 50)
+      .setSize(75, 75);
+    this.physics.world.enable(this.zoneDave);
+
+    let spriteFrank = this.add.npc(spawnPoint.x + 50, spawnPoint.y + 150);
+    this.zoneFrank = this.add
+      .zone(spawnPoint.x + 50, spawnPoint.y + 150)
+      .setSize(75, 75);
+    this.physics.world.enable(this.zoneFrank);
+
     //below is where result of clicking button will be added to
     this.print = this.add.text(this.player.x, this.player.y, "CLICKED?");
 
@@ -172,6 +194,7 @@ class Game extends Component {
       overlapping = true;
       // console.log("overlap start");
       console.time("overlap");
+      updateScore();
     });
     this.player.on("overlapend", function () {
       this.body.debugBodyColor = 0x00ff33;
@@ -181,6 +204,27 @@ class Game extends Component {
     });
 
     this.physics.add.overlap(this.player, this.zone);
+    // Adds overlap functionality to the NPC zones
+    this.physics.add.overlap(this.player, this.zoneFrank);
+    this.physics.add.overlap(this.player, this.zoneDave);
+
+    // Score Display and Declaring win state
+    this.score = 0;
+    this.scoreDisplay = this.add
+      .text(0, 0, `score: ${this.score}`, { fontSize: "32px" })
+      .setScrollFactor(0);
+
+    const updateScore = () => {
+      this.score += 1;
+      this.scoreDisplay.setText(`score: ${this.score}`);
+      if (this.score === 5) {
+        this.finishGame();
+      }
+    };
+    this.finishGame = () => {
+      this.physics.pause();
+      this.player.setTint(0xff0000);
+    };
 
     // creates a dialog box with buttons inside it
     this.createDialog = (scene, x, y) => {
@@ -280,6 +324,14 @@ class Game extends Component {
     }
     this.player.body.velocity.normalize().scale(200);
 
+    let getZone = () => {
+      if (this.zoneDave.body && !this.zoneDave.body.touching.none) {
+        return this.zoneDave;
+      } else if (this.zoneFrank.body && !this.zoneFrank.body.touching.none) {
+        return this.zoneFrank;
+      }
+    };
+
     // if the space bar is down, call the interact function, which pops up the dialog box
     if (this.cursors.spaceBar.isDown) {
       this.interact();
@@ -297,8 +349,10 @@ class Game extends Component {
 
     if (touching && !wasTouching) {
       this.player.emit("overlapstart");
+      this.currentZone = getZone();
     } else if (!touching && wasTouching) {
       this.player.emit("overlapend");
+      this.currentZone.destroy();
     }
   }
 }

@@ -1,5 +1,5 @@
 import './App.css';
-import Game from './game';
+import Game from './game.jsx';
 import {Router} from '@reach/router'
 import Username from './components/Username';
 import React,{Component} from 'react'
