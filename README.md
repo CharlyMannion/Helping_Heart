@@ -97,15 +97,21 @@ I want to see a landing page where I can enter a name
 * By the end of week one, we were thrilled to reach our MVP! Although it's safe to say we were knackered
 * We had a sprite that could run around in our game and a dialog box that would pop up and allow the player to help NCPs
 * Check out some screenshots of our game by the end of week 1:
-Player enters a username and presses play
+
+
+* Player enters a username and presses play
 <img width="1340" alt="Screenshot 2020-11-06 at 13 17 26" src="https://user-images.githubusercontent.com/28218869/98370650-cfb2fe80-2032-11eb-887c-9b3d3332c864.png">
-Player walked towards the NCP using W,A,S,D keys:
+
+* Player walks towards the NCP using W,A,S,D keys:
 <img width="876" alt="Screenshot 2020-11-06 at 13 17 40" src="https://user-images.githubusercontent.com/28218869/98370652-d04b9500-2032-11eb-9d8c-0231998c3d77.png">
-Player enters the zone of an NCP:
+
+* Player enters the zone of an NCP:
 <img width="506" alt="Screenshot 2020-11-06 at 13 18 08" src="https://user-images.githubusercontent.com/28218869/98370657-d2155880-2032-11eb-9791-ac12cb2623ee.png">
-Players presses the space bar, and a dialog box appears:
+
+* Players presses the space bar, and a dialog box appears:
 <img width="510" alt="Screenshot 2020-11-06 at 13 18 20" src="https://user-images.githubusercontent.com/28218869/98371504-2f5dd980-2034-11eb-97e4-774d1ea5d8dc.png">
-Player chooses whether or not to help the NCP. There is a visual indicator that a button has been clicked on the screen ("true"). The player is only able to enter the zone of each NCP once:
+
+* Player chooses whether or not to help the NCP. There is a visual indicator that a button has been clicked on the screen ("true"). The player is only able to enter the zone of each NCP once:
 <img width="510" alt="Screenshot 2020-11-06 at 13 18 28" src="https://user-images.githubusercontent.com/28218869/98371430-135a3800-2034-11eb-81f0-65ed7fde7c5f.png">
 
 
