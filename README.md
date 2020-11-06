@@ -25,6 +25,7 @@ Before getting started and settling on the idea for our final project, our team 
 * Write clean, readable code and ensure knowledge sharing
 * Follow an agile approach; daily stand-ups, check-ins and retros
 * Pairing and effective team communication
+* Produce a proof of concept, rather than a shiny finished app at the expense of our sanity and team collaboration
 * Have fun!
 
 ## Approach
@@ -77,22 +78,170 @@ npm test
 ```
 
 ## User Stories
+### MVP
 ```
 As a user, 
 so I can play as myself, 
 I want to see a landing page where I can enter a name
 
+As a user, 
+so I know how to play the game, 
+I want to see a tutorial
 
+As a user, 
+so I can start a game, 
+I want press a start button
 
+As a user, 
+so I know who I am, 
+I want to see my username
 
+As a user, 
+so I know what represents me in the game, 
+I want to see the avatar
+
+As a user, 
+so I know where I am, 
+I want to see a map
+
+As a user, 
+so I can move around, 
+I want to be able to use the keyboard arrows (or WASD)
+
+As a user, 
+so I can help people, 
+I want to be able to find people to help
+
+As a user, 
+so I can help people, 
+I want to be able to interact with them
+
+As a user, 
+when I interact with a person in need, 
+I see a dialogue box
+
+As a user, 
+when I see a dialogue box, 
+I want there to be a problem in it
+
+As a user, 
+when I see a problem, 
+I want there to be option to solve the problem
+
+As a user, 
+when faced with options, 
+I want to be able to select an option
+
+As a user, 
+after I select an option, 
+I want to see immediate feedback on whether I chose correctly
+
+As a user, 
+once I have helped one person, 
+I want to be able to go and help another
+
+As a user, 
+so I can play for a decent amount of time, 
+I want to be able to help 5 people in need
+
+As a user, 
+so I know who I have already visited, 
+I want there to be a visual indicator that I have tried to help them (and can't try to help them again)
+
+As a user, 
+after I have helped 5 people, 
+I want the game to end
+
+As a user, 
+when the game has ended, 
+I want to see the results of the game
+
+As a user, 
+I want a consistent game design
 ```
 
-## Employer Stories
+### Additional User Stories
 ```
+As a user, 
+so I can play again, 
+I want there to be a play again button
+
+As a user, 
+if something goes wrong, 
+I want to be able to quit the game
+
+As a user, 
+so I can go for a wee, 
+I would like to pause the game
+
+As a user, 
+so I know that the game is paused, 
+I would like to see a pause icon
+
+As a user, 
+so my game is multi-sensory, 
+I want to hear action sounds
+
+As a user, 
+so my game is multi-sensory, 
+I want to hear music
+
+As a user, 
+so I am not annoyed by annoying music, 
+I would like to be able to mute the game
+
+As a user, 
+so I can see who else has played, 
+I want to see a list of people who have finished the game
 ```
 
 ## Developer Stories
 ```
+As a developer, 
+I would like to create a working proof of concept
+
+As a developer, 
+I would like to better understand phaser
+
+As a developer, 
+I would like to follow Agile principles
+
+As a developer, 
+I would like to pair and mob programme
+
+As a developer, 
+I would like to explore testing phaser
+
+As a developer, 
+I would like to explore testing REACT
+```
+
+## Employer Stories
+```
+As a potential employer, 
+I want to see a really good readme
+
+As a potential employer, 
+I want to see a hosted version of the game that 
+I can play
+
+As a potential employer, 
+I want to find a link to the back-end repository of the project in the readme
+
+As a potential employer, 
+I want to find a link to the hosted version of the back-end project in the readme
+
+As a potential employer, 
+I want to follow the readme instructions to easily run the project locally
+
+As an employer, 
+I want to see clear comments that explain what is going on
+
+As an employer, 
+I want to see clear naming conventions
+
+As an employer, 
+I want to see proper TDD
 ```
 
 ## Week One: MVP
