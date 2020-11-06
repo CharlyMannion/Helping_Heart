@@ -1,16 +1,4 @@
 # TITLE
 
-## Process:
-* create branch
-* Merge with dev
-* Merge with main
+# Final Project Game (placeholder title)
 
-* To create a new branch:
-```
-git checkout -b [branch name here]
-```
-
-* To push to a branch:
-```
-git push origin [branch name here]
-```
