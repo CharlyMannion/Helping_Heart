@@ -4,7 +4,9 @@ For our final project at Northcoders we built a game! Play it [here]()
 
 Check out our Game Design Document [here](https://github.com/CharlyMannion/final_project/blob/dev/GameDesignDocument.md)
 
-Find the hosted back end [here]()
+Find the hosted back end [here](https://helpers-game-backend.herokuapp.com/playerlist)
+
+See our back end repository [here](https://github.com/SarahBrowncross/helpers-backend)
 
 Check out our final presentation slides [here]()
 
