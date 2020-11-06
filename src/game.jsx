@@ -227,7 +227,7 @@ class Game extends Component {
           "button.click",
           function (button, groupName, index, pointer, event) {
             this.print.text += "\n true \n";
-        // when you click on a "button", the dialog box should disappear
+            // when you click on a "button", the dialog box should disappear
             dialog.scaleDownDestroy(100);
           },
           this
@@ -249,11 +249,11 @@ class Game extends Component {
     this.interact = () => {
       if (overlapping && dialog === undefined) {
         this.createDialog(this, 2243.10344827586, 4050).setScrollFactor(0);
-      // conditional logic below appears to be unecessary
-      // } else if (dialog !== undefined) {
-      //   dialog.scaleDownDestory(100);
-      //   dialog = undefined;
-      //   // console.log("popdown");
+        // conditional logic below appears to be unecessary
+        // } else if (dialog !== undefined) {
+        //   dialog.scaleDownDestory(100);
+        //   dialog = undefined;
+        //   // console.log("popdown");
       }
     };
   }
