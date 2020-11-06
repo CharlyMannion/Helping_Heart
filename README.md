@@ -6,11 +6,15 @@ Play our game [here]()
 
 Find our hosted back end [here]()
 
+Check out our final presentation slides [here]()
+
+You can also see a video of our presentation [here]()
+
 
 ## Contributors
-* Matt Hartley
-* Sarah Browncross
-* Matt Berry 
+* [Matt Hartley](https://github.com/Tibs088)
+* [Sarah Browncross](https://github.com/SarahBrowncross)
+* [Matt Berry](https://github.com/MBerry97)
 * [Charly Mannion](https://github.com/CharlyMannion)
 
 ## Objectives
@@ -42,14 +46,27 @@ Before getting started and settling on the idea for our final project, our team 
 * Heroku
 * Netlify
 
-## Using the App
-* Clone the repo [here](): 
+## Running the App locally
+* Clone the repo [here](https://github.com/CharlyMannion/final_project.git): 
 ```
+git clone https://github.com/CharlyMannion/final_project.git
 ```
-* In your terminal type:
+* Go into the project directory:
 ```
+cd final_project
 ```
-
+* Open the app in your favourite text editor to view the code (We like VSCode):
+```
+code .
+```
+* To install all dependencies, in your terminal type:
+```
+npm i
+```
+* To launch the react app:
+```
+npm start
+```
 
 ## Running Tests
 ```
@@ -57,9 +74,23 @@ npm test
 ```
 
 ## Week One
+* By the end of week one, we were thrilled to reach our MVP! Although it's safe to say we were knackered
+* We had a sprite that could run around in our game and a dialog box that would pop up and allow the player to help NCPs
+* Check out some screenshots of our progress:
+<img width="1340" alt="Screenshot 2020-11-06 at 13 17 26" src="https://user-images.githubusercontent.com/28218869/98370650-cfb2fe80-2032-11eb-887c-9b3d3332c864.png">
+<img width="876" alt="Screenshot 2020-11-06 at 13 17 40" src="https://user-images.githubusercontent.com/28218869/98370652-d04b9500-2032-11eb-9d8c-0231998c3d77.png">
+<img width="523" alt="Screenshot 2020-11-06 at 13 17 53" src="https://user-images.githubusercontent.com/28218869/98370656-d17cc200-2032-11eb-98c4-a4201d918b40.png">
+<img width="506" alt="Screenshot 2020-11-06 at 13 18 08" src="https://user-images.githubusercontent.com/28218869/98370657-d2155880-2032-11eb-9791-ac12cb2623ee.png">
 
 ## Week Two
+*
 
-Check out our final presentation slides [here]()
+## Challenges
+* One of our main challenges was getting to grips with Phaser, and using it in conjunction with React
+* We faced a few teething issues with tiled, and required a few iterations in order to get our layers how we wanted them
+* We also came into trouble when merging our branches, due to the fact that Phaser needs to be written in one huge file
 
-You can also see a video of our presentation [here]()
+## Successes
+* We all felt a huge sense of achievement when we got Phaser working, and celebrated our team's success
+* We were great at swapping pairs regularly and sharing knowledge, so it felt like we all had a really great knowledge of how our app was working, and got to work on different aspects of the game
+
