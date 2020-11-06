@@ -1,18 +1,18 @@
 # Final Project Game (placeholder title)
 
-For our final project at Northcoders we built a game!
-
-Sometimes life can be tough, so wouldn’t it be nice if someone would just come up to you can solve all you problems? The core idea behind our game is positivity, we want people to have a little smile on their face when they finish, so we’re having them be the good guy we all know we can be. The player’s objective is to explore the small town we’ve designed for them. Within that town a some troubled people, the player will interact with them and help them with their problem leading to happy individual. The player character has just emerged from the end of lockdown, they haven’t seen anyone in person in months and are ready to rejoin the social world. Their heart is small due to loneliness so they’re heading out to make people happy and rebuild their heart into a healthy happy social life, they just want to feel good about themselves.
-
-Play our game [here]()
+For our final project at Northcoders we built a game! Play it [here]()
 
 Check out our Game Design Document [here](https://github.com/CharlyMannion/final_project/blob/dev/GameDesignDocument.md)
 
-Find our hosted back end [here]()
+Find the hosted back end [here]()
 
 Check out our final presentation slides [here]()
 
 You can also see a video of our presentation [here]()
+
+## Concept
+
+Sometimes life can be tough, so wouldn’t it be nice if someone would just come up to you can solve all you problems? The core idea behind our game is positivity, we want people to have a little smile on their face when they finish, so we’re having them be the good guy we all know we can be. The player’s objective is to explore the small town we’ve designed for them. Within that town a some troubled people, the player will interact with them and help them with their problem leading to happy individual. The player character has just emerged from the end of lockdown, they haven’t seen anyone in person in months and are ready to rejoin the social world. Their heart is small due to loneliness so they’re heading out to make people happy and rebuild their heart into a healthy happy social life, they just want to feel good about themselves.
 
 ## Contributors
 * [Matt Hartley](https://github.com/Tibs088)
@@ -22,7 +22,7 @@ You can also see a video of our presentation [here]()
 
 ## Objectives
 Before getting started and settling on the idea for our final project, our team discussed and defined our objectives for the next two weeks:
-* Build game that people would want to play in years to come
+* Build something that people would actually to use
 * Learn Phaser
 * Write clean, readable code and ensure knowledge sharing
 * Follow an agile approach; daily stand-ups, check-ins and retros
@@ -31,15 +31,20 @@ Before getting started and settling on the idea for our final project, our team 
 * Have fun!
 
 ## Approach
-* When we had agreed our objectives, we defined the idea for our app
-* We wrote user stories and added them to a trello board
+* When we had agreed our objectives, we discussed ideas for our app
+* It quickly became apparent that we all wanted to build something fun, a game!
+* We originally came up with 3 different game ideas, which we pitched to the Northcoders tutors
+* After receiving feedback on our pitch, we decided on the idea we wanted to pursue
+* We wrote user stories for our game, and added them to a trello board
 * With the idea in place, we began exploring the possible technologies
 * We decided to use Phaser with React, and keep the back end really simple
-* The team began by spiking React in small applications
-* When we felt we had a basic understanding of the technology, we defined our MVP 
-* We defined our first week long sprint, to build our MVP, and began working on tickets in pairs
+* The team began by spiking React and Phaser in small applications
+* When we felt we had a basic understanding of the technology, we confirmed our MVP and broke down the user stories into tasks or tickets
+* We began working on these tickets in pairs
 * We stuck to our objectives and had daily stand-ups, check-ins retros, and knowledge sharing sessions
-* We used a Trello board to track our progress
+* We swapped pairs and tasks regularly to ensure we all had a good grasp of the application
+* We mob programmed to solve any difficult problems we encountered
+* We used our Trello board within our stand ups to track our progress
 ![Screenshot 2020-11-06 at 13 40 49](https://user-images.githubusercontent.com/28218869/98372522-caa37e80-2035-11eb-9b00-8cdcd1552c5b.png)
 
 ## Technologies Used
@@ -247,10 +252,16 @@ I want to see proper TDD
 ```
 
 ## Week One: MVP
-* By the end of week one, we were thrilled to reach our MVP! Although it's safe to say we were knackered
-* We had a sprite that could run around in our game and a dialog box that would pop up and allow the player to help NCPs
+* By the end of week one, we were thrilled to reach our MVP! Although it's fair to say we were all absolutely knackered
 * We had a really simple back end, hosted on Heroku, that kept track of usernames and scores
 * Our game design document was completed
+* We had a welcome page where a player could enter a username
+* We had a fully completed Tile Map
+* We had a sprite that could run around in our game 
+* We had NCPs
+* A dialog box would pop up when the player encountered each NCP
+* The player could then choose whether or not help the NCP, see a visual indicator that this had happened, and the dialog box would go down
+* The player could only interact with each NCP once
 * Check out some screenshots of our game by the end of week 1:
 
 * Player enters a username and presses play
@@ -275,10 +286,10 @@ I want to see proper TDD
 ## Challenges
 * One of our main challenges was getting to grips with Phaser, and using it in conjunction with React
 * Because we chose to use tech that was not part of the Nothcoders curriculum, we were unable to ask for help when we ran into problems
-* We faced a few teething issues with tiled, and required a few iterations in order to get our layers how we wanted them
-* We also came into trouble when merging our branches, due to the fact that Phaser needs to be written in one huge file
+* We faced a few teething issues with tiled, and required a few iterations in order to get our layers loaded simultaneously
+* We also came into trouble when merging our branches, due to the fact that Phaser needs to be written in one file in order to run smoothly
 
 ## Successes
-* We all felt a huge sense of achievement when we got Phaser working, and celebrated our team's success
+* We all felt a huge sense of achievement when we got Phaser working, and celebrated our success as a team
 * Being unable to ask for help with using Phaser greatly improved our problem-solving and de-bugging skills
-* We were great at swapping pairs regularly and sharing knowledge, so it felt like we all had a really great knowledge of how our app was working, and got to work on different aspects of the game
+* We were great at swapping pairs regularly, so it felt like we all had a really great understanding of how our app was working. This also meant we all got the opportunity on different aspects of the game
