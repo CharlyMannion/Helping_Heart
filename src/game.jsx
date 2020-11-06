@@ -113,7 +113,6 @@ class Game extends Component {
     //creating cursors to move
     this.cursors = this.input.keyboard.createCursorKeys();
 
-    console.log(Phaser.Input.Keyboard.KeyCodes, "KEY CODES");
     this.cursors = this.input.keyboard.addKeys({
       up: Phaser.Input.Keyboard.KeyCodes.W,
       down: Phaser.Input.Keyboard.KeyCodes.S,
@@ -185,7 +184,6 @@ class Game extends Component {
 
     // creates a dialog box with buttons inside it
     this.createDialog = (scene, x, y) => {
-      // console.log("popup");
       let dialog = scene.rexUI.add
         .dialog({
           x: x,
@@ -251,10 +249,11 @@ class Game extends Component {
     this.interact = () => {
       if (overlapping && dialog === undefined) {
         this.createDialog(this, 2243.10344827586, 4050).setScrollFactor(0);
-      } else if (dialog !== undefined) {
-        dialog.scaleDownDestory(100);
-        dialog = undefined;
-        // console.log("popdown");
+      // conditional logic below appears to be unecessary
+      // } else if (dialog !== undefined) {
+      //   dialog.scaleDownDestory(100);
+      //   dialog = undefined;
+      //   // console.log("popdown");
       }
     };
   }
