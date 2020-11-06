@@ -1,10 +1,12 @@
 # Final Project Game (placeholder title)
 
-This is our final project at Northcoders. In just over 2 weeks, we built a game...
+For our final project at Northcoders we built a game!
+
+Sometimes life can be tough, so wouldn’t it be nice if someone would just come up to you can solve all you problems? The core idea behind our game is positivity, we want people to have a little smile on their face when they finish, so we’re having them be the good guy we all know we can be. The player’s objective is to explore the small town we’ve designed for them. Within that town a some troubled people, the player will interact with them and help them with their problem leading to happy individual. The player character has just emerged from the end of lockdown, they haven’t seen anyone in person in months and are ready to rejoin the social world. Their heart is small due to loneliness so they’re heading out to make people happy and rebuild their heart into a healthy happy social life, they just want to feel good about themselves.
 
 Play our game [here]()
 
-Check out our Game Design Document [here]()
+Check out our Game Design Document [here](https://github.com/CharlyMannion/final_project/blob/dev/GameDesignDocument.md)
 
 Find our hosted back end [here]()
 
