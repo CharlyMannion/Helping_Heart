@@ -183,12 +183,6 @@ class Game extends Component {
       });
     };
 
-    // creates zone for the sprite to collide with
-    this.zone = this.add
-      .zone(spawnPoint.x, spawnPoint.y + 80)
-      .setSize(100, 100);
-    this.physics.world.enable(this.zone);
-
     this.player.on("overlapstart", function () {
       this.body.debugBodyColor = 0xff3300;
       overlapping = true;
