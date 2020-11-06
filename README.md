@@ -10,7 +10,6 @@ Check out our final presentation slides [here]()
 
 You can also see a video of our presentation [here]()
 
-
 ## Contributors
 * [Matt Hartley](https://github.com/Tibs088)
 * [Sarah Browncross](https://github.com/SarahBrowncross)
@@ -35,6 +34,8 @@ Before getting started and settling on the idea for our final project, our team 
 * When we felt we had a basic understanding of the technology, we defined our MVP 
 * We defined our first week long sprint, to build our MVP, and began working on tickets in pairs
 * We stuck to our objectives and had daily stand-ups, check-ins retros, and knowledge sharing sessions
+* We used a Trello board to track our progress
+![Screenshot 2020-11-06 at 13 40 49](https://user-images.githubusercontent.com/28218869/98372522-caa37e80-2035-11eb-9b00-8cdcd1552c5b.png)
 
 ## Technologies Used
 * Phaser
@@ -73,20 +74,43 @@ npm start
 npm test
 ```
 
-## Week One
+## User Stories
+```
+As a user, 
+so I can play as myself, 
+I want to see a landing page where I can enter a name
+
+
+
+
+```
+
+## Employer Stories
+```
+```
+
+## Developer Stories
+```
+```
+
+## Week One: MVP
 * By the end of week one, we were thrilled to reach our MVP! Although it's safe to say we were knackered
 * We had a sprite that could run around in our game and a dialog box that would pop up and allow the player to help NCPs
-* Check out some screenshots of our progress:
+* Check out some screenshots of our game by the end of week 1:
+Player enters a username and presses play
 <img width="1340" alt="Screenshot 2020-11-06 at 13 17 26" src="https://user-images.githubusercontent.com/28218869/98370650-cfb2fe80-2032-11eb-887c-9b3d3332c864.png">
+Player walked towards the NCP using W,A,S,D keys:
 <img width="876" alt="Screenshot 2020-11-06 at 13 17 40" src="https://user-images.githubusercontent.com/28218869/98370652-d04b9500-2032-11eb-9d8c-0231998c3d77.png">
-<img width="523" alt="Screenshot 2020-11-06 at 13 17 53" src="https://user-images.githubusercontent.com/28218869/98370656-d17cc200-2032-11eb-98c4-a4201d918b40.png">
+Player enters the zone of an NCP:
 <img width="506" alt="Screenshot 2020-11-06 at 13 18 08" src="https://user-images.githubusercontent.com/28218869/98370657-d2155880-2032-11eb-9791-ac12cb2623ee.png">
+Players presses the space bar, and a dialog box appears:
 <img width="510" alt="Screenshot 2020-11-06 at 13 18 20" src="https://user-images.githubusercontent.com/28218869/98371504-2f5dd980-2034-11eb-97e4-774d1ea5d8dc.png">
+Player chooses whether or not to help the NCP. There is a visual indicator that a button has been clicked on the screen ("true"). The player is only able to enter the zone of each NCP once:
 <img width="510" alt="Screenshot 2020-11-06 at 13 18 28" src="https://user-images.githubusercontent.com/28218869/98371430-135a3800-2034-11eb-81f0-65ed7fde7c5f.png">
 
 
-## Week Two
-*
+## Week Two: 
+* At the start of week two, we defined our second week-long sprint
 
 ## Challenges
 * One of our main challenges was getting to grips with Phaser, and using it in conjunction with React
@@ -96,4 +120,3 @@ npm test
 ## Successes
 * We all felt a huge sense of achievement when we got Phaser working, and celebrated our team's success
 * We were great at swapping pairs regularly and sharing knowledge, so it felt like we all had a really great knowledge of how our app was working, and got to work on different aspects of the game
-
