@@ -4,6 +4,8 @@ This is our final project at Northcoders. In just over 2 weeks, we built a game.
 
 Play our game [here]()
 
+Check out our Game Design Document [here]()
+
 Find our hosted back end [here]()
 
 Check out our final presentation slides [here]()
@@ -29,7 +31,7 @@ Before getting started and settling on the idea for our final project, our team 
 * When we had agreed our objectives, we defined the idea for our app
 * We wrote user stories and added them to a trello board
 * With the idea in place, we began exploring the possible technologies
-* We decided to use Phaser with React
+* We decided to use Phaser with React, and keep the back end really simple
 * The team began by spiking React in small applications
 * When we felt we had a basic understanding of the technology, we defined our MVP 
 * We defined our first week long sprint, to build our MVP, and began working on tickets in pairs
@@ -96,8 +98,9 @@ I want to see a landing page where I can enter a name
 ## Week One: MVP
 * By the end of week one, we were thrilled to reach our MVP! Although it's safe to say we were knackered
 * We had a sprite that could run around in our game and a dialog box that would pop up and allow the player to help NCPs
+* We had a really simple back end, hosted on Heroku, that kept track of usernames and scores
+* Our game design document was completed
 * Check out some screenshots of our game by the end of week 1:
-
 
 * Player enters a username and presses play
 <img width="1340" alt="Screenshot 2020-11-06 at 13 17 26" src="https://user-images.githubusercontent.com/28218869/98370650-cfb2fe80-2032-11eb-887c-9b3d3332c864.png">
@@ -120,9 +123,11 @@ I want to see a landing page where I can enter a name
 
 ## Challenges
 * One of our main challenges was getting to grips with Phaser, and using it in conjunction with React
+* Because we chose to use tech that was not part of the Nothcoders curriculum, we were unable to ask for help when we ran into problems
 * We faced a few teething issues with tiled, and required a few iterations in order to get our layers how we wanted them
 * We also came into trouble when merging our branches, due to the fact that Phaser needs to be written in one huge file
 
 ## Successes
 * We all felt a huge sense of achievement when we got Phaser working, and celebrated our team's success
+* Being unable to ask for help with using Phaser greatly improved our problem-solving and de-bugging skills
 * We were great at swapping pairs regularly and sharing knowledge, so it felt like we all had a really great knowledge of how our app was working, and got to work on different aspects of the game
