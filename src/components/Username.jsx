@@ -19,30 +19,54 @@ const InfoDiv = styled.div`
 
 class Username extends Component {
 
-  handleSubmit = (event) => {
+  state = {
+    user: ''
+  }
+
+  handleChange = (event) => {
     event.preventDefault()
    let username = event.target.value
+   this.setState({user: username})
     this.props.setUser(username)
-    
+    }
 
+  postUser = (username) => {
+    console.log('post user')
+    fetch('https://helpers-game-backend.herokuapp.com/playerlist', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: username
+      })
+    })
+    .then((res) => res.json())
+    .then((players) => {
+      console.log(players)
+    })
+  }
+
+  handleSubmit = (event) => {
+    event.preventDefault()
+    console.log('handle submit')
+    this.postUser(this.state.user)
   }
 
   render() {
     return (
       <div className='username-container'>
-        
-        
         <HomeTitle>NC HELPER!</HomeTitle>
         <HomeTitle>A GAME ABOUT KINDNESS</HomeTitle>
         <i class="fas fa-medkit"></i>
         <InfoDiv>
         <span>Enter username: </span>
-        <form onChange={this.handleSubmit}>
+        <form onChange={this.handleChange} onSubmit={this.handleSubmit}>
         <input type='text' name='username'  ></input>
-        </form>
         <Link to='/tutorial'>
         <input type='submit'></input>
         </Link>
+         </form>
         </InfoDiv>
       </div>
     );
