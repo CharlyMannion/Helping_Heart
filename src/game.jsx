@@ -132,28 +132,28 @@ class Game extends Component {
   outskirtTrees.setCollisionByProperty({ collides: true });
 
     //adding sprite locations
-    const spawnPoint = map.findObject(
+     const spriteLocation = (objectName) => {
+     return map.findObject(
       "Objects",
-      (obj) => obj.name === "Spawn Point"
+      (obj) => obj.name === objectName
     );
+   }  
+
+    const spawnPoint = spriteLocation('Spawn Point')
     this.player = this.physics.add.sprite(spawnPoint.x, spawnPoint.y, "dude");
 
-    const villageSpawn = map.findObject(
-      "Objects",
-      (obj) => obj.name === "Villiage NPC"
-    );
+    const villageSpawn = spriteLocation('Villiage NPC')
 
-    const forestSpawn = map.findObject(
-      "Objects",
-      (obj) => obj.name === "Forest NPC"
-    );
+    const forestSpawn = spriteLocation('Forest NPC')
 
-    const parkSpawn = map.findObject(
-      "Objects",
-      (obj) => obj.name === "Park NPC"
-    );
+    const parkSpawn = spriteLocation('Park NPC')
 
+    const supermarketSpawn = spriteLocation('Supermarket NPC')
+    
+    const oldForestSpawn = spriteLocation('Old forest NPC')
 
+    const graveyardSpawn = spriteLocation('Graveyard NPC')
+    
     //camera to follow sprite
     const camera = this.cameras.main;
     camera.startFollow(this.player);
@@ -222,6 +222,18 @@ class Game extends Component {
     let spriteJimmy = this.add.npc(parkSpawn.x, parkSpawn.y)
     this.zoneJimmy = this.add.zone(parkSpawn.x, parkSpawn.y).setSize(75, 75)
     this.physics.world.enable(this.zoneJimmy)
+
+    let spriteSammy = this.add.npc(supermarketSpawn.x, supermarketSpawn.y)
+    this.zoneSammy = this.add.zone(supermarketSpawn.x, supermarketSpawn.y).setSize(75, 75)
+    this.physics.world.enable(this.zoneSammy)
+
+    let spriteJohn = this.add.npc(oldForestSpawn.x, oldForestSpawn.y)
+    this.zoneJohn = this.add.zone(oldForestSpawn.x, oldForestSpawn.y).setSize(75, 75)
+    this.physics.world.enable(this.zoneJohn)
+
+    let spriteBen = this.add.npc(graveyardSpawn.x, graveyardSpawn.y)
+    this.zoneBen = this.add.zone(graveyardSpawn.x, graveyardSpawn.y).setSize(75, 75)
+    this.physics.world.enable(this.zoneBen)
 
     //below is where result of clicking button will be added to
     this.print = this.add.text(this.player.x, this.player.y, "CLICKED?");
