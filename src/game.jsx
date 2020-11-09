@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import Phaser from "phaser";
-import tileSet from "./assets/RPGpack_sheet.png";
-import tileJson from "./assets/test_map_1.json";
+import tileSetRPG from './assets/RPGpack_sheet.png'
+import tileSetGraveYard from './assets/TilesetGraveyard.png'
+import tileSetForest from './assets/top-down-forest-tileset.png'
+import map from './assets/Game map.json'
 import UIPlugin from "phaser3-rex-plugins/templates/ui/ui-plugin.js"; // Plug-in for pop up
 import { navigate } from '@reach/router';
 
@@ -74,8 +76,10 @@ class Game extends Component {
   }
 
   preload() {
-    this.load.image("tiles", tileSet);
-    this.load.tilemapTiledJSON("map", tileJson);
+   this.load.image('tilesetRPG', tileSetRPG);
+   this.load.image('tilesetGraveyard', tileSetGraveYard)
+   this.load.image('tilesetForest', tileSetForest)
+   this.load.tilemapTiledJSON('map', map);
     this.load.spritesheet("dude", "https://i.imgur.com/0x8P9a6.png", {
       frameWidth: 16,
       frameHeight: 24,
@@ -100,9 +104,39 @@ class Game extends Component {
     let overlapping = false;
     let dialog = undefined;
     // Set up Tile Map with Collision
-    const tileset = map.addTilesetImage("RPGpack_sheet", "tiles");
-    const floorLayer = map.createStaticLayer("Floor", tileset, 0, 0);
-    const treeLayer = map.createStaticLayer("Trees", tileset, 0, 0);
+   const addTilesetRPG = map.addTilesetImage('RPG map', 'tilesetRPG');
+ const addGraveyard = map.addTilesetImage('graveyard', 'tilesetGraveyard')
+ const addOldForest = map.addTilesetImage('top-down-forest-tileset', 'tilesetForest')
+  
+//  const tileLayer = map.createStaticLayer('Floor', addTilesetRPG, 0, 0);
+const outskirts = map.createStaticLayer('Floor outskirts' , addTilesetRPG, 0, 0);
+const outskirtTrees = map.createStaticLayer('Floor outskirts trees' , addTilesetRPG, 0, 0);
+
+  const floorLayer = map.createStaticLayer('Floor', addTilesetRPG, 0, 0);
+  const floorLayer2 = map.createStaticLayer('Floor Old forest', addOldForest, 0, 0);
+  const floorLayer3 =  map.createStaticLayer('Floor Graveyard', addGraveyard, 0, 0);
+ 
+
+  const rpgCollision = map.createStaticLayer('Collision', addTilesetRPG, 0, 0);
+  const oldForestCollision = map.createStaticLayer('Collision Old forest', addOldForest, 0, 0);
+  const graveyardCollision = map.createStaticLayer('Collision Graveyard', addGraveyard, 0, 0);
+  const graveyardCollisionForest = map.createStaticLayer('Collision Graveyard forest-set', addOldForest, 0, 0);
+
+  
+
+  const houseBricks = map.createStaticLayer('House bricks', addTilesetRPG, 0, 0);
+  const forestHouse = map.createStaticLayer('Forest house', addTilesetRPG, 0, 0);
+  const forestHouseFeatures = map.createStaticLayer('Forest house features', addTilesetRPG, 0, 0);
+  const decoration = map.createStaticLayer('Decoration', addGraveyard, 0, 0);
+
+  rpgCollision.setCollisionByProperty({ collides: true });
+  oldForestCollision.setCollisionByProperty({ collides: true });
+  graveyardCollision.setCollisionByProperty({ collides: true });
+  graveyardCollisionForest.setCollisionByProperty({ collides: true });
+  forestHouseFeatures.setCollisionByProperty({ collides: true });
+    decoration.setCollisionByProperty({ collides: true });
+    houseBricks.setCollisionByProperty({ collides: true });
+    outskirtTrees.setCollisionByProperty({ collides: true });
 
     //adding the sprite
     const spawnPoint = map.findObject(
@@ -116,10 +150,15 @@ class Game extends Component {
     camera.startFollow(this.player);
 
     //adding collision
-    floorLayer.setCollisionByProperty({ collides: true });
-    treeLayer.setCollisionByProperty({ collides: true });
-    this.physics.add.collider(this.player, floorLayer);
-    this.physics.add.collider(this.player, treeLayer);
+    this.physics.add.collider(this.player, rpgCollision)
+  this.physics.add.collider(this.player, oldForestCollision)
+  this.physics.add.collider(this.player, graveyardCollision)
+  this.physics.add.collider(this.player, graveyardCollisionForest)
+  this.physics.add.collider(this.player,forestHouseFeatures)
+  this.physics.add.collider(this.player, decoration)
+
+this.physics.add.collider(this.player, houseBricks)
+this.physics.add.collider(this.player, outskirtTrees)
 
     //creating cursors to move
     this.cursors = this.input.keyboard.createCursorKeys();
