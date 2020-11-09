@@ -103,40 +103,33 @@ class Game extends Component {
     // Set default variables
     let overlapping = false;
     let dialog = undefined;
-    // Set up Tile Map with Collision
-   const addTilesetRPG = map.addTilesetImage('RPG map', 'tilesetRPG');
- const addGraveyard = map.addTilesetImage('graveyard', 'tilesetGraveyard')
- const addOldForest = map.addTilesetImage('top-down-forest-tileset', 'tilesetForest')
-  
-//  const tileLayer = map.createStaticLayer('Floor', addTilesetRPG, 0, 0);
-const outskirts = map.createStaticLayer('Floor outskirts' , addTilesetRPG, 0, 0);
-const outskirtTrees = map.createStaticLayer('Floor outskirts trees' , addTilesetRPG, 0, 0);
-
+    // creating the layers of the map
+  const addTilesetRPG = map.addTilesetImage('RPG map', 'tilesetRPG');
+  const addGraveyard = map.addTilesetImage('graveyard', 'tilesetGraveyard')
+  const addOldForest = map.addTilesetImage('top-down-forest-tileset', 'tilesetForest')
+  const outskirts = map.createStaticLayer('Floor outskirts' , addTilesetRPG, 0, 0);
+  const outskirtTrees = map.createStaticLayer('Floor outskirts trees' , addTilesetRPG, 0, 0);
   const floorLayer = map.createStaticLayer('Floor', addTilesetRPG, 0, 0);
   const floorLayer2 = map.createStaticLayer('Floor Old forest', addOldForest, 0, 0);
   const floorLayer3 =  map.createStaticLayer('Floor Graveyard', addGraveyard, 0, 0);
- 
-
   const rpgCollision = map.createStaticLayer('Collision', addTilesetRPG, 0, 0);
   const oldForestCollision = map.createStaticLayer('Collision Old forest', addOldForest, 0, 0);
   const graveyardCollision = map.createStaticLayer('Collision Graveyard', addGraveyard, 0, 0);
   const graveyardCollisionForest = map.createStaticLayer('Collision Graveyard forest-set', addOldForest, 0, 0);
-
-  
-
   const houseBricks = map.createStaticLayer('House bricks', addTilesetRPG, 0, 0);
   const forestHouse = map.createStaticLayer('Forest house', addTilesetRPG, 0, 0);
   const forestHouseFeatures = map.createStaticLayer('Forest house features', addTilesetRPG, 0, 0);
   const decoration = map.createStaticLayer('Decoration', addGraveyard, 0, 0);
 
+  //seting the collision property of certain created layer to true
   rpgCollision.setCollisionByProperty({ collides: true });
   oldForestCollision.setCollisionByProperty({ collides: true });
   graveyardCollision.setCollisionByProperty({ collides: true });
   graveyardCollisionForest.setCollisionByProperty({ collides: true });
   forestHouseFeatures.setCollisionByProperty({ collides: true });
-    decoration.setCollisionByProperty({ collides: true });
-    houseBricks.setCollisionByProperty({ collides: true });
-    outskirtTrees.setCollisionByProperty({ collides: true });
+  decoration.setCollisionByProperty({ collides: true });
+  houseBricks.setCollisionByProperty({ collides: true });
+  outskirtTrees.setCollisionByProperty({ collides: true });
 
     //adding the sprite
     const spawnPoint = map.findObject(
@@ -149,16 +142,15 @@ const outskirtTrees = map.createStaticLayer('Floor outskirts trees' , addTileset
     const camera = this.cameras.main;
     camera.startFollow(this.player);
 
-    //adding collision
-    this.physics.add.collider(this.player, rpgCollision)
+    //adding collision to the player sprite in relation to each layer
+  this.physics.add.collider(this.player, rpgCollision)
   this.physics.add.collider(this.player, oldForestCollision)
   this.physics.add.collider(this.player, graveyardCollision)
   this.physics.add.collider(this.player, graveyardCollisionForest)
   this.physics.add.collider(this.player,forestHouseFeatures)
-  this.physics.add.collider(this.player, decoration)
-
-this.physics.add.collider(this.player, houseBricks)
-this.physics.add.collider(this.player, outskirtTrees)
+  this.physics.add.collider(this.player, decoration) 
+  this.physics.add.collider(this.player, houseBricks)
+  this.physics.add.collider(this.player, outskirtTrees)
 
     //creating cursors to move
     this.cursors = this.input.keyboard.createCursorKeys();
