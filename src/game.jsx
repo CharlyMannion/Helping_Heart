@@ -174,13 +174,27 @@ class Game extends Component {
     this.print = this.add.text(this.player.x, this.player.y, "CLICKED?");
 
     // adds a label that holds each option "button"
-    let createButton = function (scene, text) {
-      return scene.rexUI.add.label({
-        background: scene.rexUI.add.roundRectangle(0, 0, 0, 0, 20, 0x5e92f3),
-        text: scene.add.text(0, 0, text, {
-          fontSize: "18px",
-        }),
-      });
+    let createButton = function (scene, text, name) {
+      if(text !== ''){
+        return scene.rexUI.add.label({
+          background: scene.rexUI.add.roundRectangle(0, 0, 0, 0, 20, 0x5e92f3),
+          text: scene.add.text(0, 0, text, {
+            fontSize: "12px",
+          }),
+          name: name
+        });
+      }
+      else{
+        return scene.rexUI.add.label({
+          background: scene.rexUI.add.roundRectangle(0, 0, 0, 0, 0, 0xf57f17),
+          text: scene.add.text(0, 0, text, {
+            fontSize: "12px",
+          }),
+          name: name
+        });
+      }
+      
+    
     };
 
     this.player.on("overlapstart", function () {
@@ -188,7 +202,7 @@ class Game extends Component {
       overlapping = true;
       // console.log("overlap start");
       console.time("overlap");
-      updateScore();
+      
     });
     this.player.on("overlapend", function () {
       this.body.debugBodyColor = 0x00ff33;
@@ -221,7 +235,7 @@ class Game extends Component {
     };
 
     // creates a dialog box with buttons inside it
-    this.createDialog = (scene, x, y, scenarioText, zone, buttonText1, buttonText2, nextScenario) => {
+    this.createDialog = (scene, x, y, scenarioText, zone, buttonText1, buttonText2, nextScenario1, nextScenario2, end) => {
       let dialog = scene.rexUI.add
         .dialog({
           x: x,
@@ -244,16 +258,15 @@ class Game extends Component {
               0xbc5100
             ),
             text: scene.add.text(0, 0, scenarioText, {
-              fontSize: "20px",
+              fontSize: "14px",
             }),
           }),
           // calls createButton to make two labels within dialog box
-          actions: [createButton(this, buttonText1), createButton(this, buttonText2)],
+          actions: [createButton(this, buttonText1, 'b1'), createButton(this, buttonText2, 'b2')],
           actionsAlign: "left",
           space: {
-            title: 20,
-            action: 10,
-
+            title: 30,
+            action: 50,
             left: 15,
             right: 15,
             top: 10,
@@ -264,14 +277,24 @@ class Game extends Component {
         .on(
           "button.click",
           function (button, groupName, index, pointer, event) {
+            console.log(button, 'button')
             this.print.text += "\n true \n";
             // when you click on a "button", the dialog box should disappear
-          
-           scenarioTree[nextScenario]
-
-
+              if(button.name === 'b1'){
+                if(nextScenario1 !== null) {
+                scenarioTree[nextScenario1].call(this, zone)
+                }
+              }
+              if(button.name === 'b2'){
+                if(nextScenario2 !== null) {
+                scenarioTree[nextScenario2].call(this, zone)
+                }
+              }
             dialog.scaleDownDestroy(100);
-            zone.destroy();
+            if(end){
+              updateScore();
+              zone.destroy();
+            }
           },
           this
         )
@@ -293,11 +316,10 @@ class Game extends Component {
    
       if (overlapping && dialog === undefined) {
         if (zone === this.zoneDave) {
-        // this.createDialog(this, 2243.10344827586, 4050, 'Can you help Dave?', zone, 'OK', 'NOT OK').setScrollFactor(0);
-        scenarioTree.start
+        scenarioTree.startDave.call(this, zone)
 
         } else if (zone === this.zoneFrank) {
-          this.createDialog(this, 2243.10344827586, 4050, 'Can you help Frank?', zone, 'OK', 'NOT OK').setScrollFactor(0);
+          scenarioTree.startFrank.call(this, zone)
         }
         // conditional logic below appears to be unecessary
         // } else if (dialog !== undefined) {
@@ -338,11 +360,9 @@ class Game extends Component {
       }
     };
 
-    // if the space bar is down, call the interact function, which pops up the dialog box
+    // if the space bar is down, call the interact function, which pops up the dialog box    
     if (this.cursors.spaceBar.isDown) {
-      
       this.interact(this.currentZone);
-
     }
     if (this.cursors.tab.isDown) {
       this.removeDialog();
@@ -370,6 +390,14 @@ export default Game;
 
 
 const scenarioTree = {
-  'start': this.createDialog(this, 2243.10344827586, 4050, 'Can you help Dave?', zone, 'OK', 'NOT OK', 'dog').setScrollFactor(0),
-  'dog': this.createDialog(this, 2243.10344827586, 4050, 'Will you find my dog?', zone, 'YES', 'NO').setScrollFactor(0)
+  'startDave': function(zone) {this.createDialog(this, 2243.10344827586, 4050, 'Will you help Dave?', zone, 'Yes', 'No', 'dog', null, false).setScrollFactor(0)},
+  'dog': function(zone) {this.createDialog(this, 2243.10344827586, 4050, 'Can you find my dog?', zone, 'OK', 'No', 'lookDog', null, false).setScrollFactor(0)},
+  'lookDog': function(zone) {this.createDialog(this, 2243.10344827586, 4050, 'Where do you look?', zone, 'tree', 'pond', 'tree', 'pond', false).setScrollFactor(0)},
+  'tree': function(zone) {this.createDialog(this, 2243.10344827586, 4050, 'You find the dog', zone, 'continue', '', null, null, true).setScrollFactor(0)},
+  'pond': function(zone) {this.createDialog(this, 2243.10344827586, 4050, "It's a dog, not a duck", zone, 'continue', '', 'lookDog', false).setScrollFactor(0)},
+  'startFrank': function(zone) {this.createDialog(this, 2243.10344827586, 4050, 'Will you help Frank?', zone, 'Yes', 'No', 'lonely', null, false).setScrollFactor(0)},
+  'lonely': function(zone) {this.createDialog(this, 2243.10344827586, 4050, "I haven't seen anybody in weeks, will you chat to me?", zone, 'Yes', 'No', 'chat', null, false).setScrollFactor(0)},
+  'chat': function(zone) {this.createDialog(this, 2243.10344827586, 4050, "What do you chat to Frank about?", zone, 'Your rock collection', 'Covid', 'rocks', 'covid', false).setScrollFactor(0)},
+  'rocks': function(zone) {this.createDialog(this, 2243.10344827586, 4050, "Frank likes rocks, he's cheered right up", zone, 'continue', '', null, null, true).setScrollFactor(0)},
+  'covid': function(zone) {this.createDialog(this, 2243.10344827586, 4050, "Nobody likes covid. Frank is still sad", zone, 'continue', '', null, null, false).setScrollFactor(0)},
 }
