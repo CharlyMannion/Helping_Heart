@@ -221,7 +221,7 @@ class Game extends Component {
     };
 
     // creates a dialog box with buttons inside it
-    this.createDialog = (scene, x, y) => {
+    this.createDialog = (scene, x, y, scenarioText, zone, buttonText1, buttonText2, nextScenario) => {
       let dialog = scene.rexUI.add
         .dialog({
           x: x,
@@ -243,12 +243,12 @@ class Game extends Component {
               20,
               0xbc5100
             ),
-            text: scene.add.text(0, 0, "Can you help me?", {
+            text: scene.add.text(0, 0, scenarioText, {
               fontSize: "20px",
             }),
           }),
           // calls createButton to make two labels within dialog box
-          actions: [createButton(this, "OK"), createButton(this, "NOT OK")],
+          actions: [createButton(this, buttonText1), createButton(this, buttonText2)],
           actionsAlign: "left",
           space: {
             title: 20,
@@ -266,7 +266,12 @@ class Game extends Component {
           function (button, groupName, index, pointer, event) {
             this.print.text += "\n true \n";
             // when you click on a "button", the dialog box should disappear
+          
+           scenarioTree[nextScenario]
+
+
             dialog.scaleDownDestroy(100);
+            zone.destroy();
           },
           this
         )
@@ -284,9 +289,16 @@ class Game extends Component {
     };
 
     // interact function allows a dialog box to be created only if the sprite and zone are overlapping
-    this.interact = () => {
+    this.interact = (zone) => {
+   
       if (overlapping && dialog === undefined) {
-        this.createDialog(this, 2243.10344827586, 4050).setScrollFactor(0);
+        if (zone === this.zoneDave) {
+        // this.createDialog(this, 2243.10344827586, 4050, 'Can you help Dave?', zone, 'OK', 'NOT OK').setScrollFactor(0);
+        scenarioTree.start
+
+        } else if (zone === this.zoneFrank) {
+          this.createDialog(this, 2243.10344827586, 4050, 'Can you help Frank?', zone, 'OK', 'NOT OK').setScrollFactor(0);
+        }
         // conditional logic below appears to be unecessary
         // } else if (dialog !== undefined) {
         //   dialog.scaleDownDestory(100);
@@ -328,7 +340,9 @@ class Game extends Component {
 
     // if the space bar is down, call the interact function, which pops up the dialog box
     if (this.cursors.spaceBar.isDown) {
-      this.interact();
+      
+      this.interact(this.currentZone);
+
     }
     if (this.cursors.tab.isDown) {
       this.removeDialog();
@@ -346,9 +360,16 @@ class Game extends Component {
       this.currentZone = getZone();
     } else if (!touching && wasTouching) {
       this.player.emit("overlapend");
-      this.currentZone.destroy();
+      
     }
   }
 }
 
 export default Game;
+
+
+
+const scenarioTree = {
+  'start': this.createDialog(this, 2243.10344827586, 4050, 'Can you help Dave?', zone, 'OK', 'NOT OK', 'dog').setScrollFactor(0),
+  'dog': this.createDialog(this, 2243.10344827586, 4050, 'Will you find my dog?', zone, 'YES', 'NO').setScrollFactor(0)
+}
