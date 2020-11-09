@@ -26,7 +26,7 @@ class App extends Component {
       <Username path='/' setUser={this.setUser} />
       <Tutorial path='/tutorial' username={this.state.user}/>
       <Game path='/game' name={this.state.user}/>
-      <WinPage path='/end' />
+      <WinPage path='/end' name={this.state.user}/>
       <ErrorDisplay default status={404} message='this page does not exist' />
       </Router>
     </div>
