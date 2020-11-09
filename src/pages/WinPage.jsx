@@ -22,7 +22,6 @@ class WinPage extends Component {
       .then((res) => res.json())
       .then((players) => {
         this.setState({ users: players, isLoading: false, error: null });
-        console.log(players, "POST REQ");
       })
       .catch(({ response }) => {
         this.setState({
