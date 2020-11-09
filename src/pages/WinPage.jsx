@@ -65,7 +65,7 @@ class WinPage extends Component {
         <h1>Well Done!</h1>
         <ul>
           {users.map((user) => {
-            return <li>{user.name}</li>;
+            return <li key={user.name}>{user.name}</li>;
           })}
         </ul>
       </div>
