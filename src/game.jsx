@@ -3,6 +3,7 @@ import Phaser from "phaser";
 import tileSet from "./assets/RPGpack_sheet.png";
 import tileJson from "./assets/test_map_1.json";
 import UIPlugin from "phaser3-rex-plugins/templates/ui/ui-plugin.js"; // Plug-in for pop up
+import { navigate } from '@reach/router';
 
 class NPCGameObject extends Phaser.GameObjects.Image {
   constructor(scene, x, y) {
@@ -23,6 +24,7 @@ class NPCPlugin extends Phaser.Plugins.BasePlugin {
 }
 
 class Game extends Component {
+
   componentDidMount() {
     this.game = new Phaser.Game({
       type: Phaser.AUTO,
@@ -202,12 +204,13 @@ class Game extends Component {
     this.physics.add.overlap(this.player, this.zoneFrank);
     this.physics.add.overlap(this.player, this.zoneDave);
 
-    // Score Display and Declaring win state
+    // Score and Winning
+    // Set up the score variable and display that to the screen
     this.score = 0;
     this.scoreDisplay = this.add
       .text(0, 0, `score: ${this.score}`, { fontSize: "32px" })
       .setScrollFactor(0);
-
+    // Run this Function to increase score by one then check if the score has reached 5 or not
     const updateScore = () => {
       this.score += 1;
       this.scoreDisplay.setText(`score: ${this.score}`);
@@ -215,9 +218,12 @@ class Game extends Component {
         this.finishGame();
       }
     };
+    // Run this fucntion to end the game
     this.finishGame = () => {
       this.physics.pause();
       this.player.setTint(0xff0000);
+      navigate('/end');
+      this.sys.game.destroy(true);
     };
 
     // creates a dialog box with buttons inside it
