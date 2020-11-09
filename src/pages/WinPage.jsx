@@ -37,7 +37,7 @@ class WinPage extends Component {
       .then((res) => res.json())
       .then((players) => {
         console.log(players);
-        this.setState({ users: players, isLoading: false });
+        this.setState({ users: players, isLoading: false, error: null });
         console.log(this.state.users, "STATE");
       })
       .catch(({response}) => {
