@@ -131,12 +131,28 @@ class Game extends Component {
   houseBricks.setCollisionByProperty({ collides: true });
   outskirtTrees.setCollisionByProperty({ collides: true });
 
-    //adding the sprite
+    //adding sprite locations
     const spawnPoint = map.findObject(
       "Objects",
       (obj) => obj.name === "Spawn Point"
     );
     this.player = this.physics.add.sprite(spawnPoint.x, spawnPoint.y, "dude");
+
+    const villageSpawn = map.findObject(
+      "Objects",
+      (obj) => obj.name === "Villiage NPC"
+    );
+
+    const forestSpawn = map.findObject(
+      "Objects",
+      (obj) => obj.name === "Forest NPC"
+    );
+
+    const parkSpawn = map.findObject(
+      "Objects",
+      (obj) => obj.name === "Park NPC"
+    );
+
 
     //camera to follow sprite
     const camera = this.cameras.main;
@@ -191,17 +207,21 @@ class Game extends Component {
     });
 
     //Create NPCs
-    let spriteDave = this.add.npc(spawnPoint.x + 50, spawnPoint.y + 50);
+    let spriteDave = this.add.npc(villageSpawn.x, villageSpawn.y);
     this.zoneDave = this.add
-      .zone(spawnPoint.x + 50, spawnPoint.y + 50)
+      .zone(villageSpawn.x, villageSpawn.y)
       .setSize(75, 75);
     this.physics.world.enable(this.zoneDave);
 
-    let spriteFrank = this.add.npc(spawnPoint.x + 50, spawnPoint.y + 150);
+    let spriteFrank = this.add.npc(forestSpawn.x , forestSpawn.y);
     this.zoneFrank = this.add
-      .zone(spawnPoint.x + 50, spawnPoint.y + 150)
+      .zone(forestSpawn.x, forestSpawn.y)
       .setSize(75, 75);
     this.physics.world.enable(this.zoneFrank);
+
+    let spriteJimmy = this.add.npc(parkSpawn.x, parkSpawn.y)
+    this.zoneJimmy = this.add.zone(parkSpawn.x, parkSpawn.y).setSize(75, 75)
+    this.physics.world.enable(this.zoneJimmy)
 
     //below is where result of clicking button will be added to
     this.print = this.add.text(this.player.x, this.player.y, "CLICKED?");
