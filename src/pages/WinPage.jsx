@@ -4,55 +4,39 @@ import ErrorDisplay from "../components/ErrorDisplay";
 
 class WinPage extends Component {
   state = {
-    user: "",
     users: [],
     isLoading: true,
   };
 
-  // postUser = (username) => {
-  //   console.log('post user')
-  //   fetch('https://helpers-game-backend.herokuapp.com/playerlist', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json'
-  //     },
-  //     body: JSON.stringify({
-  //       name: username
-  //     })
-  //   })
-  //   .then((res) => res.json())
-  //   .then((players) => {
-  //     console.log(players)
-  //   })
-  // }
-
-  getUsers = () => {
-    console.log("get user");
+  postUser = () => {
+    console.log("post user");
     fetch("https://helpers-game-backend.herokuapp.com/playerlist", {
-      method: "GET",
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
+      body: JSON.stringify({
+        name: this.props.name,
+      }),
     })
       .then((res) => res.json())
       .then((players) => {
-        console.log(players);
         this.setState({ users: players, isLoading: false, error: null });
-        console.log(this.state.users, "STATE");
+        console.log(players, "POST REQ");
       })
-      .catch(({response}) => {
+      .catch(({ response }) => {
         this.setState({
-            error: {
-              response
-              // status: response.status,
-              // message: response.data.msg,
-            }
-        })
-    });
+          error: {
+            response,
+            // status: response.status,
+            // message: response.data.msg,
+          },
+        });
+      });
   };
 
   componentDidMount() {
-    this.getUsers();
+    this.postUser();
   }
 
   render() {

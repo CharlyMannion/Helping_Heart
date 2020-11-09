@@ -22,6 +22,7 @@ const InfoDiv = styled.div`
 class Username extends Component {
   state = {
     user: "",
+    error: null,
   };
 
   handleChange = (event) => {
@@ -29,32 +30,6 @@ class Username extends Component {
     let username = event.target.value;
     this.setState({ user: username });
     this.props.setUser(username);
-  };
-
-  postUser = (username) => {
-    console.log("post user");
-    fetch("https://helpers-game-backend.herokuapp.com/playerlist", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name: username,
-      }),
-    })
-      .then((res) => res.json())
-      .then((players) => {
-        console.log(players);
-      })
-      .catch(({ response }) => {
-        this.setState({
-          error: {
-            response,
-            // status: response.status,
-            // message: response.data.msg,
-          },
-        });
-      });
   };
 
   handleSubmit = (event) => {
