@@ -96,8 +96,14 @@ class Game extends Component {
     this.load.image('tilesetForest', tileSetForest)
     this.load.tilemapTiledJSON('map', map);
 
-    this.load.image('heart0', 'https://i.imgur.com/qOPtUSU.png')
-    this.load.image('heart1', 'https://i.imgur.com/TLqQ8li.gif')
+    this.load.image('heart0', 'https://i.imgur.com/G45CBD5.png')
+    this.load.image('heart1', 'https://i.imgur.com/pjhXAxP.png')
+    this.load.image('heart2', 'https://i.imgur.com/ZQ5sdvb.png')
+    this.load.image('heart3', 'https://i.imgur.com/Zm9lnjS.png')
+    this.load.image('heart4', 'https://i.imgur.com/RxgFjwT.png')
+    this.load.image('heart5', 'https://i.imgur.com/9j35Q2K.png')
+    this.load.image('heart6', 'https://i.imgur.com/rGptaej.png')
+    this.load.spritesheet('heartsheet', 'https://i.imgur.com/FmX2Cjz.png', {frameWidth : 35, frameHeight: 35})
 
     this.load.spritesheet("dude", "https://i.imgur.com/0x8P9a6.png", {
       frameWidth: 16,
@@ -307,7 +313,7 @@ class Game extends Component {
     this.score = 0;
     this.scoreDisplay = this.add.sprite(0,0,`heart${this.score}`).setScrollFactor(0)
     this.scoreDisplay.x = 50;
-    
+    this.scoreDisplay.y = 50;
     // this.add
     //   .image('heart', 0, 0)
     //   .setScrollFactor(0);
@@ -316,6 +322,7 @@ class Game extends Component {
       this.score += 1;
       this.scoreDisplay = this.add.sprite(0,0,`heart${this.score}`).setScrollFactor(0)
       this.scoreDisplay.x = 50;
+      this.scoreDisplay.y = 50;
       if (this.score === 5) {
         this.finishGame();
       }
