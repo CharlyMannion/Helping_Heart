@@ -8,6 +8,7 @@ import UIPlugin from "phaser3-rex-plugins/templates/ui/ui-plugin.js"; // Plug-in
 import scenarioTree from "./Game_Components/scenario_tree"
 import { navigate } from '@reach/router';
 import menuSelect from './assets/sounds/Menu Select.mp3'
+import menuSelect2 from './assets/sounds/Menu Select 2.mp3'
 
 class NPCGameObject extends Phaser.GameObjects.Image {
   constructor(scene, x, y) {
@@ -83,6 +84,7 @@ class Game extends Component {
   preload() {
     // Sound Effects Preload
     this.load.audio('menuClick', menuSelect, { instances: 1 })
+    this.load.audio('menuClick2', menuSelect2, { instances: 1 })
 
     this.load.image('tilesetRPG', tileSetRPG);
     this.load.image('tilesetGraveyard', tileSetGraveYard)
@@ -303,7 +305,7 @@ class Game extends Component {
     const updateScore = () => {
       this.score += 1;
       this.scoreDisplay.setText(`score: ${this.score}`);
-      if (this.score === 1) {
+      if (this.score === 5) {
         this.finishGame();
       }
     };
@@ -359,21 +361,24 @@ class Game extends Component {
           "button.click",
           function (button, groupName, index, pointer, event) {
             this.print.text += "\n true \n";
-            scene.sound.play('menuClick')
+
             // when you click on a "button", the dialog box should disappear
             if (button.name === 'b1') {
               if (nextScenario1 !== null) {
+                scene.sound.play('menuClick');
                 scenarioTree[nextScenario1].call(this, zone)
               }
             }
             if (button.name === 'b2') {
               if (nextScenario2 !== null) {
+                scene.sound.play('menuClick');
                 scenarioTree[nextScenario2].call(this, zone)
               }
             }
             dialog.scaleDownDestroy(100);
             if (end) {
               updateScore();
+              scene.sound.play('menuClick2');
               zone.destroy();
             }
           },
