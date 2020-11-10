@@ -11,5 +11,4 @@ margin: 0% auto;
   color: white;
   opacity: 90%;
 `
-
 export default TutorialContainer;

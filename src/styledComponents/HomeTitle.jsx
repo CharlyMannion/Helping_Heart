@@ -7,5 +7,4 @@ color: white;
 display: flex;
 flex-direction: column;
 `
-
 export default HomeTitle;

@@ -7,5 +7,4 @@ margin-top: 20%;
 line-height: 40px;
 font-size: 1.5rem;
 `
-
 export default ErrorContainer;

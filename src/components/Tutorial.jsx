@@ -4,7 +4,6 @@ import styled from 'styled-components'
 import TutorialContainer from '../styledComponents/TutorialContainer';
 import TutorialHeader from '../styledComponents/TutorialHeader';
 import TutorialHowToPlayContainer from '../styledComponents/TutorialHowToPlayContainer'
-// import TutorialPlayButton from '../styledComponents/TutorialHowToPlayContainer'
 
 const TutorialPlayButton = styled.button`
 border-radius: 10px;
@@ -13,12 +12,10 @@ border-radius: 10px;
 `
 
 const Tutorial = (props) => {
-
     return (
       <TutorialContainer >
         <TutorialHeader>Tutorial</TutorialHeader>
         <TutorialHowToPlayContainer>
-          
           <p className='tutorial-paragraph'>Welcome {props.username}!</p>
           <Link to='/game'>
           <TutorialPlayButton>PLAY!</TutorialPlayButton>
@@ -26,7 +23,6 @@ const Tutorial = (props) => {
          </TutorialHowToPlayContainer>
       </TutorialContainer>
     );
-  
 }
 
 export default Tutorial;

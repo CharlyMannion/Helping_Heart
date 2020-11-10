@@ -9,5 +9,4 @@ width: 80%;
   font-family: 'VT323', monospace;
   font-size: 1.5rem;
 `
-
 export default TutorialHowToPlayContainer;
