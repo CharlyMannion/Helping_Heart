@@ -31,7 +31,7 @@ class Game extends Component {
   componentDidMount() {
     this.game = new Phaser.Game({
       type: Phaser.AUTO,
-      width: 500,
+      width: 700,
       height: 500,
       physics: {
         default: "arcade",
@@ -72,11 +72,14 @@ class Game extends Component {
       <div className="game-container">
         <h1>NC Helper!</h1>
         <h2>{this.props.name}</h2>
+        
       </div>
     );
   }
 
   preload() {
+   
+
    this.load.image('tilesetRPG', tileSetRPG);
    this.load.image('tilesetGraveyard', tileSetGraveYard)
    this.load.image('tilesetForest', tileSetForest)
@@ -96,6 +99,10 @@ class Game extends Component {
   }
 
   create() {
+
+            
+            
+
     const map = this.make.tilemap({
       key: "map",
       tileWidth: 32,
@@ -451,6 +458,8 @@ class Game extends Component {
       this.player.emit("overlapend");
       
     }
+
+    
   }
 }
 
