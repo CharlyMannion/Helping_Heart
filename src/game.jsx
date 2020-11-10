@@ -34,7 +34,7 @@ class Game extends Component {
   componentDidMount() {
     this.game = new Phaser.Game({
       type: Phaser.AUTO,
-      width: 500,
+      width: 700,
       height: 500,
       physics: {
         default: "arcade",
@@ -78,11 +78,13 @@ class Game extends Component {
       <div className="game-container">
         <h1>NC Helper!</h1>
         <h2>{this.props.name}</h2>
+        
       </div>
     );
   }
 
   preload() {
+
     // Sound Effects Preload
     this.load.audio('menuClick', menuSelect, { instances: 1 })
     this.load.audio('menuClick2', menuSelect2, { instances: 1 })
@@ -92,6 +94,7 @@ class Game extends Component {
     this.load.image('tilesetGraveyard', tileSetGraveYard)
     this.load.image('tilesetForest', tileSetForest)
     this.load.tilemapTiledJSON('map', map);
+
     this.load.spritesheet("dude", "https://i.imgur.com/0x8P9a6.png", {
       frameWidth: 16,
       frameHeight: 24,
@@ -108,7 +111,7 @@ class Game extends Component {
   }
 
   create() {
-    const map = this.make.tilemap({
+   const map = this.make.tilemap({
       key: "map",
       tileWidth: 32,
       tileHeight: 32,
@@ -274,8 +277,6 @@ class Game extends Component {
           name: name
         });
       }
-
-
     };
 
     this.player.on("overlapstart", function () {
@@ -477,6 +478,7 @@ class Game extends Component {
       this.player.emit("overlapend");
 
     }
+
   }
 }
 
