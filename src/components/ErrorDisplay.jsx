@@ -1,21 +1,7 @@
 import React, { Component } from 'react';
 import {Link} from '@reach/router'
-import styled from 'styled-components'
-
-
-const ErrorContainer = styled.div`
-display: flex;
-flex-direction: column;
-margin-top: 20%;
-line-height: 40px;
-font-size: 1.5rem;
-`
-
-const ErrorSpan = styled.span`
-font-family: 'Press Start 2P', cursive;
-  color: white;
-  text-decoration: none;
-`
+import ErrorContainer from "../styledComponents/ErrorContainer"
+import ErrorSpan from "../styledComponents/ErrorSpan"
 
 class ErrorDisplay extends Component {
   render() {

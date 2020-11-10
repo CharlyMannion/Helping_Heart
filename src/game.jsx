@@ -5,6 +5,7 @@ import tileSetGraveYard from './assets/TilesetGraveyard.png'
 import tileSetForest from './assets/top-down-forest-tileset.png'
 import map from './assets/Game map.json'
 import UIPlugin from "phaser3-rex-plugins/templates/ui/ui-plugin.js"; // Plug-in for pop up
+import scenarioTree from "./Game_Components/scenario_tree"
 import { navigate } from '@reach/router';
 
 class NPCGameObject extends Phaser.GameObjects.Image {
@@ -239,13 +240,27 @@ class Game extends Component {
     this.print = this.add.text(this.player.x, this.player.y, "CLICKED?");
 
     // adds a label that holds each option "button"
-    let createButton = function (scene, text) {
-      return scene.rexUI.add.label({
-        background: scene.rexUI.add.roundRectangle(0, 0, 0, 0, 20, 0x5e92f3),
-        text: scene.add.text(0, 0, text, {
-          fontSize: "18px",
-        }),
-      });
+    let createButton = function (scene, text, name) {
+      if(text !== ''){
+        return scene.rexUI.add.label({
+          background: scene.rexUI.add.roundRectangle(0, 0, 0, 0, 20, 0x5e92f3),
+          text: scene.add.text(0, 0, text, {
+            fontSize: "12px",
+          }),
+          name: name
+        });
+      }
+      else{
+        return scene.rexUI.add.label({
+          background: scene.rexUI.add.roundRectangle(0, 0, 0, 0, 0, 0xf57f17),
+          text: scene.add.text(0, 0, text, {
+            fontSize: "12px",
+          }),
+          name: name
+        });
+      }
+      
+    
     };
 
     this.player.on("overlapstart", function () {
@@ -253,7 +268,7 @@ class Game extends Component {
       overlapping = true;
       // console.log("overlap start");
       console.time("overlap");
-      updateScore();
+      
     });
     this.player.on("overlapend", function () {
       this.body.debugBodyColor = 0x00ff33;
@@ -277,7 +292,7 @@ class Game extends Component {
     const updateScore = () => {
       this.score += 1;
       this.scoreDisplay.setText(`score: ${this.score}`);
-      if (this.score === 1) {
+      if (this.score === 5) {
         this.finishGame();
       }
     };
@@ -290,7 +305,7 @@ class Game extends Component {
     };
 
     // creates a dialog box with buttons inside it
-    this.createDialog = (scene, x, y) => {
+    this.createDialog = (scene, x, y, scenarioText, zone, buttonText1, buttonText2, nextScenario1, nextScenario2, end) => {
       let dialog = scene.rexUI.add
         .dialog({
           x: x,
@@ -312,17 +327,16 @@ class Game extends Component {
               20,
               0xbc5100
             ),
-            text: scene.add.text(0, 0, "Can you help me?", {
-              fontSize: "20px",
+            text: scene.add.text(0, 0, scenarioText, {
+              fontSize: "14px",
             }),
           }),
           // calls createButton to make two labels within dialog box
-          actions: [createButton(this, "OK"), createButton(this, "NOT OK")],
+          actions: [createButton(this, buttonText1, 'b1'), createButton(this, buttonText2, 'b2')],
           actionsAlign: "left",
           space: {
-            title: 20,
-            action: 10,
-
+            title: 30,
+            action: 50,
             left: 15,
             right: 15,
             top: 10,
@@ -335,7 +349,21 @@ class Game extends Component {
           function (button, groupName, index, pointer, event) {
             this.print.text += "\n true \n";
             // when you click on a "button", the dialog box should disappear
+              if(button.name === 'b1'){
+                if(nextScenario1 !== null) {
+                scenarioTree[nextScenario1].call(this, zone)
+                }
+              }
+              if(button.name === 'b2'){
+                if(nextScenario2 !== null) {
+                scenarioTree[nextScenario2].call(this, zone)
+                }
+              }
             dialog.scaleDownDestroy(100);
+            if(end){
+              updateScore();
+              zone.destroy();
+            }
           },
           this
         )
@@ -353,9 +381,15 @@ class Game extends Component {
     };
 
     // interact function allows a dialog box to be created only if the sprite and zone are overlapping
-    this.interact = () => {
+    this.interact = (zone) => {
+   
       if (overlapping && dialog === undefined) {
-        this.createDialog(this, 2243.10344827586, 4050).setScrollFactor(0);
+        if (zone === this.zoneDave) {
+        scenarioTree.startDave.call(this, zone)
+
+        } else if (zone === this.zoneFrank) {
+          scenarioTree.startFrank.call(this, zone)
+        }
         // conditional logic below appears to be unecessary
         // } else if (dialog !== undefined) {
         //   dialog.scaleDownDestory(100);
@@ -395,9 +429,9 @@ class Game extends Component {
       }
     };
 
-    // if the space bar is down, call the interact function, which pops up the dialog box
+    // if the space bar is down, call the interact function, which pops up the dialog box    
     if (this.cursors.spaceBar.isDown) {
-      this.interact();
+      this.interact(this.currentZone);
     }
     if (this.cursors.tab.isDown) {
       this.removeDialog();
@@ -415,9 +449,12 @@ class Game extends Component {
       this.currentZone = getZone();
     } else if (!touching && wasTouching) {
       this.player.emit("overlapend");
-      this.currentZone.destroy();
+      
     }
   }
 }
 
 export default Game;
+
+
+

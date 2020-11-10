@@ -1,23 +1,9 @@
 import React, { Component } from "react";
 import { Link } from "@reach/router";
 import helpIcon from "../assets/help-icon.png";
-import styled from "styled-components";
+import InfoDiv from "../styledComponents/InfoDiv";
+import HomeTitle from "../styledComponents/HomeTitle";
 import ErrorDisplay from "../components/ErrorDisplay";
-
-
-const HomeTitle = styled.span`
-  font-family: "Press Start 2P", cursive;
-  font-size: 2.5rem;
-  color: white;
-  display: flex;
-  flex-direction: column;
-`;
-
-const InfoDiv = styled.div`
-  margin-top: 30%;
-  font-family: "Press Start 2P", cursive;
-  color: white;
-`;
 
 class Username extends Component {
   state = {
