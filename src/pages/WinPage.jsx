@@ -1,8 +1,10 @@
 import React, { Component } from "react";
+import { Link } from "@reach/router";
 import Loader from "../components/Loader";
 import ErrorDisplay from "../components/ErrorDisplay";
 import PlayerCard from "../components/PlayerCard";
-import HeaderContainer from "../styledComponents/HeaderContainer"
+import HeaderContainer from "../styledComponents/HeaderContainer";
+import StyledBiggerButton from "../styledComponents/StyledBiggerButton";
 
 class WinPage extends Component {
   state = {
@@ -53,6 +55,10 @@ class WinPage extends Component {
             return <PlayerCard key={user.name} name={user.name}></PlayerCard>;
           })}
         </ul>
+        <br />
+        <Link to="/">
+          <StyledBiggerButton>PLAY AGAIN!</StyledBiggerButton>
+        </Link>
       </div>
     );
   }
