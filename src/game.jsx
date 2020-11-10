@@ -1,9 +1,12 @@
 import React, { Component } from "react";
 import Phaser from "phaser";
-import tileSet from "./assets/RPGpack_sheet.png";
-import tileJson from "./assets/test_map_1.json";
+import tileSetRPG from './assets/RPGpack_sheet.png'
+import tileSetGraveYard from './assets/TilesetGraveyard.png'
+import tileSetForest from './assets/top-down-forest-tileset.png'
+import map from './assets/Game map.json'
 import UIPlugin from "phaser3-rex-plugins/templates/ui/ui-plugin.js"; // Plug-in for pop up
 import scenarioTree from "./Game_Components/scenario_tree"
+import { navigate } from '@reach/router';
 
 class NPCGameObject extends Phaser.GameObjects.Image {
   constructor(scene, x, y) {
@@ -24,6 +27,7 @@ class NPCPlugin extends Phaser.Plugins.BasePlugin {
 }
 
 class Game extends Component {
+
   componentDidMount() {
     this.game = new Phaser.Game({
       type: Phaser.AUTO,
@@ -73,8 +77,10 @@ class Game extends Component {
   }
 
   preload() {
-    this.load.image("tiles", tileSet);
-    this.load.tilemapTiledJSON("map", tileJson);
+   this.load.image('tilesetRPG', tileSetRPG);
+   this.load.image('tilesetGraveyard', tileSetGraveYard)
+   this.load.image('tilesetForest', tileSetForest)
+   this.load.tilemapTiledJSON('map', map);
     this.load.spritesheet("dude", "https://i.imgur.com/0x8P9a6.png", {
       frameWidth: 16,
       frameHeight: 24,
@@ -98,27 +104,70 @@ class Game extends Component {
     // Set default variables
     let overlapping = false;
     let dialog = undefined;
-    // Set up Tile Map with Collision
-    const tileset = map.addTilesetImage("RPGpack_sheet", "tiles");
-    const floorLayer = map.createStaticLayer("Floor", tileset, 0, 0);
-    const treeLayer = map.createStaticLayer("Trees", tileset, 0, 0);
+    // creating the layers of the map
+  const addTilesetRPG = map.addTilesetImage('RPG map', 'tilesetRPG');
+  const addGraveyard = map.addTilesetImage('graveyard', 'tilesetGraveyard')
+  const addOldForest = map.addTilesetImage('top-down-forest-tileset', 'tilesetForest')
+  const outskirts = map.createStaticLayer('Floor outskirts' , addTilesetRPG, 0, 0);
+  const outskirtTrees = map.createStaticLayer('Floor outskirts trees' , addTilesetRPG, 0, 0);
+  const floorLayer = map.createStaticLayer('Floor', addTilesetRPG, 0, 0);
+  const floorLayer2 = map.createStaticLayer('Floor Old forest', addOldForest, 0, 0);
+  const floorLayer3 =  map.createStaticLayer('Floor Graveyard', addGraveyard, 0, 0);
+  const rpgCollision = map.createStaticLayer('Collision', addTilesetRPG, 0, 0);
+  const oldForestCollision = map.createStaticLayer('Collision Old forest', addOldForest, 0, 0);
+  const graveyardCollision = map.createStaticLayer('Collision Graveyard', addGraveyard, 0, 0);
+  const graveyardCollisionForest = map.createStaticLayer('Collision Graveyard forest-set', addOldForest, 0, 0);
+  const houseBricks = map.createStaticLayer('House bricks', addTilesetRPG, 0, 0);
+  const forestHouse = map.createStaticLayer('Forest house', addTilesetRPG, 0, 0);
+  const forestHouseFeatures = map.createStaticLayer('Forest house features', addTilesetRPG, 0, 0);
+  const decoration = map.createStaticLayer('Decoration', addGraveyard, 0, 0);
 
-    //adding the sprite
-    const spawnPoint = map.findObject(
+  //seting the collision property of certain created layer to true
+  rpgCollision.setCollisionByProperty({ collides: true });
+  oldForestCollision.setCollisionByProperty({ collides: true });
+  graveyardCollision.setCollisionByProperty({ collides: true });
+  graveyardCollisionForest.setCollisionByProperty({ collides: true });
+  forestHouseFeatures.setCollisionByProperty({ collides: true });
+  decoration.setCollisionByProperty({ collides: true });
+  houseBricks.setCollisionByProperty({ collides: true });
+  outskirtTrees.setCollisionByProperty({ collides: true });
+
+    //adding sprite locations
+     const spriteLocation = (objectName) => {
+     return map.findObject(
       "Objects",
-      (obj) => obj.name === "Spawn Point"
+      (obj) => obj.name === objectName
     );
+   }  
+
+    const spawnPoint = spriteLocation('Spawn Point')
     this.player = this.physics.add.sprite(spawnPoint.x, spawnPoint.y, "dude");
 
+    const villageSpawn = spriteLocation('Villiage NPC')
+
+    const forestSpawn = spriteLocation('Forest NPC')
+
+    const parkSpawn = spriteLocation('Park NPC')
+
+    const supermarketSpawn = spriteLocation('Supermarket NPC')
+    
+    const oldForestSpawn = spriteLocation('Old forest NPC')
+
+    const graveyardSpawn = spriteLocation('Graveyard NPC')
+    
     //camera to follow sprite
     const camera = this.cameras.main;
     camera.startFollow(this.player);
 
-    //adding collision
-    floorLayer.setCollisionByProperty({ collides: true });
-    treeLayer.setCollisionByProperty({ collides: true });
-    this.physics.add.collider(this.player, floorLayer);
-    this.physics.add.collider(this.player, treeLayer);
+    //adding collision to the player sprite in relation to each layer
+  this.physics.add.collider(this.player, rpgCollision)
+  this.physics.add.collider(this.player, oldForestCollision)
+  this.physics.add.collider(this.player, graveyardCollision)
+  this.physics.add.collider(this.player, graveyardCollisionForest)
+  this.physics.add.collider(this.player,forestHouseFeatures)
+  this.physics.add.collider(this.player, decoration) 
+  this.physics.add.collider(this.player, houseBricks)
+  this.physics.add.collider(this.player, outskirtTrees)
 
     //creating cursors to move
     this.cursors = this.input.keyboard.createCursorKeys();
@@ -159,17 +208,33 @@ class Game extends Component {
     });
 
     //Create NPCs
-    let spriteDave = this.add.npc(spawnPoint.x + 50, spawnPoint.y + 50);
+    let spriteDave = this.add.npc(villageSpawn.x, villageSpawn.y);
     this.zoneDave = this.add
-      .zone(spawnPoint.x + 50, spawnPoint.y + 50)
+      .zone(villageSpawn.x, villageSpawn.y)
       .setSize(75, 75);
     this.physics.world.enable(this.zoneDave);
 
-    let spriteFrank = this.add.npc(spawnPoint.x + 50, spawnPoint.y + 150);
+    let spriteFrank = this.add.npc(forestSpawn.x , forestSpawn.y);
     this.zoneFrank = this.add
-      .zone(spawnPoint.x + 50, spawnPoint.y + 150)
+      .zone(forestSpawn.x, forestSpawn.y)
       .setSize(75, 75);
     this.physics.world.enable(this.zoneFrank);
+
+    let spriteJimmy = this.add.npc(parkSpawn.x, parkSpawn.y)
+    this.zoneJimmy = this.add.zone(parkSpawn.x, parkSpawn.y).setSize(75, 75)
+    this.physics.world.enable(this.zoneJimmy)
+
+    let spriteSammy = this.add.npc(supermarketSpawn.x, supermarketSpawn.y)
+    this.zoneSammy = this.add.zone(supermarketSpawn.x, supermarketSpawn.y).setSize(75, 75)
+    this.physics.world.enable(this.zoneSammy)
+
+    let spriteJohn = this.add.npc(oldForestSpawn.x, oldForestSpawn.y)
+    this.zoneJohn = this.add.zone(oldForestSpawn.x, oldForestSpawn.y).setSize(75, 75)
+    this.physics.world.enable(this.zoneJohn)
+
+    let spriteBen = this.add.npc(graveyardSpawn.x, graveyardSpawn.y)
+    this.zoneBen = this.add.zone(graveyardSpawn.x, graveyardSpawn.y).setSize(75, 75)
+    this.physics.world.enable(this.zoneBen)
 
     //below is where result of clicking button will be added to
     this.print = this.add.text(this.player.x, this.player.y, "CLICKED?");
@@ -217,22 +282,26 @@ class Game extends Component {
     this.physics.add.overlap(this.player, this.zoneFrank);
     this.physics.add.overlap(this.player, this.zoneDave);
 
-    // Score Display and Declaring win state
+    // Score and Winning
+    // Set up the score variable and display that to the screen
     this.score = 0;
     this.scoreDisplay = this.add
       .text(0, 0, `score: ${this.score}`, { fontSize: "32px" })
       .setScrollFactor(0);
-
+    // Run this Function to increase score by one then check if the score has reached 5 or not
     const updateScore = () => {
       this.score += 1;
       this.scoreDisplay.setText(`score: ${this.score}`);
-      if (this.score === 5) {
+      if (this.score === 1) {
         this.finishGame();
       }
     };
+    // Run this fucntion to end the game
     this.finishGame = () => {
       this.physics.pause();
       this.player.setTint(0xff0000);
+      navigate('/end');
+      this.sys.game.destroy(true);
     };
 
     // creates a dialog box with buttons inside it
