@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 const StyledHeader = styled.h1`
+  padding-top: 1rem;
   width: 80%;
   height: 30px;
   margin: 0 auto;

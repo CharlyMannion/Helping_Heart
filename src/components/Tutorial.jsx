@@ -4,13 +4,14 @@ import TutorialContainer from "../styledComponents/TutorialContainer";
 import StyledParagraph from "../styledComponents/StyledParagraph";
 import StyledButton from "../styledComponents/StyledButton";
 import StyledHeader from "../styledComponents/StyledHeader";
+import HomeTitle from "../styledComponents/HomeTitle";
 
 const Tutorial = (props) => {
   return (
     <TutorialContainer>
-      <StyledHeader>Tutorial</StyledHeader>
+      <HomeTitle>Tutorial</HomeTitle>
       <StyledParagraph>
-        <p>Welcome {props.username}!</p>
+        <StyledHeader>Welcome {props.username}!</StyledHeader>
         <p>Run around the map and find those in need.</p>
         <p></p>
         <p>Use W,A,S,D keys to move around.</p>
