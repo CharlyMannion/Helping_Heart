@@ -1,14 +1,13 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
 const TutorialContainer = styled.div`
-margin: 0% auto;
-
+  margin: 0% auto;
   width: 80%;
-  height: 550px;
+  height: 200px;
   display: grid;
   grid-template-rows: 20% 80%;
   grid-row-gap: 25px;
   color: white;
   opacity: 90%;
-`
+`;
 export default TutorialContainer;

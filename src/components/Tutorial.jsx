@@ -10,7 +10,17 @@ const Tutorial = (props) => {
     <TutorialContainer>
       <TutorialHeader>Tutorial</TutorialHeader>
       <TutorialHowToPlayContainer>
-        <p className="tutorial-paragraph">Welcome {props.username}!</p>
+        <p>Welcome {props.username}!</p>
+        <p>Some info on controls</p>
+        <p></p>
+        <p>Some info on controls</p>
+        <p>Some info on controls</p>
+        <p>Some info on controls</p>
+        <p>Some info on controls</p>
+        <p>Some info on controls</p>
+        <p>Some info on controls</p>
+        <p>Some info on controls</p>
+        <p></p>
         <Link to="/game">
           <StyledButton>PLAY!</StyledButton>
         </Link>
