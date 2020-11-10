@@ -284,6 +284,10 @@ I want to see proper TDD
 
 ## Week Two: 
 * At the start of week two, we defined our second week-long sprint
+* Our second sprint consisted of functionality to make the game both more seamless and fun to play
+* A big peice of this was creating a logic tree for the scenarios to help NPCs, and implementing multiple pop-up dialogue boxes
+* Other features included sound effects, music, an improved tilemap, and consistent styling throughout the game
+* As part of our second sprint, we also investigated implementing a database as a potential way of storing the game logic. We spiked Firebase and made basic requests from within phaser, which proved this could be implemented. But ultimately we decided not to pursue this as it would've been a huge piece of work, which would require learning another new technology.
 
 ## Challenges
 * One of our main challenges was getting to grips with Phaser, and using it in conjunction with React
