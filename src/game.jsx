@@ -9,6 +9,7 @@ import scenarioTree from "./Game_Components/scenario_tree"
 import { navigate } from '@reach/router';
 import menuSelect from './assets/sounds/Menu Select.mp3'
 import menuSelect2 from './assets/sounds/Menu Select 2.mp3'
+import denied from './assets/sounds/Denied.mp3'
 
 class NPCGameObject extends Phaser.GameObjects.Image {
   constructor(scene, x, y) {
@@ -85,6 +86,7 @@ class Game extends Component {
     // Sound Effects Preload
     this.load.audio('menuClick', menuSelect, { instances: 1 })
     this.load.audio('menuClick2', menuSelect2, { instances: 1 })
+    this.load.audio('fail', denied, { instances: 1 })
 
     this.load.image('tilesetRPG', tileSetRPG);
     this.load.image('tilesetGraveyard', tileSetGraveYard)
@@ -364,6 +366,9 @@ class Game extends Component {
 
             // when you click on a "button", the dialog box should disappear
             if (button.name === 'b1') {
+              if (nextScenario1 === null && !end) {
+                scene.sound.play('fail');
+              }
               if (nextScenario1 !== null) {
                 scene.sound.play('menuClick');
                 scenarioTree[nextScenario1].call(this, zone)
@@ -374,8 +379,12 @@ class Game extends Component {
                 scene.sound.play('menuClick');
                 scenarioTree[nextScenario2].call(this, zone)
               }
+              if (nextScenario2 === null && !end) {
+                scene.sound.play('fail');
+              }
             }
             dialog.scaleDownDestroy(100);
+            // If you manage to help someone 
             if (end) {
               updateScore();
               scene.sound.play('menuClick2');
