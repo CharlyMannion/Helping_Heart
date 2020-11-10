@@ -2,14 +2,15 @@ import React from "react";
 import { Link } from "@reach/router";
 import TutorialContainer from "../styledComponents/TutorialContainer";
 import TutorialHeader from "../styledComponents/TutorialHeader";
-import TutorialHowToPlayContainer from "../styledComponents/TutorialHowToPlayContainer";
+import StyledParagraph from "../styledComponents/StyledParagraph";
 import StyledButton from "../styledComponents/StyledButton";
+import StyledHeader from "../styledComponents/StyledHeader";
 
 const Tutorial = (props) => {
   return (
     <TutorialContainer>
-      <TutorialHeader>Tutorial</TutorialHeader>
-      <TutorialHowToPlayContainer>
+      <StyledHeader>Tutorial</StyledHeader>
+      <StyledParagraph>
         <p>Welcome {props.username}!</p>
         <p>Some info on controls</p>
         <p></p>
@@ -23,7 +24,7 @@ const Tutorial = (props) => {
         <Link to="/game">
           <StyledButton>PLAY!</StyledButton>
         </Link>
-      </TutorialHowToPlayContainer>
+      </StyledParagraph>
     </TutorialContainer>
   );
 };

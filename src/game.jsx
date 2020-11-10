@@ -12,7 +12,7 @@ import menuSelect2 from './assets/sounds/Menu Select 2.mp3'
 import denied from './assets/sounds/Denied.mp3'
 import styled from "styled-components";
 
-const HeaderContainer = styled.h1`
+const StyledHeaderGame = styled.h1`
   width: 80%;
   height: 30px;
   margin: 0 auto;
@@ -88,7 +88,7 @@ class Game extends Component {
   render() {
     return (
       <div className="game-container">
-        <HeaderContainer>NC Helper!</HeaderContainer>
+        <StyledHeaderGame>NC Helper!</StyledHeaderGame>
         <h2>{this.props.name}</h2>
       </div>
     );

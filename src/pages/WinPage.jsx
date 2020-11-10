@@ -3,8 +3,9 @@ import { Link } from "@reach/router";
 import Loader from "../components/Loader";
 import ErrorDisplay from "../components/ErrorDisplay";
 import PlayerCard from "../components/PlayerCard";
-import HeaderContainer from "../styledComponents/HeaderContainer";
+import StyledHeader from "../styledComponents/StyledHeader";
 import StyledBiggerButton from "../styledComponents/StyledBiggerButton";
+import StyledParagraph from "../styledComponents/StyledParagraph"
 
 class WinPage extends Component {
   state = {
@@ -49,7 +50,9 @@ class WinPage extends Component {
 
     return (
       <div className="user-list">
-        <HeaderContainer>Well Done!</HeaderContainer>
+        <StyledHeader>Well Done!</StyledHeader>
+        <br></br>
+        <StyledParagraph>Now for a lovely list of previous players...</StyledParagraph>
         <ul>
           {users.map((user) => {
             return <PlayerCard key={user.name} name={user.name}></PlayerCard>;

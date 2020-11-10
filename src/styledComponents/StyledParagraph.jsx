@@ -1,13 +1,13 @@
 import styled from "styled-components";
 
-const HeaderContainer = styled.h1`
+const StyledParagraph = styled.div`
   width: 80%;
-  height: 30px;
+  height: 100%;
   margin: 0 auto;
   display: grid;
   grid-template-rows: 90% 10%;
   font-family: "VT323", monospace;
-  font-size: 3rem;
+  font-size: 1.5rem;
   color: white;
 `;
-export default HeaderContainer;
+export default StyledParagraph;

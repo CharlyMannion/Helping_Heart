@@ -1,12 +1,13 @@
 import styled from "styled-components";
 
-const TutorialHowToPlayContainer = styled.div`
+const StyledHeader = styled.h1`
   width: 80%;
-  height: 100%;
+  height: 30px;
   margin: 0 auto;
   display: grid;
   grid-template-rows: 90% 10%;
   font-family: "VT323", monospace;
-  font-size: 1.5rem;
+  font-size: 3rem;
+  color: white;
 `;
-export default TutorialHowToPlayContainer;
+export default StyledHeader;
