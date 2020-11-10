@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import Loader from "../components/Loader";
 import ErrorDisplay from "../components/ErrorDisplay";
+import PlayerCard from "../components/PlayerCard";
+import HeaderContainer from "../styledComponents/HeaderContainer"
 
 class WinPage extends Component {
   state = {
@@ -45,10 +47,10 @@ class WinPage extends Component {
 
     return (
       <div className="user-list">
-        <h1>Well Done!</h1>
+        <HeaderContainer>Well Done!</HeaderContainer>
         <ul>
           {users.map((user) => {
-            return <li key={user.name}>{user.name}</li>;
+            return <PlayerCard key={user.name} name={user.name}></PlayerCard>;
           })}
         </ul>
       </div>

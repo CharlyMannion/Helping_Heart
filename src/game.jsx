@@ -292,7 +292,7 @@ class Game extends Component {
     const updateScore = () => {
       this.score += 1;
       this.scoreDisplay.setText(`score: ${this.score}`);
-      if (this.score === 1) {
+      if (this.score === 5) {
         this.finishGame();
       }
     };
