@@ -10,6 +10,18 @@ import { navigate } from '@reach/router';
 import menuSelect from './assets/sounds/Menu Select.mp3'
 import menuSelect2 from './assets/sounds/Menu Select 2.mp3'
 import denied from './assets/sounds/Denied.mp3'
+import styled from "styled-components";
+
+const HeaderContainer = styled.h1`
+  width: 80%;
+  height: 30px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-rows: 90% 10%;
+  font-family: "VT323", monospace;
+  font-size: 3rem;
+  color: white;
+`
 
 class NPCGameObject extends Phaser.GameObjects.Image {
   constructor(scene, x, y) {
@@ -76,7 +88,7 @@ class Game extends Component {
   render() {
     return (
       <div className="game-container">
-        <h1>NC Helper!</h1>
+        <HeaderContainer>NC Helper!</HeaderContainer>
         <h2>{this.props.name}</h2>
       </div>
     );

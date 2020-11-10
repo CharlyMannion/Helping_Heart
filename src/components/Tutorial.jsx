@@ -20,7 +20,6 @@ const Tutorial = (props) => {
         <p>Some info on controls</p>
         <p>Some info on controls</p>
         <p>Some info on controls</p>
-        <p></p>
         <Link to="/game">
           <StyledButton>PLAY!</StyledButton>
         </Link>

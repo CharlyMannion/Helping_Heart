@@ -8,5 +8,6 @@ width: 80%;
   grid-template-rows: 90% 10%;
   font-family: 'VT323', monospace;
   font-size: 1.5rem;
+  color: white;
 `
 export default PlayerCardContainer;
