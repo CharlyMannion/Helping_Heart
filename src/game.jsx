@@ -7,6 +7,9 @@ import map from './assets/Game map.json'
 import UIPlugin from "phaser3-rex-plugins/templates/ui/ui-plugin.js"; // Plug-in for pop up
 import scenarioTree from "./Game_Components/scenario_tree"
 import { navigate } from '@reach/router';
+import menuSelect from './assets/sounds/Menu Select.mp3'
+import menuSelect2 from './assets/sounds/Menu Select 2.mp3'
+import denied from './assets/sounds/Denied.mp3'
 
 class NPCGameObject extends Phaser.GameObjects.Image {
   constructor(scene, x, y) {
@@ -57,6 +60,9 @@ class Game extends Component {
           },
         ],
       },
+      audio: {
+        noAudio: false
+      }
     });
     this.player = null;
     this.cursors = null;
@@ -78,12 +84,17 @@ class Game extends Component {
   }
 
   preload() {
-   
 
-   this.load.image('tilesetRPG', tileSetRPG);
-   this.load.image('tilesetGraveyard', tileSetGraveYard)
-   this.load.image('tilesetForest', tileSetForest)
-   this.load.tilemapTiledJSON('map', map);
+    // Sound Effects Preload
+    this.load.audio('menuClick', menuSelect, { instances: 1 })
+    this.load.audio('menuClick2', menuSelect2, { instances: 1 })
+    this.load.audio('fail', denied, { instances: 1 })
+
+    this.load.image('tilesetRPG', tileSetRPG);
+    this.load.image('tilesetGraveyard', tileSetGraveYard)
+    this.load.image('tilesetForest', tileSetForest)
+    this.load.tilemapTiledJSON('map', map);
+
     this.load.spritesheet("dude", "https://i.imgur.com/0x8P9a6.png", {
       frameWidth: 16,
       frameHeight: 24,
@@ -96,14 +107,11 @@ class Game extends Component {
       "rexUI",
       "rexUI"
     );
+
   }
 
   create() {
-
-            
-            
-
-    const map = this.make.tilemap({
+   const map = this.make.tilemap({
       key: "map",
       tileWidth: 32,
       tileHeight: 32,
@@ -112,40 +120,43 @@ class Game extends Component {
     let overlapping = false;
     let dialog = undefined;
     // creating the layers of the map
-  const addTilesetRPG = map.addTilesetImage('RPG map', 'tilesetRPG');
-  const addGraveyard = map.addTilesetImage('graveyard', 'tilesetGraveyard')
-  const addOldForest = map.addTilesetImage('top-down-forest-tileset', 'tilesetForest')
-  const outskirts = map.createStaticLayer('Floor outskirts' , addTilesetRPG, 0, 0);
-  const outskirtTrees = map.createStaticLayer('Floor outskirts trees' , addTilesetRPG, 0, 0);
-  const floorLayer = map.createStaticLayer('Floor', addTilesetRPG, 0, 0);
-  const floorLayer2 = map.createStaticLayer('Floor Old forest', addOldForest, 0, 0);
-  const floorLayer3 =  map.createStaticLayer('Floor Graveyard', addGraveyard, 0, 0);
-  const rpgCollision = map.createStaticLayer('Collision', addTilesetRPG, 0, 0);
-  const oldForestCollision = map.createStaticLayer('Collision Old forest', addOldForest, 0, 0);
-  const graveyardCollision = map.createStaticLayer('Collision Graveyard', addGraveyard, 0, 0);
-  const graveyardCollisionForest = map.createStaticLayer('Collision Graveyard forest-set', addOldForest, 0, 0);
-  const houseBricks = map.createStaticLayer('House bricks', addTilesetRPG, 0, 0);
-  const forestHouse = map.createStaticLayer('Forest house', addTilesetRPG, 0, 0);
-  const forestHouseFeatures = map.createStaticLayer('Forest house features', addTilesetRPG, 0, 0);
-  const decoration = map.createStaticLayer('Decoration', addGraveyard, 0, 0);
+    const addTilesetRPG = map.addTilesetImage('RPG map', 'tilesetRPG');
+    const addGraveyard = map.addTilesetImage('graveyard', 'tilesetGraveyard')
+    const addOldForest = map.addTilesetImage('top-down-forest-tileset', 'tilesetForest')
+    const outskirts = map.createStaticLayer('Floor outskirts', addTilesetRPG, 0, 0);
+    const outskirtTrees = map.createStaticLayer('Floor outskirts trees', addTilesetRPG, 0, 0);
+    const floorLayer = map.createStaticLayer('Floor', addTilesetRPG, 0, 0);
+    const floorLayer2 = map.createStaticLayer('Floor Old forest', addOldForest, 0, 0);
+    const floorLayer3 = map.createStaticLayer('Floor Graveyard', addGraveyard, 0, 0);
+    const rpgCollision = map.createStaticLayer('Collision', addTilesetRPG, 0, 0);
+    const oldForestCollision = map.createStaticLayer('Collision Old forest', addOldForest, 0, 0);
+    const graveyardCollision = map.createStaticLayer('Collision Graveyard', addGraveyard, 0, 0);
+    const graveyardCollisionForest = map.createStaticLayer('Collision Graveyard forest-set', addOldForest, 0, 0);
+    const houseBricks = map.createStaticLayer('House bricks', addTilesetRPG, 0, 0);
+    const forestHouse = map.createStaticLayer('Forest house', addTilesetRPG, 0, 0);
+    const forestHouseFeatures = map.createStaticLayer('Forest house features', addTilesetRPG, 0, 0);
+    const decoration = map.createStaticLayer('Decoration', addGraveyard, 0, 0);
 
-  //seting the collision property of certain created layer to true
-  rpgCollision.setCollisionByProperty({ collides: true });
-  oldForestCollision.setCollisionByProperty({ collides: true });
-  graveyardCollision.setCollisionByProperty({ collides: true });
-  graveyardCollisionForest.setCollisionByProperty({ collides: true });
-  forestHouseFeatures.setCollisionByProperty({ collides: true });
-  decoration.setCollisionByProperty({ collides: true });
-  houseBricks.setCollisionByProperty({ collides: true });
-  outskirtTrees.setCollisionByProperty({ collides: true });
+    //seting the collision property of certain created layer to true
+    rpgCollision.setCollisionByProperty({ collides: true });
+    oldForestCollision.setCollisionByProperty({ collides: true });
+    graveyardCollision.setCollisionByProperty({ collides: true });
+    graveyardCollisionForest.setCollisionByProperty({ collides: true });
+    forestHouseFeatures.setCollisionByProperty({ collides: true });
+    decoration.setCollisionByProperty({ collides: true });
+    houseBricks.setCollisionByProperty({ collides: true });
+    outskirtTrees.setCollisionByProperty({ collides: true });
+
+    // Create Sound Effects
+    // let menuClickSFX = this.sound.add('menuClick');
 
     //adding sprite locations
-     const spriteLocation = (objectName) => {
-     return map.findObject(
-      "Objects",
-      (obj) => obj.name === objectName
-    );
-   }  
+    const spriteLocation = (objectName) => {
+      return map.findObject(
+        "Objects",
+        (obj) => obj.name === objectName
+      );
+    }
 
     const spawnPoint = spriteLocation('Spawn Point')
     this.player = this.physics.add.sprite(spawnPoint.x, spawnPoint.y, "dude");
@@ -157,24 +168,24 @@ class Game extends Component {
     const parkSpawn = spriteLocation('Park NPC')
 
     const supermarketSpawn = spriteLocation('Supermarket NPC')
-    
+
     const oldForestSpawn = spriteLocation('Old forest NPC')
 
     const graveyardSpawn = spriteLocation('Graveyard NPC')
-    
+
     //camera to follow sprite
     const camera = this.cameras.main;
     camera.startFollow(this.player);
 
     //adding collision to the player sprite in relation to each layer
-  this.physics.add.collider(this.player, rpgCollision)
-  this.physics.add.collider(this.player, oldForestCollision)
-  this.physics.add.collider(this.player, graveyardCollision)
-  this.physics.add.collider(this.player, graveyardCollisionForest)
-  this.physics.add.collider(this.player,forestHouseFeatures)
-  this.physics.add.collider(this.player, decoration) 
-  this.physics.add.collider(this.player, houseBricks)
-  this.physics.add.collider(this.player, outskirtTrees)
+    this.physics.add.collider(this.player, rpgCollision)
+    this.physics.add.collider(this.player, oldForestCollision)
+    this.physics.add.collider(this.player, graveyardCollision)
+    this.physics.add.collider(this.player, graveyardCollisionForest)
+    this.physics.add.collider(this.player, forestHouseFeatures)
+    this.physics.add.collider(this.player, decoration)
+    this.physics.add.collider(this.player, houseBricks)
+    this.physics.add.collider(this.player, outskirtTrees)
 
     //creating cursors to move
     this.cursors = this.input.keyboard.createCursorKeys();
@@ -221,7 +232,7 @@ class Game extends Component {
       .setSize(75, 75);
     this.physics.world.enable(this.zoneDave);
 
-    let spriteFrank = this.add.npc(forestSpawn.x , forestSpawn.y);
+    let spriteFrank = this.add.npc(forestSpawn.x, forestSpawn.y);
     this.zoneFrank = this.add
       .zone(forestSpawn.x, forestSpawn.y)
       .setSize(75, 75);
@@ -248,7 +259,7 @@ class Game extends Component {
 
     // adds a label that holds each option "button"
     let createButton = function (scene, text, name) {
-      if(text !== ''){
+      if (text !== '') {
         return scene.rexUI.add.label({
           background: scene.rexUI.add.roundRectangle(0, 0, 0, 0, 20, 0x5e92f3),
           text: scene.add.text(0, 0, text, {
@@ -257,7 +268,7 @@ class Game extends Component {
           name: name
         });
       }
-      else{
+      else {
         return scene.rexUI.add.label({
           background: scene.rexUI.add.roundRectangle(0, 0, 0, 0, 0, 0xf57f17),
           text: scene.add.text(0, 0, text, {
@@ -266,8 +277,6 @@ class Game extends Component {
           name: name
         });
       }
-      
-    
     };
 
     this.player.on("overlapstart", function () {
@@ -275,7 +284,7 @@ class Game extends Component {
       overlapping = true;
       // console.log("overlap start");
       console.time("overlap");
-      
+
     });
     this.player.on("overlapend", function () {
       this.body.debugBodyColor = 0x00ff33;
@@ -355,20 +364,31 @@ class Game extends Component {
           "button.click",
           function (button, groupName, index, pointer, event) {
             this.print.text += "\n true \n";
+
             // when you click on a "button", the dialog box should disappear
-              if(button.name === 'b1'){
-                if(nextScenario1 !== null) {
+            if (button.name === 'b1') {
+              if (nextScenario1 === null && !end) {
+                scene.sound.play('fail');
+              }
+              if (nextScenario1 !== null) {
+                scene.sound.play('menuClick');
                 scenarioTree[nextScenario1].call(this, zone)
-                }
               }
-              if(button.name === 'b2'){
-                if(nextScenario2 !== null) {
+            }
+            if (button.name === 'b2') {
+              if (nextScenario2 !== null) {
+                scene.sound.play('menuClick');
                 scenarioTree[nextScenario2].call(this, zone)
-                }
               }
+              if (nextScenario2 === null && !end) {
+                scene.sound.play('fail');
+              }
+            }
             dialog.scaleDownDestroy(100);
-            if(end){
+            // If you manage to help someone 
+            if (end) {
               updateScore();
+              scene.sound.play('menuClick2');
               zone.destroy();
             }
           },
@@ -389,10 +409,10 @@ class Game extends Component {
 
     // interact function allows a dialog box to be created only if the sprite and zone are overlapping
     this.interact = (zone) => {
-   
+
       if (overlapping && dialog === undefined) {
         if (zone === this.zoneDave) {
-        scenarioTree.startDave.call(this, zone)
+          scenarioTree.startDave.call(this, zone)
 
         } else if (zone === this.zoneFrank) {
           scenarioTree.startFrank.call(this, zone)
@@ -456,10 +476,9 @@ class Game extends Component {
       this.currentZone = getZone();
     } else if (!touching && wasTouching) {
       this.player.emit("overlapend");
-      
+
     }
 
-    
   }
 }
 
