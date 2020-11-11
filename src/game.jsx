@@ -31,6 +31,19 @@ const HomeTitleGame = styled.span`
   flex-direction: column;
 `;
 
+const StyledParagraphGame = styled.div`
+  width: 80%;
+  height: 100%;
+  margin: 0 auto;
+  margin-top: 50px;
+  display: grid;
+  grid-template-rows: 90% 10%;
+  font-family: "VT323", monospace;
+  font-size: 1.5rem;
+  color: white;
+  text-align: center;
+`;
+
 
 class NPCGameObject extends Phaser.GameObjects.Image {
   constructor(scene, x, y) {
@@ -60,7 +73,7 @@ class Game extends Component {
         default: "arcade",
         arcade: {
           gravity: { y: 0 },
-          debug: true,
+          debug: false,
         },
       },
       parent: "game-container",
@@ -95,10 +108,13 @@ class Game extends Component {
 
   render() {
     return (
-      <div className="game-container">
-        <HomeTitleGame>NC Helper!</HomeTitleGame>
-        <StyledHeaderGame>{this.props.name}</StyledHeaderGame>
-      </div>
+      <StyledParagraphGame className="game-container">
+        <HomeTitleGame>NC Helper! 
+          <br></br>
+          <br></br>
+          Player: {this.props.name}</HomeTitleGame>
+          <br></br>
+      </StyledParagraphGame>
     );
   }
 

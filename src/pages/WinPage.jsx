@@ -5,7 +5,7 @@ import ErrorDisplay from "../components/ErrorDisplay";
 import PlayerCard from "../components/PlayerCard";
 import StyledHeader from "../styledComponents/StyledHeader";
 import StyledBiggerButton from "../styledComponents/StyledBiggerButton";
-import StyledParagraph from "../styledComponents/StyledParagraph"
+import StyledParagraph from "../styledComponents/StyledParagraph";
 
 class WinPage extends Component {
   state = {
@@ -52,16 +52,20 @@ class WinPage extends Component {
       <div className="user-list">
         <StyledHeader>Well Done!</StyledHeader>
         <br></br>
-        <StyledParagraph>Now for a lovely list of previous players...</StyledParagraph>
-        <ul>
-          {users.map((user) => {
-            return <PlayerCard key={user.name} name={user.name}></PlayerCard>;
-          })}
-        </ul>
-        <br />
-        <Link to="/">
-          <StyledBiggerButton>PLAY AGAIN!</StyledBiggerButton>
-        </Link>
+        <StyledParagraph>
+          Now for a lovely list of previous players...
+        </StyledParagraph>
+        <StyledParagraph>
+          <ul>
+            {users.map((user) => {
+              return <PlayerCard key={user.name} name={user.name}></PlayerCard>;
+            })}
+          </ul>
+          <br />
+          <Link to="/">
+            <StyledBiggerButton>PLAY AGAIN!</StyledBiggerButton>
+          </Link>
+        </StyledParagraph>
       </div>
     );
   }

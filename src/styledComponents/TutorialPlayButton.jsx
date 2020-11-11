@@ -10,5 +10,6 @@ font-size: 1.5rem;
 border-radius: 10px;
 width: 100px;
 height: 30px;
+text-align: center;
 `
 export default TutorialPlayButton;

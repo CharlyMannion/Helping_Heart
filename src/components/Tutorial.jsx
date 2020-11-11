@@ -12,8 +12,8 @@ const Tutorial = (props) => {
       <HomeTitle>Tutorial</HomeTitle>
       <StyledParagraph>
         <StyledHeader>Welcome {props.username}!</StyledHeader>
-        <p>Run around the map and find those in need.</p>
         <p></p>
+        <p>Run around the map and find those in need.</p>
         <p>Use W,A,S,D keys to move around.</p>
         <p>When you see a person, hit the space bar to chat to them.</p>
         <p>Help 5 of your new pals to complete the game.</p>
