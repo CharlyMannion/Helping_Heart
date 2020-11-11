@@ -243,7 +243,7 @@ class Game extends Component {
           background: scene.rexUI.add.roundRectangle(0, 0, 0, 0, 20, 0x5e92f3),
           text: scene.add.text(0, 0, text, {
             fontSize: "12px",
-          }),
+          }).setWordWrapWidth(125),
           name: name
         });
       }
@@ -331,7 +331,7 @@ class Game extends Component {
             ),
             text: scene.add.text(0, 0, scenarioText, {
               fontSize: "14px", 
-            }).setWordWrapWidth(250),
+            }).setWordWrapWidth(400),
           }),
           // calls createButton to make two labels within dialog box
           actions: [createButton(this, buttonText1, 'b1'), createButton(this, buttonText2, 'b2')],
