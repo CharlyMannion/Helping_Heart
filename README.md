@@ -1,6 +1,6 @@
 # Final Project Game (placeholder title)
 
-For our final project at Northcoders we built a game! Play it [here]()
+For our final project at Northcoders we built a game! Play it [here](https://nchelper.netlify.app/)
 
 Check out our Game Design Document [here](https://github.com/CharlyMannion/final_project/blob/dev/GameDesignDocument.md)
 
@@ -289,7 +289,7 @@ I want to see proper TDD
 * Other features included sound effects, music, an improved tilemap, and consistent styling throughout the game
 * As part of our second sprint, we also investigated implementing a database as a potential way of storing the game logic. We spiked Firebase and made basic requests from within phaser, which proved this could be implemented. But ultimately we decided not to pursue this as it would've been a huge piece of work, which would require learning another new technology such as MongoDB
 * Another part of this sprint was conducting traditional game testing, which involved each of us playing the game and recording known bugs. An issue we encountered whilst conducting these tests was collision in places were there was nothing visible to collide with
-* The final part of this sprint was hosting our app on Netlify. Play it [here]() 
+* The final part of this sprint was hosting our app on Netlify. Play it [here](https://nchelper.netlify.app/) 
 
 ## Challenges
 * One of our main challenges was getting to grips with Phaser, and using it in conjunction with React. We found we were unable to pass information in and out of Phaser as props, like you would a traditional React Component. Our solution was to keep any information needed for the Phaser game within the game itself. The drawside of this solution was that we ended up with a huge and unwieldy game.jsx file. If we had more time, or could go back and design the game differently, I think we would all like to try and find a way to extract more code from our Phaser game
@@ -297,7 +297,6 @@ I want to see proper TDD
 * We faced a few teething issues with tiled, and had to make a few iterations to get our layers loaded simultaneouslyWe also ended up with some invisible collision points in our map, which we were unable to locate the cause of
 * We also came into a small amount of trouble when merging our branches, due to the fact that Phaser needs to be written in one file in order to run smoothly. However, we were able to resolve any merge conflicts quickly
 * One of our goals was to create a game in which the characters would be diverse. However we really struggled to find assets to meet our goal, and we do not have the time or the skills to design our own. But we persevered with our hunt, and were able to find some eventually
-
 
 ## Successes
 * Being unable to ask for help with using Phaser greatly improved our problem-solving and de-bugging skills
