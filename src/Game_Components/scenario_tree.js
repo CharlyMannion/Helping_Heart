@@ -18,7 +18,13 @@ const scenarioTree = {
 	'sunscreen': function(zone) {this.createDialog(this, 2243.10344827586, 4050, "Umm, okay. I'll go to the shops and buy some. *Frank leaves, confused*", zone, 'continue', '', null, null, false).setScrollFactor(0)},
 	
 	//Dialog with NPC in park, needs date ideas, this.createDialog = (scene, x, y, scenarioText, zone, buttonText1, buttonText2, nextScenario1, nextScenario2, end)
-	'startParkNPC': function(zone) {this.createDialog(this, 2243.10344827586, 4050, 'Will you help me pick flowers?', zone, 'Yes', 'No', null, null, false).setScrollFactor(0)},
+	'startParkNPC': function(zone) {this.createDialog(this, 2243.10344827586, 4050, 'Hell-... OH NO, I forgot!', zone, 'What did you forget?', "Oh no! I'll leave you to it", 'askQuestionDate', null, false).setScrollFactor(0)},
+	'askQuestionDate': function(zone) {this.createDialog(this, 2243.10344827586, 4050, "I have a date with my spouse tonight and I haven't made any plans!", zone ,"I can help you make a plan!", "I guess you're getting a divorce then" , 'planDate', null, false).setScrollFactor(0)},
+	'planDate': function(zone) {this.createDialog(this, 2243.10344827586, 4050, "Thank you! They love nature. Do you have any ideas?", zone ,"What about a walk in this park?", "How about a day trip to the city?" , 'goodDate', 'badDate', false).setScrollFactor(0)},
+	'badDate': function(zone) {this.createDialog(this, 2243.10344827586, 4050, "Oh wow, sounds suuuuuper natural. Thanks sooooo much for your help", zone ,"continue", '' , null, null, false).setScrollFactor(0)},
+	'goodDate': function(zone) {this.createDialog(this, 2243.10344827586, 4050, "Of course! The answer was right in front of me! What else could I do to make it special?", zone ,"There's a lovely spot over there for a picnic", 'You could sit on that bench and both scroll on your phones' , 'picnic', 'bench', false).setScrollFactor(0)},
+	'bench': function(zone) {this.createDialog(this, 2243.10344827586, 4050, "Sounds like fun, you're such a romantic *rolls eyes*", zone ,"continue", '' , null, null, false).setScrollFactor(0)},
+	'picnic': function(zone) {this.createDialog(this, 2243.10344827586, 4050, "They'll love that! Thanks for the advice! I'm going to go pick some flowers right now", zone ,"continue", '' , null, null, true).setScrollFactor(0)},
 	
 	//Dialog with NPC in supermarket, overwhelmed by choice of ketchup, this.createDialog = (scene, x, y, scenarioText, zone, buttonText1, buttonText2, nextScenario1, nextScenario2, end)	
 	'startSupermarketNPC': function(zone) {this.createDialog(this, 2243.10344827586, 4050, 'Will you help me find the soup?', zone, 'Yes', 'No', null, null, false).setScrollFactor(0)},
