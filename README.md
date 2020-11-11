@@ -296,7 +296,7 @@ I want to see proper TDD
 * Because we chose to use tech that was not part of the Nothcoders curriculum, we were unable to ask for help when we ran into problems
 * We faced a few teething issues with tiled, and had to make a few iterations to get our layers loaded simultaneouslyWe also ended up with some invisible collision points in our map, which we were unable to locate the cause of
 * We also came into a small amount of trouble when merging our branches, due to the fact that Phaser needs to be written in one file in order to run smoothly. However, we were able to resolve any merge conflicts quickly
-* One of our goals was to create a game in which the characters would be diverse. However we really struggled to find assets to meet our goal, and we do not have the time or the skills to design our own
+* One of our goals was to create a game in which the characters would be diverse. However we really struggled to find assets to meet our goal, and we do not have the time or the skills to design our own. But we persevered with our hunt, and were able to find some eventually
 
 
 ## Successes
