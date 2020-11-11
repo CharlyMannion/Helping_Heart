@@ -50,7 +50,9 @@ class WinPage extends Component {
 
     return (
       <div className="user-list">
-        <StyledHeader>Well Done!</StyledHeader>
+        <StyledParagraph>
+          <StyledHeader>Well Done!</StyledHeader>
+        </StyledParagraph>
         <br></br>
         <StyledParagraph>
           Now for a lovely list of previous players...
@@ -60,11 +62,11 @@ class WinPage extends Component {
             {users.map((user) => {
               return <PlayerCard key={user.name} name={user.name}></PlayerCard>;
             })}
+            <p></p>
+            <Link to="/">
+              <StyledBiggerButton>PLAY AGAIN!</StyledBiggerButton>
+            </Link>
           </ul>
-          <br />
-          <Link to="/">
-            <StyledBiggerButton>PLAY AGAIN!</StyledBiggerButton>
-          </Link>
         </StyledParagraph>
       </div>
     );
