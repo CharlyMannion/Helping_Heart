@@ -1,8 +1,10 @@
 import React from 'react';
+import StyledHeader from "../styledComponents/StyledHeader";
+
 
 const Loader = () => {
     return (
-        <h2>Loading, give us a tic...</h2>
+        <StyledHeader>Loading, give us a tic...</StyledHeader>
     )
 }
 
