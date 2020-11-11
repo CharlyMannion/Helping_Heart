@@ -45,7 +45,13 @@ const scenarioTree = {
 	'trueTreeFact': function(zone) {this.createDialog(this, 2243.10344827586, 4050, "What a great fact! I'm going to go and find some pine cones now. Thank you!", zone, 'continue', "", null, null, true).setScrollFactor(0)},
 
 	//Dialog with NPC in graveyard, needs a job, this.createDialog = (scene, x, y, scenarioText, zone, buttonText1, buttonText2, nextScenario1, nextScenario2, end)
-	'startGraveyardNPC': function(zone) {this.createDialog(this, 2243.10344827586, 4050, 'Will you help me fight this ghost?', zone, 'Yes', 'No', null, null, false).setScrollFactor(0)},
+	'startGraveyardNPC': function(zone) {this.createDialog(this, 2243.10344827586, 4050, 'Hello stranger! You would not believe how bored I am', zone, 'Why are you bored?', "You're right, I don't believe it", "askQuestionJob", null, false).setScrollFactor(0)},
+	"askQuestionJob": function(zone) {this.createDialog(this, 2243.10344827586, 4050, "I was a balloon artist, but now nobody wants to buy my balloons so I'm out here making balloon animals for the ghosts", zone, 'What about a career change?', "I'm sure the ghosts appreciate it", "careerChange", 'ghosts', false).setScrollFactor(0)},
+	"ghosts": function(zone) {this.createDialog(this, 2243.10344827586, 4050, "Yeah, but they never remember their wallets", zone, 'What about a career change, then?', "I wish I cared", "careerChange", null, false).setScrollFactor(0)},
+	"careerChange": function(zone) {this.createDialog(this, 2243.10344827586, 4050, "I could do, but I don't have any other skills. What could I do?", zone, 'Software! Northcoders can teach anyone to code!', "Airline pilot?", "northcoders", 'pilot', false).setScrollFactor(0)},
+	"pilot": function(zone) {this.createDialog(this, 2243.10344827586, 4050, "Do you have any idea how long that would take? Your advice sucks.", zone, 'continue', "", null, null, false).setScrollFactor(0)},
+	"northcoders": function(zone) {this.createDialog(this, 2243.10344827586, 4050, "That's a cool idea, but doesn't learning to code take ages?", zone, 'Not with their bootcamp! Only 14 weeks!', "", "northcoders2", null, false).setScrollFactor(0)},
+	"northcoders2": function(zone) {this.createDialog(this, 2243.10344827586, 4050, "Awesome! I'll go sign up now! Thank you!", zone, 'continue', "", null, null, true).setScrollFactor(0)},
   }
 
   export default scenarioTree;
