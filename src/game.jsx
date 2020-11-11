@@ -112,7 +112,7 @@ class Game extends Component {
         <HomeTitleGame>NC Helper! 
           <br></br>
           <br></br>
-          Player: {this.props.name}</HomeTitleGame>
+          {this.props.name}</HomeTitleGame>
           <br></br>
       </StyledParagraphGame>
     );
