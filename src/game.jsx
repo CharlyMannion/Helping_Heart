@@ -31,6 +31,7 @@ const HomeTitleGame = styled.span`
   flex-direction: column;
 `;
 
+
 class NPCGameObject extends Phaser.GameObjects.Image {
   constructor(scene, x, y) {
     super(scene, x, y, "npc");
@@ -53,7 +54,7 @@ class Game extends Component {
   componentDidMount() {
     this.game = new Phaser.Game({
       type: Phaser.AUTO,
-      width: 500,
+      width: 700,
       height: 500,
       physics: {
         default: "arcade",
@@ -102,15 +103,25 @@ class Game extends Component {
   }
 
   preload() {
-    // Sound Effects Preload
-    this.load.audio("menuClick", menuSelect, { instances: 1 });
-    this.load.audio("menuClick2", menuSelect2, { instances: 1 });
-    this.load.audio("fail", denied, { instances: 1 });
 
-    this.load.image("tilesetRPG", tileSetRPG);
-    this.load.image("tilesetGraveyard", tileSetGraveYard);
-    this.load.image("tilesetForest", tileSetForest);
-    this.load.tilemapTiledJSON("map", map);
+    // Sound Effects Preload
+    this.load.audio('menuClick', menuSelect, { instances: 1 })
+    this.load.audio('menuClick2', menuSelect2, { instances: 1 })
+    this.load.audio('fail', denied, { instances: 1 })
+
+    this.load.image('tilesetRPG', tileSetRPG);
+    this.load.image('tilesetGraveyard', tileSetGraveYard)
+    this.load.image('tilesetForest', tileSetForest)
+    this.load.tilemapTiledJSON('map', map);
+
+    this.load.image('heart0', 'https://i.imgur.com/G45CBD5.png')
+    this.load.image('heart1', 'https://i.imgur.com/pjhXAxP.png')
+    this.load.image('heart2', 'https://i.imgur.com/ZQ5sdvb.png')
+    this.load.image('heart3', 'https://i.imgur.com/Zm9lnjS.png')
+    this.load.image('heart4', 'https://i.imgur.com/RxgFjwT.png')
+    this.load.image('heart5', 'https://i.imgur.com/9j35Q2K.png')
+    this.load.image('heart6', 'https://i.imgur.com/rGptaej.png')
+    this.load.spritesheet('heartsheet', 'https://i.imgur.com/FmX2Cjz.png', {frameWidth : 35, frameHeight: 35})
     this.load.spritesheet("dude", "https://i.imgur.com/0x8P9a6.png", {
       frameWidth: 16,
       frameHeight: 24,
@@ -129,7 +140,7 @@ class Game extends Component {
   }
 
   create() {
-    const map = this.make.tilemap({
+   const map = this.make.tilemap({
       key: "map",
       tileWidth: 32,
       tileHeight: 32,
@@ -375,13 +386,18 @@ class Game extends Component {
     // Score and Winning
     // Set up the score variable and display that to the screen
     this.score = 0;
-    this.scoreDisplay = this.add
-      .text(0, 0, `score: ${this.score}`, { fontSize: "32px" })
-      .setScrollFactor(0);
+    this.scoreDisplay = this.add.sprite(0,0,`heart${this.score}`).setScrollFactor(0)
+    this.scoreDisplay.x = 50;
+    this.scoreDisplay.y = 50;
+    // this.add
+    //   .image('heart', 0, 0)
+    //   .setScrollFactor(0);
     // Run this Function to increase score by one then check if the score has reached 5 or not
     const updateScore = () => {
       this.score += 1;
-      this.scoreDisplay.setText(`score: ${this.score}`);
+      this.scoreDisplay = this.add.sprite(0,0,`heart${this.score}`).setScrollFactor(0)
+      this.scoreDisplay.x = 50;
+      this.scoreDisplay.y = 50;
       if (this.score === 5) {
         this.finishGame();
       }
@@ -556,6 +572,7 @@ class Game extends Component {
     } else if (!touching && wasTouching) {
       this.player.emit("overlapend");
     }
+
   }
 }
 

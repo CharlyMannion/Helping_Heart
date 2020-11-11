@@ -33,3 +33,16 @@ html {
   color: white;
   font-size: 3rem;
 }
+
+.game-container {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+canvas {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  border: 2px solid white;
+}
