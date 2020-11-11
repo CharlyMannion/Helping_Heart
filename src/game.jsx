@@ -104,6 +104,7 @@ class Game extends Component {
     this.score = null;
     this.scoreDisplay = null;
     this.currentZone = null;
+    this.isDialogActive = false;
   }
 
   render() {
@@ -263,9 +264,9 @@ class Game extends Component {
 
     const villageSpawn = spriteLocation("Villiage NPC");
 
-    const forestSpawn = spriteLocation("Forest NPC");
-
     const parkSpawn = spriteLocation("Park NPC");
+
+    const woodSpawn = spriteLocation('Wood NPC')
 
     const supermarketSpawn = spriteLocation("Supermarket NPC");
 
@@ -326,39 +327,30 @@ class Game extends Component {
     });
 
     //Create NPCs
-    let spriteDave = this.add.npc(villageSpawn.x, villageSpawn.y);
-    this.zoneDave = this.add
-      .zone(villageSpawn.x, villageSpawn.y)
-      .setSize(75, 75);
-    this.physics.world.enable(this.zoneDave);
 
-    let spriteFrank = this.add.npc(forestSpawn.x, forestSpawn.y);
-    this.zoneFrank = this.add
-      .zone(forestSpawn.x, forestSpawn.y)
-      .setSize(75, 75);
-    this.physics.world.enable(this.zoneFrank);
+    let spriteVillageNPC = this.add.npc(villageSpawn.x, villageSpawn.y);
+    this.zoneVillageNPC = this.add.zone(villageSpawn.x, villageSpawn.y).setSize(75, 75);
+    this.physics.world.enable(this.zoneVillageNPC);
 
-    let spriteJimmy = this.add.npc(parkSpawn.x, parkSpawn.y);
-    this.zoneJimmy = this.add.zone(parkSpawn.x, parkSpawn.y).setSize(75, 75);
-    this.physics.world.enable(this.zoneJimmy);
+    let spriteWoodNPC = this.add.npc(woodSpawn.x , woodSpawn.y);
+    this.zoneWoodNPC = this.add.zone(woodSpawn.x, woodSpawn.y).setSize(75, 75);
+    this.physics.world.enable(this.zoneWoodNPC);
 
-    let spriteSammy = this.add.npc(supermarketSpawn.x, supermarketSpawn.y);
-    this.zoneSammy = this.add
-      .zone(supermarketSpawn.x, supermarketSpawn.y)
-      .setSize(75, 75);
-    this.physics.world.enable(this.zoneSammy);
+    let spriteParkNPC = this.add.npc(parkSpawn.x, parkSpawn.y)
+    this.zoneParkNPC = this.add.zone(parkSpawn.x, parkSpawn.y).setSize(75, 75)
+    this.physics.world.enable(this.zoneParkNPC)
 
-    let spriteJohn = this.add.npc(oldForestSpawn.x, oldForestSpawn.y);
-    this.zoneJohn = this.add
-      .zone(oldForestSpawn.x, oldForestSpawn.y)
-      .setSize(75, 75);
-    this.physics.world.enable(this.zoneJohn);
+    let spriteSupermarketNPC = this.add.npc(supermarketSpawn.x, supermarketSpawn.y)
+    this.zoneSupermarketNPC = this.add.zone(supermarketSpawn.x, supermarketSpawn.y).setSize(75, 75)
+    this.physics.world.enable(this.zoneSupermarketNPC)
 
-    let spriteBen = this.add.npc(graveyardSpawn.x, graveyardSpawn.y);
-    this.zoneBen = this.add
-      .zone(graveyardSpawn.x, graveyardSpawn.y)
-      .setSize(75, 75);
-    this.physics.world.enable(this.zoneBen);
+    let spriteOldForestNPC = this.add.npc(oldForestSpawn.x, oldForestSpawn.y)
+    this.zoneOldForestNPC = this.add.zone(oldForestSpawn.x, oldForestSpawn.y).setSize(75, 75)
+    this.physics.world.enable(this.zoneOldForestNPC)
+
+    let spriteGraveyardNPC = this.add.npc(graveyardSpawn.x, graveyardSpawn.y)
+    this.zoneGraveyardNPC = this.add.zone(graveyardSpawn.x, graveyardSpawn.y).setSize(75, 75)
+    this.physics.world.enable(this.zoneGraveyardNPC)
 
     // adds a label that holds each option "button"
     let createButton = function (scene, text, name) {
@@ -367,8 +359,8 @@ class Game extends Component {
           background: scene.rexUI.add.roundRectangle(0, 0, 0, 0, 20, 0x5e92f3),
           text: scene.add.text(0, 0, text, {
             fontSize: "12px",
-          }),
-          name: name,
+          }).setWordWrapWidth(125),
+          name: name
         });
       } else {
         return scene.rexUI.add.label({
@@ -396,8 +388,12 @@ class Game extends Component {
 
     this.physics.add.overlap(this.player, this.zone);
     // Adds overlap functionality to the NPC zones
-    this.physics.add.overlap(this.player, this.zoneFrank);
-    this.physics.add.overlap(this.player, this.zoneDave);
+    this.physics.add.overlap(this.player, this.zoneWoodNPC);
+    this.physics.add.overlap(this.player, this.zoneVillageNPC);
+    this.physics.add.overlap(this.player, this.zoneParkNPC);
+    this.physics.add.overlap(this.player, this.zoneSupermarketNPC);
+    this.physics.add.overlap(this.player, this.zoneOldForestNPC);
+    this.physics.add.overlap(this.player, this.zoneGraveyardNPC);
 
     // Score and Winning
     // Set up the score variable and display that to the screen
@@ -427,6 +423,9 @@ class Game extends Component {
     };
 
     // creates a dialog box with buttons inside it
+
+    this.createDialog = (scene, x, y, scenarioText, zone, buttonText1, buttonText2, nextScenario1, nextScenario2, end) => {
+      this.isDialogActive = true;
     this.createDialog = (
       scene,
       x,
@@ -439,6 +438,7 @@ class Game extends Component {
       nextScenario2,
       end
     ) => {
+
       let dialog = scene.rexUI.add
         .dialog({
           x: x,
@@ -461,8 +461,8 @@ class Game extends Component {
               0xbc5100
             ),
             text: scene.add.text(0, 0, scenarioText, {
-              fontSize: "14px",
-            }),
+              fontSize: "14px", 
+            }).setWordWrapWidth(400),
           }),
           // calls createButton to make two labels within dialog box
           actions: [
@@ -503,8 +503,9 @@ class Game extends Component {
               }
             }
             dialog.scaleDownDestroy(100);
-            // If you manage to help someone
-            if (end) {
+            this.isDialogActive = false;
+         // If you manage to help someone
+            if(end){
               updateScore();
               scene.sound.play("menuClick2");
               zone.destroy();
@@ -528,10 +529,18 @@ class Game extends Component {
     // interact function allows a dialog box to be created only if the sprite and zone are overlapping
     this.interact = (zone) => {
       if (overlapping && dialog === undefined) {
-        if (zone === this.zoneDave) {
-          scenarioTree.startDave.call(this, zone);
-        } else if (zone === this.zoneFrank) {
-          scenarioTree.startFrank.call(this, zone);
+        if (zone === this.zoneVillageNPC) {
+        scenarioTree.startVillageNPC.call(this, zone)
+        } else if (zone === this.zoneWoodNPC) {
+          scenarioTree.startWoodNPC.call(this, zone)
+        } else if (zone === this.zoneParkNPC) {
+          scenarioTree.startParkNPC.call(this, zone)
+        } else if (zone === this.zoneSupermarketNPC) {
+          scenarioTree.startSupermarketNPC.call(this, zone)
+        } else if (zone === this.zoneOldForestNPC) {
+          scenarioTree.startOldForestNPC.call(this, zone)
+        } else if (zone === this.zoneGraveyardNPC) {
+          scenarioTree.startGraveyardNPC.call(this, zone)
         }
       }
     };
@@ -560,15 +569,24 @@ class Game extends Component {
     this.player.body.velocity.normalize().scale(200);
 
     let getZone = () => {
-      if (this.zoneDave.body && !this.zoneDave.body.touching.none) {
-        return this.zoneDave;
-      } else if (this.zoneFrank.body && !this.zoneFrank.body.touching.none) {
-        return this.zoneFrank;
+      if (this.zoneVillageNPC.body && !this.zoneVillageNPC.body.touching.none) {
+        return this.zoneVillageNPC;
+      } else if (this.zoneWoodNPC.body && !this.zoneWoodNPC.body.touching.none) {
+        return this.zoneWoodNPC;
+      } else if (this.zoneSupermarketNPC.body && !this.zoneSupermarketNPC.body.touching.none) {
+        return this.zoneSupermarketNPC;
+      } else if (this.zoneParkNPC.body && !this.zoneParkNPC.body.touching.none) {
+        return this.zoneParkNPC;
+      } else if (this.zoneGraveyardNPC.body && !this.zoneGraveyardNPC.body.touching.none) {
+        return this.zoneGraveyardNPC;
+      } else if (this.zoneOldForestNPC.body && !this.zoneOldForestNPC.body.touching.none) {
+        return this.zoneOldForestNPC;
       }
     };
 
-    // if the space bar is down, call the interact function, which pops up the dialog box
-    if (this.cursors.spaceBar.isDown) {
+
+    // if the space bar is down, call the interact function, which pops up the dialog box    
+    if (this.cursors.spaceBar.isDown && !this.isDialogActive) {
       this.interact(this.currentZone);
     }
     if (this.cursors.tab.isDown) {
