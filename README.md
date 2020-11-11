@@ -8,7 +8,7 @@ Find the hosted back end [here](https://helpers-game-backend.herokuapp.com/playe
 
 See our back end repository [here](https://github.com/SarahBrowncross/helpers-backend)
 
-Check out our final presentation slides [here]()
+Check out our final presentation slides [here](https://docs.google.com/presentation/d/1lK4el-vOFFCqbzQJrU31cipP5R_oQMzfXeBl4O0S5DU/edit?usp=sharing)
 
 You can also see a video of our presentation [here]()
 
@@ -287,19 +287,21 @@ I want to see proper TDD
 * Our second sprint consisted of functionality to make the game both more seamless and fun to play
 * A big peice of this was creating a logic tree for the scenarios to help NPCs, and implementing multiple pop-up dialogue boxes
 * Other features included sound effects, music, an improved tilemap, and consistent styling throughout the game
-* As part of our second sprint, we also investigated implementing a database as a potential way of storing the game logic. We spiked Firebase and made basic requests from within phaser, which proved this could be implemented. But ultimately we decided not to pursue this as it would've been a huge piece of work, which would require learning another new technology
+* As part of our second sprint, we also investigated implementing a database as a potential way of storing the game logic. We spiked Firebase and made basic requests from within phaser, which proved this could be implemented. But ultimately we decided not to pursue this as it would've been a huge piece of work, which would require learning another new technology such as MongoDB
 * Another part of this sprint was conducting traditional game testing, which involved each of us playing the game and recording known bugs. An issue we encountered whilst conducting these tests was collision in places were there was nothing visible to collide with
 * The final part of this sprint was hosting our app on Netlify. Play it [here]() 
 
 ## Challenges
-* One of our main challenges was getting to grips with Phaser, and using it in conjunction with React. We found we were unable to pass information in and out of Phaser as props, like you would a traditional React Component. Our solution was to keep any information needed for the Phaser game within the game itself. The drawside of this solution was that we ended up with a huge and unwieldy game.jsx file
-* If we had more time, or were to build another Phaser game, we would store information in a database that we would make requests to from Phaser. This was a solution that we spiked and proved could work. But we did not have the time to implement this as it would've involved learning more new technology, such as MongoDB, to store our tree logic
+* One of our main challenges was getting to grips with Phaser, and using it in conjunction with React. We found we were unable to pass information in and out of Phaser as props, like you would a traditional React Component. Our solution was to keep any information needed for the Phaser game within the game itself. The drawside of this solution was that we ended up with a huge and unwieldy game.jsx file. If we had more time, or could go back and design the game differently, I think we would all like to try and find a way to extract more code from our Phaser game
 * Because we chose to use tech that was not part of the Nothcoders curriculum, we were unable to ask for help when we ran into problems
-* We faced a few teething issues with tiled, and required a few iterations in order to get our layers loaded simultaneously
+* We faced a few teething issues with tiled, and had to make a few iterations to get our layers loaded simultaneouslyWe also ended up with some invisible collision points in our map, which we were unable to locate the cause of
 * We also came into a small amount of trouble when merging our branches, due to the fact that Phaser needs to be written in one file in order to run smoothly. However, we were able to resolve any merge conflicts quickly
+* One of our goals was to create a game in which the characters would be diverse. However we really struggled to find assets to meet our goal, and we do not have the time or the skills to design our own
+
 
 ## Successes
-* We all felt a huge sense of achievement when we got Phaser working, and celebrated our success as a team
 * Being unable to ask for help with using Phaser greatly improved our problem-solving and de-bugging skills
-* We were great at swapping pairs regularly, so it felt like we all had a really great understanding of how our app was working. This also meant we all got the opportunity on different aspects of the game
-* One of our main objectives was to build something that we would enjoy working on. We all really enjoyed working on this game, and remained enthusiatic throughout the two weeks, so this was a huge success
+* We all felt a huge sense of achievement when we got Phaser working, and celebrated our success as a team
+* We were great at swapping pairs, having regular knowledge-sharing sessions. This meant we all got the opportunity on different aspects of the game, and it felt like we had a really great understanding of how our app was working
+* One of our main objectives was to build something that we would enjoy working on. We all really enjoyed working on this game, and remained enthusiastic throughout the two weeks, so this was a huge success
+* I think it’s also safe to say that we’re all really proud of our game, from the map to the game plot. 
