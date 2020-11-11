@@ -35,8 +35,15 @@ const scenarioTree = {
 	'spaghetti': function(zone) {this.createDialog(this, 2243.10344827586, 4050, "Thank you! Why didn't I think of that! I feel much better now", zone, "continue", "", null, null, true).setScrollFactor(0)},
 	
 	//Dialog with NPC in old forest, lonely and needs a chat, this.createDialog = (scene, x, y, scenarioText, zone, buttonText1, buttonText2, nextScenario1, nextScenario2, end)
-	'startOldForestNPC': function(zone) {this.createDialog(this, 2243.10344827586, 4050, 'Will you help me chop some wood?', zone, 'Yes', 'No', null, null, false).setScrollFactor(0)},
-	
+	'startOldForestNPC': function(zone) {this.createDialog(this, 2243.10344827586, 4050, "Oh my goodness! A person! You're the first person I've seen in weeks!", zone, 'Wow, that sound tough', 'And probably the last *walk away*', 'askQuestionLonely', null, false).setScrollFactor(0)},
+	'askQuestionLonely': function(zone) {this.createDialog(this, 2243.10344827586, 4050, "Yeah, I've been so lonely, can you stay for a chat?", zone, 'Of course', "No, I'm too busy helping people", 'chatLonely', 'noChat', false).setScrollFactor(0)},
+	'noChat': function(zone) {this.createDialog(this, 2243.10344827586, 4050, "Oh, okay, maybe another time...", zone, 'continue', "", null, null, false).setScrollFactor(0)},
+	'chatLonely': function(zone) {this.createDialog(this, 2243.10344827586, 4050, "What shall we chat about?", zone, 'I know some great facts about trees', "covid", 'treeFacts', 'covid', false).setScrollFactor(0)},
+	'covid': function(zone) {this.createDialog(this, 2243.10344827586, 4050, "Nobody wants to talk about covid", zone, 'continue', "", null, null, false).setScrollFactor(0)},
+	'treeFacts': function(zone) {this.createDialog(this, 2243.10344827586, 4050, "Tell me a tree fact!", zone, 'Pine cones have a gender', "Pine trees grow on every continent", 'trueTreeFact', 'falseTreeFact', false).setScrollFactor(0)},
+	'falseTreeFact': function(zone) {this.createDialog(this, 2243.10344827586, 4050, "What about Antartica? I'm not here for your fake tree news", zone, 'continue', "", null, null, false).setScrollFactor(0)},
+	'trueTreeFact': function(zone) {this.createDialog(this, 2243.10344827586, 4050, "What a great fact! I'm going to go and find some pine cones now. Thank you!", zone, 'continue', "", null, null, true).setScrollFactor(0)},
+
 	//Dialog with NPC in graveyard, needs a job, this.createDialog = (scene, x, y, scenarioText, zone, buttonText1, buttonText2, nextScenario1, nextScenario2, end)
 	'startGraveyardNPC': function(zone) {this.createDialog(this, 2243.10344827586, 4050, 'Will you help me fight this ghost?', zone, 'Yes', 'No', null, null, false).setScrollFactor(0)},
   }
