@@ -9,5 +9,6 @@ const StyledParagraph = styled.div`
   font-family: "VT323", monospace;
   font-size: 1.5rem;
   color: white;
+  text-align: center;
 `;
 export default StyledParagraph;
