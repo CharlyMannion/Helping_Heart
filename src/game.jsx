@@ -356,9 +356,9 @@ class Game extends Component {
     let createButton = function (scene, text, name) {
       if (text !== "") {
         return scene.rexUI.add.label({
-          background: scene.rexUI.add.roundRectangle(0, 0, 0, 0, 20, 0x5e92f3),
+          background: scene.rexUI.add.roundRectangle(0, 0, 0, 0, 20, 0x00468b),
           text: scene.add.text(0, 0, text, {
-            fontSize: "12px",
+            fontSize: "12px", align: 'center', padding: {left:10, right:10, top:10, bottom: 10}
           }).setWordWrapWidth(125),
           name: name
         });
@@ -410,7 +410,7 @@ class Game extends Component {
       this.scoreDisplay = this.add.sprite(0, 0, `heart${this.score}`).setScrollFactor(0)
       this.scoreDisplay.x = 50;
       this.scoreDisplay.y = 50;
-      if (this.score === 5) {
+      if (this.score === 6) {
         this.finishGame();
       }
     };
@@ -448,7 +448,7 @@ class Game extends Component {
                 0xbc5100
               ),
               text: scene.add.text(0, 0, scenarioText, {
-                fontSize: "14px",
+                fontSize: "14px", align: 'center', padding: {left:15, right:10, top:10, bottom: 10}
               }).setWordWrapWidth(400),
             }),
             // calls createButton to make two labels within dialog box
