@@ -110,11 +110,11 @@ class Game extends Component {
   render() {
     return (
       <StyledParagraphGame className="game-container">
-        <HomeTitleGame>NC Helper! 
+        <HomeTitleGame>NC Helper!
           <br></br>
           <br></br>
           {this.props.name}</HomeTitleGame>
-          <br></br>
+        <br></br>
       </StyledParagraphGame>
     );
   }
@@ -138,7 +138,7 @@ class Game extends Component {
     this.load.image('heart4', 'https://i.imgur.com/RxgFjwT.png')
     this.load.image('heart5', 'https://i.imgur.com/9j35Q2K.png')
     this.load.image('heart6', 'https://i.imgur.com/rGptaej.png')
-    this.load.spritesheet('heartsheet', 'https://i.imgur.com/FmX2Cjz.png', {frameWidth : 35, frameHeight: 35})
+    this.load.spritesheet('heartsheet', 'https://i.imgur.com/FmX2Cjz.png', { frameWidth: 35, frameHeight: 35 })
     this.load.spritesheet("dude", "https://i.imgur.com/0x8P9a6.png", {
       frameWidth: 16,
       frameHeight: 24,
@@ -157,7 +157,7 @@ class Game extends Component {
   }
 
   create() {
-   const map = this.make.tilemap({
+    const map = this.make.tilemap({
       key: "map",
       tileWidth: 32,
       tileHeight: 32,
@@ -332,7 +332,7 @@ class Game extends Component {
     this.zoneVillageNPC = this.add.zone(villageSpawn.x, villageSpawn.y).setSize(75, 75);
     this.physics.world.enable(this.zoneVillageNPC);
 
-    let spriteWoodNPC = this.add.npc(woodSpawn.x , woodSpawn.y);
+    let spriteWoodNPC = this.add.npc(woodSpawn.x, woodSpawn.y);
     this.zoneWoodNPC = this.add.zone(woodSpawn.x, woodSpawn.y).setSize(75, 75);
     this.physics.world.enable(this.zoneWoodNPC);
 
@@ -398,7 +398,7 @@ class Game extends Component {
     // Score and Winning
     // Set up the score variable and display that to the screen
     this.score = 0;
-    this.scoreDisplay = this.add.sprite(0,0,`heart${this.score}`).setScrollFactor(0)
+    this.scoreDisplay = this.add.sprite(0, 0, `heart${this.score}`).setScrollFactor(0)
     this.scoreDisplay.x = 50;
     this.scoreDisplay.y = 50;
     // this.add
@@ -407,7 +407,7 @@ class Game extends Component {
     // Run this Function to increase score by one then check if the score has reached 5 or not
     const updateScore = () => {
       this.score += 1;
-      this.scoreDisplay = this.add.sprite(0,0,`heart${this.score}`).setScrollFactor(0)
+      this.scoreDisplay = this.add.sprite(0, 0, `heart${this.score}`).setScrollFactor(0)
       this.scoreDisplay.x = 50;
       this.scoreDisplay.y = 50;
       if (this.score === 5) {
@@ -426,188 +426,176 @@ class Game extends Component {
 
     this.createDialog = (scene, x, y, scenarioText, zone, buttonText1, buttonText2, nextScenario1, nextScenario2, end) => {
       this.isDialogActive = true;
-    this.createDialog = (
-      scene,
-      x,
-      y,
-      scenarioText,
-      zone,
-      buttonText1,
-      buttonText2,
-      nextScenario1,
-      nextScenario2,
-      end
-    ) => {
-
-      let dialog = scene.rexUI.add
-        .dialog({
-          x: x,
-          y: y,
-          background: scene.rexUI.add.roundRectangle(
-            0,
-            0,
-            100,
-            100,
-            20,
-            0xf57f17
-          ),
-          title: scene.rexUI.add.label({
+       let dialog = scene.rexUI.add
+          .dialog({
+            x: x,
+            y: y,
             background: scene.rexUI.add.roundRectangle(
               0,
               0,
               100,
-              40,
+              100,
               20,
-              0xbc5100
+              0xf57f17
             ),
-            text: scene.add.text(0, 0, scenarioText, {
-              fontSize: "14px", 
-            }).setWordWrapWidth(400),
-          }),
-          // calls createButton to make two labels within dialog box
-          actions: [
-            createButton(this, buttonText1, "b1"),
-            createButton(this, buttonText2, "b2"),
-          ],
-          actionsAlign: "left",
-          space: {
-            title: 30,
-            action: 50,
-            left: 15,
-            right: 15,
-            top: 10,
-            bottom: 10,
-          },
-        })
-        // when you click a "button" i.e. a label, it adds text to the page
-        .on(
-          "button.click",
-          function (button, groupName, index, pointer, event) {
-            // when you click on a "button", the dialog box should disappear
-            if (button.name === "b1") {
-              if (nextScenario1 === null && !end) {
-                scene.sound.play("fail");
+            title: scene.rexUI.add.label({
+              background: scene.rexUI.add.roundRectangle(
+                0,
+                0,
+                100,
+                40,
+                20,
+                0xbc5100
+              ),
+              text: scene.add.text(0, 0, scenarioText, {
+                fontSize: "14px",
+              }).setWordWrapWidth(400),
+            }),
+            // calls createButton to make two labels within dialog box
+            actions: [
+              createButton(this, buttonText1, "b1"),
+              createButton(this, buttonText2, "b2"),
+            ],
+            actionsAlign: "left",
+            space: {
+              title: 30,
+              action: 50,
+              left: 15,
+              right: 15,
+              top: 10,
+              bottom: 10,
+            },
+          })
+          // when you click a "button" i.e. a label, it adds text to the page
+          .on(
+            "button.click",
+            function (button, groupName, index, pointer, event) {
+              // when you click on a "button", the dialog box should disappear
+              if (button.name === "b1") {
+                if (nextScenario1 === null && !end) {
+                  scene.sound.play("fail");
+                }
+                if (nextScenario1 !== null) {
+                  scene.sound.play("menuClick");
+                  scenarioTree[nextScenario1].call(this, zone);
+                }
               }
-              if (nextScenario1 !== null) {
-                scene.sound.play("menuClick");
-                scenarioTree[nextScenario1].call(this, zone);
+              if (button.name === "b2") {
+                if (nextScenario2 !== null) {
+                  scene.sound.play("menuClick");
+                  scenarioTree[nextScenario2].call(this, zone);
+                }
+                if (nextScenario2 === null && !end) {
+                  scene.sound.play("fail");
+                }
               }
-            }
-            if (button.name === "b2") {
-              if (nextScenario2 !== null) {
-                scene.sound.play("menuClick");
-                scenarioTree[nextScenario2].call(this, zone);
+              dialog.scaleDownDestroy(100);
+              this.isDialogActive = false;
+              // If you manage to help someone
+              if (end) {
+                updateScore();
+                scene.sound.play("menuClick2");
+                zone.destroy();
               }
-              if (nextScenario2 === null && !end) {
-                scene.sound.play("fail");
-              }
-            }
-            dialog.scaleDownDestroy(100);
-            this.isDialogActive = false;
-         // If you manage to help someone
-            if(end){
-              updateScore();
-              scene.sound.play("menuClick2");
-              zone.destroy();
-            }
-          },
-          this
-        )
-        // below makes the "button" change in appearance when the cursor hovers over it
-        .on("button.over", function (button, groupName, index, pointer, event) {
-          button.getElement("background").setStrokeStyle(1, 0xffffff);
-        })
-        .on("button.out", function (button, groupName, index, pointer, event) {
-          button.getElement("background").setStrokeStyle();
-        })
-        .layout()
-        .pushIntoBounds()
-        .popUp(500);
-      return dialog;
-    };
+            },
+            this
+          )
+          // below makes the "button" change in appearance when the cursor hovers over it
+          .on("button.over", function (button, groupName, index, pointer, event) {
+            button.getElement("background").setStrokeStyle(1, 0xffffff);
+          })
+          .on("button.out", function (button, groupName, index, pointer, event) {
+            button.getElement("background").setStrokeStyle();
+          })
+          .layout()
+          .pushIntoBounds()
+          .popUp(500);
+        return dialog;
+      };
 
-    // interact function allows a dialog box to be created only if the sprite and zone are overlapping
-    this.interact = (zone) => {
-      if (overlapping && dialog === undefined) {
-        if (zone === this.zoneVillageNPC) {
-        scenarioTree.startVillageNPC.call(this, zone)
-        } else if (zone === this.zoneWoodNPC) {
-          scenarioTree.startWoodNPC.call(this, zone)
-        } else if (zone === this.zoneParkNPC) {
-          scenarioTree.startParkNPC.call(this, zone)
-        } else if (zone === this.zoneSupermarketNPC) {
-          scenarioTree.startSupermarketNPC.call(this, zone)
-        } else if (zone === this.zoneOldForestNPC) {
-          scenarioTree.startOldForestNPC.call(this, zone)
-        } else if (zone === this.zoneGraveyardNPC) {
-          scenarioTree.startGraveyardNPC.call(this, zone)
+      // interact function allows a dialog box to be created only if the sprite and zone are overlapping
+      this.interact = (zone) => {
+        if (overlapping && dialog === undefined) {
+          if (zone === this.zoneVillageNPC) {
+            scenarioTree.startVillageNPC.call(this, zone)
+          } else if (zone === this.zoneWoodNPC) {
+            scenarioTree.startWoodNPC.call(this, zone)
+          } else if (zone === this.zoneParkNPC) {
+            scenarioTree.startParkNPC.call(this, zone)
+          } else if (zone === this.zoneSupermarketNPC) {
+            scenarioTree.startSupermarketNPC.call(this, zone)
+          } else if (zone === this.zoneOldForestNPC) {
+            scenarioTree.startOldForestNPC.call(this, zone)
+          } else if (zone === this.zoneGraveyardNPC) {
+            scenarioTree.startGraveyardNPC.call(this, zone)
+          }
         }
+      };
+    }
+
+    update() {
+      //Change Animations
+      if (this.cursors.left.isDown) {
+        this.player.setVelocityX(-160);
+        this.player.anims.play("left", true);
+      } else if (this.cursors.right.isDown) {
+        this.player.setVelocityX(160);
+        this.player.anims.play("right", true);
+      } else if (this.cursors.up.isDown) {
+        this.player.setVelocityY(-160);
+        this.player.anims.play("up", true);
+      } else if (this.cursors.down.isDown) {
+        this.player.setVelocityY(160);
+        this.player.anims.play("down", true);
+      } else {
+        this.player.setVelocityX(0);
+        this.player.setVelocityY(0);
+        // this.player.anims.play('turn');
       }
-    };
+      this.player.body.velocity.normalize().scale(200);
+
+      let getZone = () => {
+        if (this.zoneVillageNPC.body && !this.zoneVillageNPC.body.touching.none) {
+          return this.zoneVillageNPC;
+        } else if (this.zoneWoodNPC.body && !this.zoneWoodNPC.body.touching.none) {
+          return this.zoneWoodNPC;
+        } else if (this.zoneSupermarketNPC.body && !this.zoneSupermarketNPC.body.touching.none) {
+          return this.zoneSupermarketNPC;
+        } else if (this.zoneParkNPC.body && !this.zoneParkNPC.body.touching.none) {
+          return this.zoneParkNPC;
+        } else if (this.zoneGraveyardNPC.body && !this.zoneGraveyardNPC.body.touching.none) {
+          return this.zoneGraveyardNPC;
+        } else if (this.zoneOldForestNPC.body && !this.zoneOldForestNPC.body.touching.none) {
+          return this.zoneOldForestNPC;
+        }
+      };
+
+
+
+      // if the space bar is down, call the interact function, which pops up the dialog box    
+      if (this.cursors.spaceBar.isDown && !this.isDialogActive) {
+        this.interact(this.currentZone);
+      }
+      if (this.cursors.tab.isDown) {
+        this.removeDialog();
+      }
+
+      // adds logic so phaser knows when the spirte touches the zone
+      if (this.player.body.embedded) {
+        this.player.body.touching.none = false;
+      }
+      let touching = !this.player.body.touching.none;
+      let wasTouching = !this.player.body.wasTouching.none;
+
+      if (touching && !wasTouching) {
+        this.player.emit("overlapstart");
+        this.currentZone = getZone();
+      } else if (!touching && wasTouching) {
+        this.player.emit("overlapend");
+      }
+
+    }
   }
 
-  update() {
-    //Change Animations
-    if (this.cursors.left.isDown) {
-      this.player.setVelocityX(-160);
-      this.player.anims.play("left", true);
-    } else if (this.cursors.right.isDown) {
-      this.player.setVelocityX(160);
 
-      this.player.anims.play("right", true);
-    } else if (this.cursors.up.isDown) {
-      this.player.setVelocityY(-160);
-      this.player.anims.play("up", true);
-    } else if (this.cursors.down.isDown) {
-      this.player.setVelocityY(160);
-      this.player.anims.play("down", true);
-    } else {
-      this.player.setVelocityX(0);
-      this.player.setVelocityY(0);
-      // this.player.anims.play('turn');
-    }
-    this.player.body.velocity.normalize().scale(200);
-
-    let getZone = () => {
-      if (this.zoneVillageNPC.body && !this.zoneVillageNPC.body.touching.none) {
-        return this.zoneVillageNPC;
-      } else if (this.zoneWoodNPC.body && !this.zoneWoodNPC.body.touching.none) {
-        return this.zoneWoodNPC;
-      } else if (this.zoneSupermarketNPC.body && !this.zoneSupermarketNPC.body.touching.none) {
-        return this.zoneSupermarketNPC;
-      } else if (this.zoneParkNPC.body && !this.zoneParkNPC.body.touching.none) {
-        return this.zoneParkNPC;
-      } else if (this.zoneGraveyardNPC.body && !this.zoneGraveyardNPC.body.touching.none) {
-        return this.zoneGraveyardNPC;
-      } else if (this.zoneOldForestNPC.body && !this.zoneOldForestNPC.body.touching.none) {
-        return this.zoneOldForestNPC;
-      }
-    };
-
-
-    // if the space bar is down, call the interact function, which pops up the dialog box    
-    if (this.cursors.spaceBar.isDown && !this.isDialogActive) {
-      this.interact(this.currentZone);
-    }
-    if (this.cursors.tab.isDown) {
-      this.removeDialog();
-    }
-
-    // adds logic so phaser knows when the spirte touches the zone
-    if (this.player.body.embedded) {
-      this.player.body.touching.none = false;
-    }
-    let touching = !this.player.body.touching.none;
-    let wasTouching = !this.player.body.wasTouching.none;
-
-    if (touching && !wasTouching) {
-      this.player.emit("overlapstart");
-      this.currentZone = getZone();
-    } else if (!touching && wasTouching) {
-      this.player.emit("overlapend");
-    }
-
-  }
-}
-
-export default Game;
+  export default Game;
