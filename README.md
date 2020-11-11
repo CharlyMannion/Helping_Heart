@@ -283,19 +283,23 @@ I want to see proper TDD
 
 
 ## Week Two: 
-* At the start of week two, we defined our second week-long sprint
+* At the start of week two, we defined our second sprint, which would take us to the end of Wednesday. We decided to stop coding at this point so we could focus on tidying up and creating a really great presentation
 * Our second sprint consisted of functionality to make the game both more seamless and fun to play
 * A big peice of this was creating a logic tree for the scenarios to help NPCs, and implementing multiple pop-up dialogue boxes
 * Other features included sound effects, music, an improved tilemap, and consistent styling throughout the game
-* As part of our second sprint, we also investigated implementing a database as a potential way of storing the game logic. We spiked Firebase and made basic requests from within phaser, which proved this could be implemented. But ultimately we decided not to pursue this as it would've been a huge piece of work, which would require learning another new technology.
+* As part of our second sprint, we also investigated implementing a database as a potential way of storing the game logic. We spiked Firebase and made basic requests from within phaser, which proved this could be implemented. But ultimately we decided not to pursue this as it would've been a huge piece of work, which would require learning another new technology
+* Another part of this sprint was conducting traditional game testing, which involved each of us playing the game and recording known bugs. An issue we encountered whilst conducting these tests was collision in places were there was nothing visible to collide with
+* The final part of this sprint was hosting our app on Netlify. Play it [here]() 
 
 ## Challenges
-* One of our main challenges was getting to grips with Phaser, and using it in conjunction with React
+* One of our main challenges was getting to grips with Phaser, and using it in conjunction with React. We initially struggled with passing information in and out of phaser, as we were trying to pass information as props to our Phaser game, like you would a traditional React Component. However, it quickly became apparent that this would not be possible. Our solution was to keep any information needed for the game within the game. The drawside of this solution was that we ended up with a huge and unwieldy game.jsx file
+* If we had more time, or were to build another Phaser game, we would try and store more information in a database that we would make requests to from Phaser. This was a solution that we spiked and proved could work, but that we did not have the time to implement as it would've involved learning more new technology such as MongoDB to store our tree logic
 * Because we chose to use tech that was not part of the Nothcoders curriculum, we were unable to ask for help when we ran into problems
 * We faced a few teething issues with tiled, and required a few iterations in order to get our layers loaded simultaneously
-* We also came into trouble when merging our branches, due to the fact that Phaser needs to be written in one file in order to run smoothly
+* We also came into a small amount of trouble when merging our branches, due to the fact that Phaser needs to be written in one file in order to run smoothly. However, we were able to resolve any merge conflicts quickly
 
 ## Successes
 * We all felt a huge sense of achievement when we got Phaser working, and celebrated our success as a team
 * Being unable to ask for help with using Phaser greatly improved our problem-solving and de-bugging skills
 * We were great at swapping pairs regularly, so it felt like we all had a really great understanding of how our app was working. This also meant we all got the opportunity on different aspects of the game
+* One of our main objectives was to build something that we would enjoy working on. We all really enjoyed working on this game, and remained enthusiatic throughout the two weeks, so this was a huge success
