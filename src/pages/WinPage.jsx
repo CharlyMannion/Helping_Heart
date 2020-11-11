@@ -1,8 +1,11 @@
 import React, { Component } from "react";
+import { Link } from "@reach/router";
 import Loader from "../components/Loader";
 import ErrorDisplay from "../components/ErrorDisplay";
 import PlayerCard from "../components/PlayerCard";
-import HeaderContainer from "../styledComponents/HeaderContainer"
+import StyledHeader from "../styledComponents/StyledHeader";
+import StyledBiggerButton from "../styledComponents/StyledBiggerButton";
+import StyledParagraph from "../styledComponents/StyledParagraph";
 
 class WinPage extends Component {
   state = {
@@ -47,12 +50,24 @@ class WinPage extends Component {
 
     return (
       <div className="user-list">
-        <HeaderContainer>Well Done!</HeaderContainer>
-        <ul>
-          {users.map((user) => {
-            return <PlayerCard key={user.name} name={user.name}></PlayerCard>;
-          })}
-        </ul>
+        <StyledParagraph>
+          <StyledHeader>Well Done!</StyledHeader>
+        </StyledParagraph>
+        <br></br>
+        <StyledParagraph>
+          Now for a lovely list of previous players...
+        </StyledParagraph>
+        <StyledParagraph>
+          <ul>
+            {users.map((user) => {
+              return <PlayerCard key={user.name} name={user.name}></PlayerCard>;
+            })}
+            <p></p>
+            <Link to="/">
+              <StyledBiggerButton>PLAY AGAIN!</StyledBiggerButton>
+            </Link>
+          </ul>
+        </StyledParagraph>
       </div>
     );
   }

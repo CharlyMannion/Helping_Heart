@@ -4,6 +4,7 @@ import helpIcon from "../assets/help-icon.png";
 import InfoDiv from "../styledComponents/InfoDiv";
 import HomeTitle from "../styledComponents/HomeTitle";
 import ErrorDisplay from "../components/ErrorDisplay";
+import StyledButton from "../styledComponents/StyledButton";
 
 class Username extends Component {
   state = {
@@ -32,13 +33,16 @@ class Username extends Component {
       <div className="username-container">
         <HomeTitle>NC HELPER!</HomeTitle>
         <HomeTitle>A GAME ABOUT KINDNESS</HomeTitle>
+        <p></p>
         <i class="fas fa-medkit"></i>
         <InfoDiv>
           <span>Enter username: </span>
+          <p></p>
           <form onChange={this.handleChange} onSubmit={this.handleSubmit}>
             <input type="text" name="username"></input>
+            <p></p>
             <Link to="/tutorial">
-              <input type="submit"></input>
+              <StyledButton type="submit">Go!</StyledButton>
             </Link>
           </form>
         </InfoDiv>
