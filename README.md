@@ -287,20 +287,26 @@ I want to see proper TDD
 * Our second sprint consisted of functionality to make the game both more seamless and fun to play
 * A big peice of this was creating a logic tree for the scenarios to help NPCs, and implementing multiple pop-up dialogue boxes
 * Other features included sound effects, music, an improved tilemap, and consistent styling throughout the game
-* As part of our second sprint, we also investigated implementing a database as a potential way of storing the game logic. We spiked Firebase and made basic requests from within phaser, which proved this could be implemented. But ultimately we decided not to pursue this as it would've been a huge piece of work, which would require learning another new technology such as MongoDB
 * Another part of this sprint was conducting traditional game testing, which involved each of us playing the game and recording known bugs. An issue we encountered whilst conducting these tests was collision in places were there was nothing visible to collide with
 * The final part of this sprint was hosting our app on Netlify. Play it [here](https://nchelper.netlify.app/) 
 
 ## Challenges
-* One of our main challenges was getting to grips with Phaser, and using it in conjunction with React. We found we were unable to pass information in and out of Phaser as props, like you would a traditional React Component. Our solution was to keep any information needed for the Phaser game within the game itself. The drawside of this solution was that we ended up with a huge and unwieldy game.jsx file. If we had more time, or could go back and design the game differently, I think we would all like to try and find a way to extract more code from our Phaser game
-* Because we chose to use tech that was not part of the Nothcoders curriculum, we were unable to ask for help when we ran into problems
-* We faced a few teething issues with tiled, and had to make a few iterations to get our layers loaded simultaneouslyWe also ended up with some invisible collision points in our map, which we were unable to locate the cause of
-* We also came into a small amount of trouble when merging our branches, due to the fact that Phaser needs to be written in one file in order to run smoothly. However, we were able to resolve any merge conflicts quickly
-* One of our goals was to create a game in which the characters would be diverse. However we really struggled to find assets to meet our goal, and we do not have the time or the skills to design our own. But we persevered with our hunt, and were able to find some eventually
+* One of our main challenges was getting to grips with Phaser, and using it in conjunction with React. We found we were unable to pass information in and out of Phaser as props, like you would with a traditional React Component. Our solution was to keep any data needed for the Phaser game within the game itself. The drawside of this solution was that we ended up with a huge and unwieldy game.jsx file
+* We also found Phaser to be very particular about the order of logic in the game file. Closure didn’t work as we expected, and so we were unable to access variables from one part of our Phaser component in other parts of the same component. The fix for problems therefore often turned out to be moving a piece of code from one place to another. For example, moving a click function inside the create dialog function. But finding the right place was often challenging and time-consuming
+* Other challenges included:
+* Random, invisible collision points in our game
+* Merging our monolithic game file in Git and Github
+* And finding diverse Sprites to use as NPCs (Non Player Characters) in our game
+
+## What we would do differently next time
+* If we had more time, or could go back and design the game differently, I think we would all like to try and find a way to extract more code from our Phaser game, in the hope of making the code neater and easier to modify
+* We would also love to make it work and look good on mobile. I think we all experienced minor disappointment and embarrassment after excitedly sending our finished game to our friends, only for them to say it looked terrible on their phones… So please don’t look at it on your phone folks!
+* Given more time, we would like to build a database in order to persist the storage of successful game players
+We would also like store our game plot in a tree-structure database, as this would allow for greater complexity and randomisation. As part of our second sprint, we did spike Firebase and make basic requests from within phaser, so we proved we could incorporate a database within our game. But ultimately we decided not to pursue this piece of work, as it would’ve required learning another new technology, such as MongoDB, and time that we did not have spare
+
 
 ## Successes
-* Being unable to ask for help with using Phaser greatly improved our problem-solving and de-bugging skills
-* We all felt a huge sense of achievement when we got Phaser working, and celebrated our success as a team
-* We were great at swapping pairs, having regular knowledge-sharing sessions. This meant we all got the opportunity on different aspects of the game, and it felt like we had a really great understanding of how our app was working
-* One of our main objectives was to build something that we would enjoy working on. We all really enjoyed working on this game, and remained enthusiastic throughout the two weeks, so this was a huge success
-* I think it’s also safe to say that we’re all really proud of our game, from the map to the game plot. 
+* One of our biggest achievements was successfully executing our vision of the game. Most of the Phaser docs and tutorials were geared towards running and jumping games, whereas we wanted a top-down game view combined with a dialog adventure as felt this would be a richer game experience. But being unable to ask for help or follow tutorials greatly improved our problem-solving and debugging skills, and we all felt a huge sense of achievement when we got things working
+* Another huge achievement was learning to design and build a game. This is a completely different skill set to what we have learnt during our time at Northoders, and one that people spend decades learning. For some of us, even the terminology of game development, such as sprites, was completely new. So we are all really proud of what we have built in 8 days of coding
+* One of our strengths as a team was working collaboratively and with organisation. We were great at swapping pairs, having regular knowledge-sharing sessions, and tracking our progress with our Trello board. This meant that we all felt we had a really great understanding of how our app was working, and we all spent time working on both game design and functionality
+* One of our main objectives was to build something fun that we would enjoy working on. I think it’s also safe to say that we’re all really proud of our game, and had a great time creating it too
