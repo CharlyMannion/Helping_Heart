@@ -1,4 +1,4 @@
-# Final Project Game (placeholder title)
+# Helping Heart
 
 For our final project at Northcoders we built a game! Play it [here](https://nchelper.netlify.app/)
 

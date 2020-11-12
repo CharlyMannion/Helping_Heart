@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
 import {Link} from '@reach/router'
 
-
 class Username extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault()
    let username = event.target.value
     this.props.setUser(username)
-    
-
   }
 
   render() {

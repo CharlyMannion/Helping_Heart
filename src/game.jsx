@@ -65,7 +65,7 @@ class Game extends Component {
   render() {
     return (
       <div className="game-container">
-        <h1>NC Helper!</h1>
+        <h1>Helping Heart</h1>
         <h2>{this.props.name}</h2>
       </div>
     );
@@ -287,11 +287,6 @@ class Game extends Component {
     this.interact = () => {
       if (overlapping && dialog === undefined) {
         this.createDialog(this, 2243.10344827586, 4050).setScrollFactor(0);
-        // conditional logic below appears to be unecessary
-        // } else if (dialog !== undefined) {
-        //   dialog.scaleDownDestory(100);
-        //   dialog = undefined;
-        //   // console.log("popdown");
       }
     };
   }
@@ -314,7 +309,6 @@ class Game extends Component {
     } else {
       this.player.setVelocityX(0);
       this.player.setVelocityY(0);
-      // this.player.anims.play('turn');
     }
     this.player.body.velocity.normalize().scale(200);
 
