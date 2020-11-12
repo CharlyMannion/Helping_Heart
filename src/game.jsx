@@ -571,7 +571,6 @@ class Game extends Component {
     } else {
       this.player.setVelocityX(0);
       this.player.setVelocityY(0);
-      // this.player.anims.play('turn');
     }
     this.player.body.velocity.normalize().scale(200);
 
@@ -590,8 +589,6 @@ class Game extends Component {
         return this.zoneOldForestNPC;
       }
     };
-
-
 
     // if the space bar is down, call the interact function, which pops up the dialog box    
     if (this.cursors.spaceBar.isDown && !this.isDialogActive) {
@@ -614,7 +611,6 @@ class Game extends Component {
     } else if (!touching && wasTouching) {
       this.player.emit("overlapend");
     }
-
   }
 }
 

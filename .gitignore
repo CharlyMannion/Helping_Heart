@@ -27,3 +27,7 @@ yarn-error.log*
 firebase.json
 firebasecopied.jsx
 functions/
+
+# Local Netlify folder
+.netlify
+
