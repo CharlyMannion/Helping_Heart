@@ -31,7 +31,7 @@ class Username extends Component {
 
     return (
       <div className="username-container">
-        <HomeTitle>NC HELPER!</HomeTitle>
+        <HomeTitle>HELPING HEART</HomeTitle>
         <HomeTitle>A GAME ABOUT KINDNESS</HomeTitle>
         <p></p>
         <i class="fas fa-medkit"></i>
