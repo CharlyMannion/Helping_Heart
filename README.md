@@ -1,6 +1,6 @@
 # Helping Heart
 
-For our final project at Northcoders we built a game! Play it [here](https://nchelper.netlify.app/)
+For our final project at Northcoders we built a game! Play it [here](https://helpingheart.netlify.app/)
 
 Check out our Game Design Document [here](https://github.com/CharlyMannion/final_project/blob/dev/GameDesignDocument.md)
 
@@ -288,7 +288,7 @@ I want to see proper TDD
 * A big peice of this was creating a logic tree for the scenarios to help NPCs, and implementing multiple pop-up dialogue boxes
 * Other features included sound effects, music, an improved tilemap, and consistent styling throughout the game
 * Another part of this sprint was conducting traditional game testing, which involved each of us playing the game and recording known bugs. An issue we encountered whilst conducting these tests was collision in places were there was nothing visible to collide with
-* The final part of this sprint was hosting our app on Netlify. Play it [here](https://nchelper.netlify.app/) 
+* The final part of this sprint was hosting our app on Netlify. Play it [here](https://helpingheart.netlify.app/) 
 
 ## Challenges
 * One of our main challenges was getting to grips with Phaser, and using it in conjunction with React. We found we were unable to pass information in and out of Phaser as props, like you would with a traditional React Component. Our solution was to keep any data needed for the Phaser game within the game itself. The drawside of this solution was that we ended up with a huge and unwieldy game.jsx file
