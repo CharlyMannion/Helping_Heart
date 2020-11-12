@@ -623,7 +623,6 @@ class Game extends Component {
     } else {
       this.player.setVelocityX(0);
       this.player.setVelocityY(0);
-      // this.player.anims.play('turn');
     }
     this.player.body.velocity.normalize().scale(200);
 
