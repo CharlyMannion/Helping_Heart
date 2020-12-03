@@ -10,7 +10,7 @@ See our back end repository [here](https://github.com/SarahBrowncross/helpers-ba
 
 Check out our final presentation slides [here](https://docs.google.com/presentation/d/1lK4el-vOFFCqbzQJrU31cipP5R_oQMzfXeBl4O0S5DU/edit?usp=sharing)
 
-You can also see a video of our presentation [here]()
+You can also see a video of our presentation [here](https://youtu.be/MYPg6rMWFrg)
 
 ## Concept
 
